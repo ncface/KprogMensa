@@ -49,7 +49,7 @@ public abstract class Station extends Actor {
 		//If there is an object in the out queue -> wake it up
 		if(numberOfOutQueueObjects() > 0){
 			
-			TheObject myObject = (TheObject) this.getNextOutQueueObject();//get the object
+			Customer myObject = (Customer) this.getNextOutQueueObject();//get the object
 			
 			//instruct the object to move to the next station
 			myObject.wakeUp();
@@ -65,14 +65,14 @@ public abstract class Station extends Actor {
 	 *
 	 * @param theObject the object that should be treated
 	 */
-	protected abstract void handleObject(TheObject theObject);
+	protected abstract void handleObject(Customer theObject);
 	
 	
 	/** Handle the given objects. NOTE: Use this method if the station should handle more than one object at the same time
 	 *
 	 * @param theObjects the collection of objects that should be treated
 	 */
-	protected abstract void handleObjects(Collection<TheObject> theObjects);
+	protected abstract void handleObjects(Collection<Customer> theObjects);
 		
 	
 	/** Get all Stations
@@ -101,28 +101,28 @@ public abstract class Station extends Actor {
 	 *
 	 * @return the next object or null if there's nothing found
 	 */
-	protected abstract TheObject getNextInQueueObject();
+	protected abstract Customer getNextInQueueObject();
 	
 	
 	/** Get a number of (suited) objects out of the stations incoming queues. NOTE: Use this method if you want to handle more than one object at the same time
 	 *
 	 * @return a collection of objects or null if there's nothing found
 	 */
-	protected abstract Collection<TheObject> getNextInQueueObjects();
+	protected abstract Collection<Customer> getNextInQueueObjects();
 		
 	
 	/** Get the next (suited) object out of one of the stations outgoing queues. NOTE: Use this method if you want to leave only one object
 	 *
 	 * @return the next object or null if there's nothing found
 	 */
-	protected abstract TheObject getNextOutQueueObject();
+	protected abstract Customer getNextOutQueueObject();
 	
 	
 	/** Get a number of (suited) objects out of the stations outgoing queues. NOTE: Use this method if you want to leave more than one object at the same time
 	 *
 	 * @return a collection of objects or null if there's nothing found
 	 */
-	protected abstract Collection<TheObject> getNextOutQueueObjects();
+	protected abstract Collection<Customer> getNextOutQueueObjects();
 	
 		
 	/** Get all incoming queues

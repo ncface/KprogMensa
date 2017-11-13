@@ -48,7 +48,7 @@ public class StartStation extends SimpleStation {
 	
 			
 	@Override
-	protected void handleObject(TheObject theObject){
+	protected void handleObject(Customer theObject){
 				
 		//the object chooses an outgoing queue and enter it
 		theObject.enterOutQueue(this);
@@ -72,17 +72,17 @@ public class StartStation extends SimpleStation {
 	}
 
 	@Override
-	protected void handleObjects(Collection<TheObject> theObjects) {
+	protected void handleObjects(Collection<Customer> theObjects) {
 				
 	}
 	
 	@Override
-	protected Collection<TheObject> getNextInQueueObjects() {
+	protected Collection<Customer> getNextInQueueObjects() {
 		return null;
 	}
 
 	@Override
-	protected Collection<TheObject> getNextOutQueueObjects() {
+	protected Collection<Customer> getNextOutQueueObjects() {
 		return null;
 	}
 

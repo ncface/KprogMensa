@@ -61,7 +61,7 @@ public class EndStation extends SimpleStation {
 	}
 	
 	@Override
-	protected void handleObject(TheObject theObject){
+	protected void handleObject(Customer theObject){
 				
 		
 			// the object chooses the outgoing queue and enter it
@@ -84,18 +84,18 @@ public class EndStation extends SimpleStation {
 	private void endSimulation(){
 		
 		// Are all objects in the stations outgoing queue, then we are finish
-		if(TheObject.getAllObjects().size() == numberOfOutQueueObjects()){
+		if(Customer.getAllObjects().size() == numberOfOutQueueObjects()){
 											
 		Statistics.show("\n--- Simulation beendet ----");
 												
 		//show some station statistics
-		for (ProcessStation station : ProcessStation.getAllProcessStations()) {
+		for (MensaStation station : MensaStation.getAllProcessStations()) {
 				station.printStatistics();
 		}
 									
 		//show some objects statistics
 		for (Object object : this.outGoingQueue){
-			((TheObject) object).printStatistics();
+			((Customer) object).printStatistics();
 		}
 														
 		// end simulation 
@@ -105,17 +105,17 @@ public class EndStation extends SimpleStation {
 	}
 	
 	@Override
-	protected void handleObjects(Collection<TheObject> theObjects) {
+	protected void handleObjects(Collection<Customer> theObjects) {
 				
 	}
 
 	@Override
-	protected Collection<TheObject> getNextInQueueObjects() {
+	protected Collection<Customer> getNextInQueueObjects() {
 		return null;
 	}
 
 	@Override
-	protected Collection<TheObject> getNextOutQueueObjects() {
+	protected Collection<Customer> getNextOutQueueObjects() {
 		return null;
 	}
 

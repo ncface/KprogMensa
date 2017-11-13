@@ -52,22 +52,22 @@ public abstract class SimpleStation extends Station {
 	
 	
 	@Override
-	protected abstract void handleObject(TheObject theObject) ;
+	protected abstract void handleObject(Customer theObject) ;
 
 	
 	@Override
-	protected TheObject getNextInQueueObject(){
+	protected Customer getNextInQueueObject(){
 		
 		//return simply the first object
-		return (TheObject) this.inComingQueue.poll();
+		return (Customer) this.inComingQueue.poll();
 	}
 	
 	
 	@Override
-	protected TheObject getNextOutQueueObject() {
+	protected Customer getNextOutQueueObject() {
 		
 		//return simply the first object
-		return (TheObject) this.outGoingQueue.poll();
+		return (Customer) this.outGoingQueue.poll();
 	}
 	
 

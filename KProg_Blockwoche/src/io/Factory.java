@@ -1,13 +1,11 @@
 package io;
+import model.*;
 import view.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.EndStation;
-import model.ProcessStation;
-import model.StartStation;
-import model.SynchronizedQueue;
-import model.TheObject;
+
+import model.MensaStation;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -135,7 +133,7 @@ public class Factory {
     		//get all the objects into a List object
     		List <Element> allObjects = root.getChildren("object");
     		
-    		//separate every JDOM "object" Element from the list and create Java TheObject objects
+    		//separate every JDOM "object" Element from the list and create Java Customer objects
     		for (Element theObject : allObjects) {
     			
     			// data variables:
@@ -169,8 +167,8 @@ public class Factory {
         			
         		}
         	  		
-        		//creating a new TheObject object
-        		TheObject.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+        		//creating a new Customer object
+        		Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
         		
         		
         		/*
@@ -178,7 +176,7 @@ public class Factory {
         		
         		for (int i = 0; i < 5; i++) {
         		
-        			TheObject.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+        			Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
         		
         		}
         		*/
@@ -264,7 +262,7 @@ public class Factory {
             	}
         		
         		//creating a new Station object
-        		ProcessStation.create(label, theInqueues, theOutqueues, troughPut, xPos, yPos, image);
+        		MensaStation.create(label, theInqueues, theOutqueues, troughPut, xPos, yPos, image);
         		
 			}
     		

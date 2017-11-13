@@ -1,6 +1,6 @@
 package model;
 
-import view.TheObjectView;
+import view.CustomerView;
 
 /**
  * An example class for a simple Actor object that can be created during simulation
@@ -15,14 +15,14 @@ import view.TheObjectView;
 public class NewActor extends Actor {
 	
 	/** the view of the new object */
-	private TheObjectView theView;
+	private CustomerView theView;
 	
 	public NewActor(String label, int xPos, int yPos, String image) {
 			
 			super(label, xPos, yPos);
 		
 			//create the actor's view
-			this.theView = TheObjectView.create(label, image, xPos, yPos);
+			this.theView = CustomerView.create(label, image, xPos, yPos);
 			
 			//start the thread
 			super.start();
