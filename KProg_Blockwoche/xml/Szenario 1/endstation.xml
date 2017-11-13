@@ -2,7 +2,7 @@
 <settings>
 	<end_station>
 		<label>End_Station</label>
-		<x_position>700</x_position>
+		<x_position>710</x_position>
 		<y_position>300</y_position>
 		<view>
 			<image>endstation.png</image>
