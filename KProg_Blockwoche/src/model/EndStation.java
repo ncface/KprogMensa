@@ -67,8 +67,8 @@ public class EndStation extends SimpleStation {
 			// the object chooses the outgoing queue and enter it
 			theObject.enterOutQueue(this);
 			
-			//  this is a just for fun action, the object gets a new location, but CAUTION !!!! magic numbers :-( !!!!!!
-			theObject.theView.setLocation((this.getXPos() -100) + 18 * numberOfOutQueueObjects(), this.getYPos() + 120);
+			//  this is a just for fun action, the object gets invisible
+			theObject.theView.setVisible(false);
 					
 			//End the simulation if the condition is met
 			endSimulation();
