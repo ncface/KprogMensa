@@ -31,8 +31,6 @@ public class Simulation {
 	
 	/**
 	 * starts the simulation
-	 * 
-	 * @param args
 	 */
 	public static void main(String[] args){
 		
@@ -66,12 +64,12 @@ public class Simulation {
 		}
 		
 		/*
-		 * Hinweis: wenn nicht über den Startbutton gestartet werden soll oder die Simulation ohne View laufen soll,
+		 * Hinweis: wenn nicht ï¿½ber den Startbutton gestartet werden soll oder die Simulation ohne View laufen soll,
 		 * den auskommentierten Code unten verwenden 
 		 */
 				
 		/*
-		//Zeitpuffer vor Start -> sonst läuft der letzte manchmal nicht los
+		//Zeitpuffer vor Start -> sonst lï¿½uft der letzte manchmal nicht los
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
