@@ -21,6 +21,11 @@ public class MensaStation extends Station {
 		
 	/** a parameter that affects the speed of the treatment for an object */
 	private double troughPut;
+
+	/**
+	 * a parameter that describes the Type of this MensaStation
+	 */
+	private MensaStationType type;
 	
 	/** the instance of our static inner Measurement class*/ 
 	Measurement measurement = new Measurement();
@@ -35,12 +40,15 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station 
 	 */
-	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image){
+	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, MensaStationType type){
 		
 		super(label, xPos, yPos, image);
 		
 		//the troughPut parameter 
 		this.troughPut = troughPut;
+
+		//the type
+		this.type = type;
 		
 		//the stations queues
 		this.inComingQueues = inQueues;
@@ -58,13 +66,16 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station 
 	 */
-	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image){
+	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, MensaStationType type){
 	
-		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image);
+		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image,type);
 		
 	}
-	
-	
+
+	public MensaStationType getType() {
+		return type;
+	}
+
 	@Override
 	protected int numberOfInQueueObjects(){
 		
