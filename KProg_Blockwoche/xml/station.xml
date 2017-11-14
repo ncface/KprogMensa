@@ -2,6 +2,7 @@
 <settings>
 	<station>
 		<label>Station_1</label>
+		<type>vorspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
 		<y_position>100</y_position>
@@ -23,6 +24,7 @@
 	</station>
 	<station>
 		<label>Station_2</label>
+		<type>hauptgericht</type>
 		<troughput>1</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
@@ -44,6 +46,7 @@
 	</station>
 	<station>
 		<label>Station_3</label>
+		<type>Nachtisch</type>
 		<troughput>2</troughput>
 		<x_position>500</x_position>
 		<y_position>150</y_position>
