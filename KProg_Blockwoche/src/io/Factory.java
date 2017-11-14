@@ -50,7 +50,7 @@ public class Factory {
 		*/ 
 		createStartStation(); 
 		createObjects();
-		createProcessStations();
+		createMensaStation();
 		createEndStation();
 	}
 	
@@ -193,7 +193,7 @@ public class Factory {
      * create some process stations out of the XML file
      * 
      */
-     private static void createProcessStations(){
+     private static void createMensaStation(){
     	
     	try {
     		
@@ -210,14 +210,16 @@ public class Factory {
     		for (Element station : stations) {
     			
     			// data variables:
-    			String label = null;
-    			double troughPut = 0;
-    			int xPos = 0;
-    			int yPos = 0;
-    			String image = null;
+    			String label;
+    			MensaStationType type;
+    			double troughPut;
+    			int xPos ;
+    			int yPos ;
+    			String image;
     			    			
     			// read data
     			label = station.getChildText("label");
+    			type = MensaStationType.parseMensaStationType(station.getChildText("type"));
     			troughPut = Double.parseDouble(station.getChildText("troughput"));
         		xPos = Integer.parseInt(station.getChildText("x_position"));
         		yPos = Integer.parseInt(station.getChildText("y_position"));
@@ -262,7 +264,7 @@ public class Factory {
             	}
         		
         		//creating a new Station object
-        		MensaStation.create(label, theInqueues, theOutqueues, troughPut, xPos, yPos, image);
+        		MensaStation.create(label, theInqueues, theOutqueues, troughPut, xPos, yPos, image,type);
         		
 			}
     		
