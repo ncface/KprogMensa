@@ -3,7 +3,7 @@
 	<object>
 		<label>Objekt_1</label>
 		<processtime>10</processtime>
-		<speed>4</speed>
+		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
@@ -19,7 +19,7 @@
 	<object>
 		<label>Objekt_2</label>
 		<processtime>8</processtime>
-		<speed>20</speed>
+		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
@@ -34,7 +34,7 @@
 	<object>
 		<label>Objekt_3</label>
 		<processtime>4</processtime>
-		<speed>10</speed>
+		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
@@ -48,7 +48,7 @@
 	<object>
 		<label>Objekt_4</label>
 		<processtime>2</processtime>
-		<speed>2</speed>
+		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
