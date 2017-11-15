@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <settings>
 	<station>
-		<label>Station_1</label>
+		<label>Vorspeise</label>
 		<type>vorspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
@@ -19,7 +19,7 @@
 		</outqueue>
 	</station>
 	<station>
-		<label>Station_2</label>
+		<label>Hauptgericht</label>
 		<type>hauptgericht</type>
 		<troughput>1</troughput>
 		<x_position>350</x_position>
@@ -37,7 +37,7 @@
 		</outqueue>
 	</station>
 	<station>
-		<label>Station_3</label>
+		<label>Nachtisch</label>
 		<type>Nachtisch</type>
 		<troughput>2</troughput>
 		<x_position>500</x_position>
