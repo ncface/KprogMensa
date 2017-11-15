@@ -129,57 +129,61 @@ public class Factory {
     		
     		//the <settings> ... </settings> node, this is the files root Element
     		Element root = theXMLDoc.getRootElement();
-    		
+
+    		//get anzalhDurchlaeufe
+			int anzahlDurchlaeufe = Integer.parseInt(root.getChildText("anzahl_durchlaeufe"));
+
     		//get all the objects into a List object
     		List <Element> allObjects = root.getChildren("object");
-    		
-    		//separate every JDOM "object" Element from the list and create Java Customer objects
-    		for (Element theObject : allObjects) {
-    			
-    			// data variables:
-    			String label = null;
-    			int processtime = 0;
-    			int speed = 0;
-    			String image = null;
-    			    			
-    			// read data
-    			label = theObject.getChildText("label");
-    			processtime = Integer.parseInt(theObject.getChildText("processtime"));
-    			speed = Integer.parseInt(theObject.getChildText("speed"));
-        		        		
-        		//the <view> ... </view> node
-        		Element viewGroup = theObject.getChild("view");
-        		// read data
-        		image = viewGroup.getChildText("image");
-        		
-        		//get all the stations, where the object wants to go to
-        		//the <sequence> ... </sequence> node
-        		Element sequenceGroup = theObject.getChild("sequence");
-        		
-        		List <Element> allStations = sequenceGroup.getChildren("station");
-        		
-        		//get the elements into a list
-        		ArrayList<String> stationsToGo = new ArrayList<String>();
-        		
-        		for (Element theStation : allStations) {
-        			
-        			stationsToGo.add(theStation.getText());
-        			
-        		}
-        	  		
-        		//creating a new Customer object
-        		Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+    		for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
+				//separate every JDOM "object" Element from the list and create Java Customer objects
+				for (Element theObject : allObjects) {
+
+					// data variables:
+					String label = null;
+					int processtime = 0;
+					int speed = 0;
+					String image = null;
+
+					// read data
+					label = theObject.getChildText("label");
+					processtime = Integer.parseInt(theObject.getChildText("processtime"));
+					speed = Integer.parseInt(theObject.getChildText("speed"));
+
+					//the <view> ... </view> node
+					Element viewGroup = theObject.getChild("view");
+					// read data
+					image = viewGroup.getChildText("image");
+
+					//get all the stations, where the object wants to go to
+					//the <sequence> ... </sequence> node
+					Element sequenceGroup = theObject.getChild("sequence");
+
+					List<Element> allStations = sequenceGroup.getChildren("station");
+
+					//get the elements into a list
+					ArrayList<String> stationsToGo = new ArrayList<String>();
+
+					for (Element theStation : allStations) {
+
+						stationsToGo.add(theStation.getText());
+
+					}
+
+					//creating a new Customer object
+					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
         		
         		
         		/*
         		 * TIP: Make copies of the object like this (e.g. 5)
-        		
+
         		for (int i = 0; i < 5; i++) {
-        		
+
         			Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-        		
+
         		}
         		*/
+				}
 			}
     	
     	} catch (JDOMException e) {

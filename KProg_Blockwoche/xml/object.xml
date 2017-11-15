@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <settings>
+	<anzahl_durchlaeufe>25</anzahl_durchlaeufe>
 	<object>
 		<label>Objekt_1</label>
 		<processtime>10</processtime>
