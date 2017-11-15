@@ -137,7 +137,7 @@ public class Factory {
     		List <Element> allObjects = root.getChildren("object");
     		for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
 				//separate every JDOM "object" Element from the list and create Java Customer objects
-				for (Element theObject : allObjects) {
+				for (Element customer : allObjects) {
 
 					// data variables:
 					String label = null;
@@ -146,18 +146,18 @@ public class Factory {
 					String image = null;
 
 					// read data
-					label = theObject.getChildText("label");
-					processtime = Integer.parseInt(theObject.getChildText("processtime"));
-					speed = Integer.parseInt(theObject.getChildText("speed"));
+					label = customer.getChildText("label");
+					processtime = Integer.parseInt(customer.getChildText("processtime"));
+					speed = Integer.parseInt(customer.getChildText("speed"));
 
 					//the <view> ... </view> node
-					Element viewGroup = theObject.getChild("view");
+					Element viewGroup = customer.getChild("view");
 					// read data
 					image = viewGroup.getChildText("image");
 
 					//get all the stations, where the object wants to go to
 					//the <sequence> ... </sequence> node
-					Element sequenceGroup = theObject.getChild("sequence");
+					Element sequenceGroup = customer.getChild("sequence");
 
 					List<Element> allStations = sequenceGroup.getChildren("station");
 
@@ -211,7 +211,7 @@ public class Factory {
     		List <Element> stations = root.getChildren("station");
     		
     		//separate every JDOM "station" Element from the list and create Java Station objects
-    		for (Element station : stations) {
+    		for (Element mensaStation : stations) {
     			
     			// data variables:
     			String label;
@@ -222,21 +222,21 @@ public class Factory {
     			String image;
     			    			
     			// read data
-    			label = station.getChildText("label");
-    			type = MensaStationType.parseMensaStationType(station.getChildText("type"));
-    			troughPut = Double.parseDouble(station.getChildText("troughput"));
-        		xPos = Integer.parseInt(station.getChildText("x_position"));
-        		yPos = Integer.parseInt(station.getChildText("y_position"));
+    			label = mensaStation.getChildText("label");
+    			type = MensaStationType.parseMensaStationType(mensaStation.getChildText("type"));
+    			troughPut = Double.parseDouble(mensaStation.getChildText("troughput"));
+        		xPos = Integer.parseInt(mensaStation.getChildText("x_position"));
+        		yPos = Integer.parseInt(mensaStation.getChildText("y_position"));
         		        		
         		//the <view> ... </view> node
-        		Element viewGroup = station.getChild("view");
+        		Element viewGroup = mensaStation.getChild("view");
         		// read data
         		image = viewGroup.getChildText("image");
         		        		
         		//CREATE THE INQUEUES
         		
         		//get all the inqueues into a List object
-        		List <Element> inqueues = station.getChildren("inqueue");
+        		List <Element> inqueues = mensaStation.getChildren("inqueue");
         		
         		//create a list of the stations inqueues 
         		ArrayList<SynchronizedQueue> theInqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created inqueues
@@ -253,7 +253,7 @@ public class Factory {
         		//CREATE THE OUTQUEUES
         		
         		//get all the outqueues into a List object
-        		List <Element> outqueues = station.getChildren("outqueue");
+        		List <Element> outqueues = mensaStation.getChildren("outqueue");
         		
         		//create a list of the stations outqueues 
         		ArrayList<SynchronizedQueue> theOutqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created outqueues

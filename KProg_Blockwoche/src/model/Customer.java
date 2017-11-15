@@ -9,7 +9,7 @@ import view.CustomerView;
 import controller.Simulation;
 
 /**
- * Class for the objects
+ * Class for the customers
  * 
  * @author Jaeger, Schmidt
  * @version 2016-07-08
@@ -17,40 +17,40 @@ import controller.Simulation;
 	
 	public class Customer extends Actor {
 							
-		/** the view of the object */
+		/** the view of the customer */
 		public CustomerView theView;
 		
-		/** the process time of the object*/
+		/** the process time of the customer*/
 		private int processTime;
 		
-		/** the speed of the object, the higher the lower */
+		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
 				
-		/** all the station (labels) where the object have to go to*/
+		/** all the station (labels) where the customer have to go to*/
 		private ArrayList<String> stationsToGo = new ArrayList<String>();
 		
 		/** a pointer to the actual position of the stationsToGo list, start position is 0*/ 
 		private int stationListPointer = 0;
 		 				
-		/** list of all objects */
-		private static ArrayList<Customer> allObjects = new ArrayList<Customer>();
+		/** list of all customers */
+		private static ArrayList<Customer> allCustomers = new ArrayList<Customer>();
 		
-		/** the actual station where this object is in, null if it's not in a station or a stations queue */
+		/** the actual station where this customer is in, null if it's not in a station or a stations queue */
 		private Station actualStation = null;
 		
 		/** the instance of our static inner Measurement class*/ 
 		Measurement measurement = new Measurement();
 		
 				
-		/** (private!) Constructor, creates a new object model and send it to the start station
+		/** (private!) Constructor, creates a new customer model and send it to the start station
 		 * 
-		 * @param label of the object 
+		 * @param label of the customer
 		 * @param stationsToGo the stations to go
-		 * @param processtime the processing time of the object, affects treatment by a station
-		 * @param speed the moving speed of the object
-		 * @param xPos x position of the object
-		 * @param yPos y position of the object
-		 * @param image image of the object
+		 * @param processtime the processing time of the customer, affects treatment by a station
+		 * @param speed the moving speed of the customer
+		 * @param xPos x position of the customer
+		 * @param yPos y position of the customer
+		 * @param image image of the customer
 		 */
 		private Customer(String label, ArrayList<String> stationsToGo, int processtime, int speed, int xPos, int yPos, String image){
 			super(label, xPos, yPos);
@@ -58,7 +58,7 @@ import controller.Simulation;
 			//create the view
 			this.theView = CustomerView.create(label, image, xPos, yPos);
 			
-			Customer.allObjects.add(this); //add object to the static list
+			Customer.allCustomers.add(this); //add customer to the static list
 			
 			this.stationsToGo = stationsToGo;
 			this.processTime = processtime;
@@ -72,15 +72,15 @@ import controller.Simulation;
 						
 		}
 		
-		/** Create a new object model
+		/** Create a new customer model
 		 *
-		 * @param label of the object 
+		 * @param label of the customer
 		 * @param stationsToGo the stations to go
-		 * @param processtime the processing time of the object, affects treatment by a station
-		 * @param speed the moving speed of the object
-		 * @param xPos x position of the object
-		 * @param yPos y position of the object
-		 * @param image image of the object
+		 * @param processtime the processing time of the customer, affects treatment by a station
+		 * @param speed the moving speed of the customer
+		 * @param xPos x position of the customer
+		 * @param yPos y position of the customer
+		 * @param image image of the customer
 		 */
 		public static void create(String label, ArrayList<String> stationsToGo, int processtime, int speed ,int xPos, int yPos, String image){
 				
@@ -193,7 +193,7 @@ import controller.Simulation;
 		@Override		
 		protected boolean work(){
 			
-			//the object is leaving the station -> set actual station to null
+			//the customer is leaving the station -> set actual station to null
 			this.actualStation = null;
 						
 			//choose the next station to go to
@@ -202,7 +202,7 @@ import controller.Simulation;
 			//only move if there is a next station found
 			if(station == null) return false;
 					
-			//let the object move to the chosen station
+			//let the customer move to the chosen station
 			
 			Statistics.show(this.getLabel() + " geht zur " + station.getLabel());
 			
@@ -230,7 +230,7 @@ import controller.Simulation;
 			
 			Statistics.show(this.getLabel() + " erreicht " + station.getLabel());
 			
-			//the object has reached the station, now the object chooses an incoming queue and enter it
+			//the customer has reached the station, now the customer chooses an incoming queue and enter it
 			this.enterInQueue(station);
 			
 			//wake up the station
@@ -244,7 +244,7 @@ import controller.Simulation;
 		}
 		
 		/**
-		 * A (static) inner class for measurement jobs. The class records specific values of the object during the simulation.
+		 * A (static) inner class for measurement jobs. The class records specific values of the customer during the simulation.
 		 * These values can be used for statistic evaluation.
 		 */
 		static class Measurement {
@@ -267,25 +267,25 @@ import controller.Simulation;
 		}		
 		
 				
-		/** Get all objects
+		/** Get all customers
 		 * 
-		 * @return a list of all objects
+		 * @return a list of all customers
 		 */
-		public static ArrayList<Customer> getAllObjects() {
-			return allObjects;
+		public static ArrayList<Customer> getAllCustomers() {
+			return allCustomers;
 		}
 		
 		
-		/** Get the actual station where this object is in
+		/** Get the actual station where this customer is in
 		 * 
-		 * @return the actual station where this object is in, null if it's not in a station or a stations queue
+		 * @return the actual station where this customer is in, null if it's not in a station or a stations queue
 		 */
 		public Station getActualStation() {
 			return actualStation;
 		}
 		
 		
-		/**Get the objects processing time
+		/**Get the customers processing time
 		 * 
 		 * @return the processing time
 		 */

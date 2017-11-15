@@ -6,7 +6,7 @@ import java.util.Collection;
 import controller.Simulation;
 
 /**
- * Class for a processing station
+ * Class for a mensa station
  * 
  * @author Jaeger, Schmidt
  * @version 2017-10-29
@@ -77,7 +77,7 @@ public class MensaStation extends Station {
 	}
 
 	@Override
-	protected int numberOfInQueueObjects(){
+	protected int numberOfInQueueCustomers(){
 		
 		int theNumber = 0;
 		
@@ -93,7 +93,7 @@ public class MensaStation extends Station {
 	
 	
 	@Override
-	protected int numberOfOutQueueObjects() {
+	protected int numberOfOutQueueCustomers() {
 		
 		int theNumber = 0;
 		
@@ -109,7 +109,7 @@ public class MensaStation extends Station {
 	
 	
 	@Override
-	protected Customer getNextInQueueObject(){
+	protected Customer getNextInQueueCustomer(){
 		
 		//maybe we have more than one incoming queue -> get all incoming queues
 		for (SynchronizedQueue inQueue : this.inComingQueues) {
@@ -126,7 +126,7 @@ public class MensaStation extends Station {
 	}
 	
 	@Override
-	protected Customer getNextOutQueueObject() {
+	protected Customer getNextOutQueueCustomer() {
 		
 		//maybe we have more than one outgoing queue -> get all outgoing queues
 		for (SynchronizedQueue outQueue : this.outGoingQueues) {
@@ -145,18 +145,18 @@ public class MensaStation extends Station {
 	
 	
 	@Override
-	protected void handleObject(Customer theObject){
+	protected void handleCustomer(Customer customer){
 										
 		//count all the visiting objects
 		measurement.numbOfVisitedObjects++; 
 		
-		Statistics.show(this.getLabel() + " behandelt: " + theObject.getLabel());
+		Statistics.show(this.getLabel() + " behandelt: " + customer.getLabel());
 		
 		//the processing time of the object
-		int processTime = theObject.getProcessTime(); 
+		int processTime = customer.getProcessTime();
 		
 		//the time to handle the object
-		int theObjectsTreatingTime = (int) (processTime/this.troughPut); 
+		int theCustomersTreatingTime = (int) (processTime/this.troughPut);
 				
 		//get the starting time of the treatment
 		long startTime = Simulation.getGlobalTime(); 
@@ -165,7 +165,7 @@ public class MensaStation extends Station {
 		int elapsedTime = 0;
 				
 		//while treating time is not reached
-		while (!(theObjectsTreatingTime <= elapsedTime)){
+		while (!(theCustomersTreatingTime <= elapsedTime)){
 				
 			//the elapsed time since the start of the treatment
 			elapsedTime = (int) (Simulation.getGlobalTime() - startTime); 
@@ -182,13 +182,13 @@ public class MensaStation extends Station {
 		}
 		
 		//increase the time the object was treated
-		theObject.measurement.myTreatmentTime = theObject.measurement.myTreatmentTime + elapsedTime;
+		customer.measurement.myTreatmentTime = customer.measurement.myTreatmentTime + elapsedTime;
 				
 		//increase the stations in use time
 		measurement.inUseTime = measurement.inUseTime + elapsedTime; 
 						
 		//the treatment is over, now the object chooses an outgoing queue and enter it
-		theObject.enterOutQueue(this);
+		customer.enterOutQueue(this);
 			
 		//just to see the view of the outgoing queue works
 		try {
@@ -245,9 +245,9 @@ public class MensaStation extends Station {
 	}
 	
 		
-	/** Get all process stations
+	/** Get all mensa stations
 	 * 
-	 * @return the allProcessStations
+	 * @return the allMensaStations
 	 */
 	public static ArrayList<MensaStation> getAllProcessStations() {
 		
@@ -276,17 +276,17 @@ public class MensaStation extends Station {
 	}
 	
 	@Override
-	protected void handleObjects(Collection<Customer> theObjects) {
+	protected void handleCustomers(Collection<Customer> customers) {
 				
 	}
 
 	@Override
-	protected Collection<Customer> getNextInQueueObjects() {
+	protected Collection<Customer> getNextInQueueCustomers() {
 		return null;
 	}
 
 	@Override
-	protected Collection<Customer> getNextOutQueueObjects() {
+	protected Collection<Customer> getNextOutQueueCustomers() {
 		return null;
 	}
 			

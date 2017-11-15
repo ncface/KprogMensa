@@ -40,19 +40,19 @@ public abstract class Station extends Actor {
 	@Override
 	protected boolean work() {
 		
-		//let the thread wait only if there are no objects in the incoming and outgoing queues
-		if (numberOfInQueueObjects() == 0 && numberOfOutQueueObjects() == 0) return false;
+		//let the thread wait only if there are no customers in the incoming and outgoing queues
+		if (numberOfInQueueCustomers() == 0 && numberOfOutQueueCustomers() == 0) return false;
 		
-		//If there is an inqueue object found, handle it
-		if (numberOfInQueueObjects() > 0) this.handleObject(this.getNextInQueueObject());
+		//If there is an inqueue customer found, handle it
+		if (numberOfInQueueCustomers() > 0) this.handleCustomer(this.getNextInQueueCustomer());
 				
-		//If there is an object in the out queue -> wake it up
-		if(numberOfOutQueueObjects() > 0){
+		//If there is an customer in the out queue -> wake it up
+		if(numberOfOutQueueCustomers() > 0){
 			
-			Customer myObject = (Customer) this.getNextOutQueueObject();//get the object
+			Customer myCustomer = (Customer) this.getNextOutQueueCustomer();//get the customer
 			
-			//instruct the object to move to the next station
-			myObject.wakeUp();
+			//instruct the customer to move to the next station
+			myCustomer.wakeUp();
 				
 		}
 				
@@ -61,18 +61,18 @@ public abstract class Station extends Actor {
 		
 	}
 	
-	/** Handle the given object. NOTE: Use this method if the station should handle only one object
+	/** Handle the given customer. NOTE: Use this method if the station should handle only one customer
 	 *
-	 * @param theObject the object that should be treated
+	 * @param customer the customer that should be treated
 	 */
-	protected abstract void handleObject(Customer theObject);
+	protected abstract void handleCustomer(Customer customer);
 	
 	
-	/** Handle the given objects. NOTE: Use this method if the station should handle more than one object at the same time
+	/** Handle the given customers. NOTE: Use this method if the station should handle more than one customer at the same time
 	 *
-	 * @param theObjects the collection of objects that should be treated
+	 * @param customers the collection of customers that should be treated
 	 */
-	protected abstract void handleObjects(Collection<Customer> theObjects);
+	protected abstract void handleCustomers(Collection<Customer> customers);
 		
 	
 	/** Get all Stations
@@ -83,46 +83,46 @@ public abstract class Station extends Actor {
 		return allStations;
 	}
 	
-	/** Get the number of all waiting objects in the incoming queues
+	/** Get the number of all waiting customers in the incoming queues
 	 *
 	 * @return the number
 	 */
-	protected abstract int numberOfInQueueObjects();
+	protected abstract int numberOfInQueueCustomers();
 	
 	
-	/** Get the number of all waiting objects in the outgoing queues
+	/** Get the number of all waiting customers in the outgoing queues
 	 *
 	 * @return the number
 	 */
-	protected abstract int numberOfOutQueueObjects();
+	protected abstract int numberOfOutQueueCustomers();
 		
 	
-	/** Get the next (suited) object out of one of the stations incoming queues. NOTE: Use this method if you want to handle only one object
+	/** Get the next (suited) customer out of one of the stations incoming queues. NOTE: Use this method if you want to handle only one customer
 	 *
-	 * @return the next object or null if there's nothing found
+	 * @return the next customer or null if there's nothing found
 	 */
-	protected abstract Customer getNextInQueueObject();
+	protected abstract Customer getNextInQueueCustomer();
 	
 	
-	/** Get a number of (suited) objects out of the stations incoming queues. NOTE: Use this method if you want to handle more than one object at the same time
+	/** Get a number of (suited) customers out of the stations incoming queues. NOTE: Use this method if you want to handle more than one customer at the same time
 	 *
-	 * @return a collection of objects or null if there's nothing found
+	 * @return a collection of customers or null if there's nothing found
 	 */
-	protected abstract Collection<Customer> getNextInQueueObjects();
+	protected abstract Collection<Customer> getNextInQueueCustomers();
 		
 	
-	/** Get the next (suited) object out of one of the stations outgoing queues. NOTE: Use this method if you want to leave only one object
+	/** Get the next (suited) customer out of one of the stations outgoing queues. NOTE: Use this method if you want to leave only one customer
 	 *
-	 * @return the next object or null if there's nothing found
+	 * @return the next customer or null if there's nothing found
 	 */
-	protected abstract Customer getNextOutQueueObject();
+	protected abstract Customer getNextOutQueueCustomer();
 	
 	
-	/** Get a number of (suited) objects out of the stations outgoing queues. NOTE: Use this method if you want to leave more than one object at the same time
+	/** Get a number of (suited) customers out of the stations outgoing queues. NOTE: Use this method if you want to leave more than one customer at the same time
 	 *
-	 * @return a collection of objects or null if there's nothing found
+	 * @return a collection of customers or null if there's nothing found
 	 */
-	protected abstract Collection<Customer> getNextOutQueueObjects();
+	protected abstract Collection<Customer> getNextOutQueueCustomers();
 	
 		
 	/** Get all incoming queues

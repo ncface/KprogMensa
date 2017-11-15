@@ -38,25 +38,25 @@ public abstract class SimpleStation extends Station {
 	
 	
 	@Override
-	protected int numberOfInQueueObjects() {
+	protected int numberOfInQueueCustomers() {
 
 		return this.inComingQueue.size();
 		
 	}
 	
 	@Override
-	protected int numberOfOutQueueObjects() {
+	protected int numberOfOutQueueCustomers() {
 		
 		return this.outGoingQueue.size();
 	}
 	
 	
 	@Override
-	protected abstract void handleObject(Customer theObject) ;
+	protected abstract void handleCustomer(Customer customer) ;
 
 	
 	@Override
-	protected Customer getNextInQueueObject(){
+	protected Customer getNextInQueueCustomer(){
 		
 		//return simply the first object
 		return (Customer) this.inComingQueue.poll();
@@ -64,7 +64,7 @@ public abstract class SimpleStation extends Station {
 	
 	
 	@Override
-	protected Customer getNextOutQueueObject() {
+	protected Customer getNextOutQueueCustomer() {
 		
 		//return simply the first object
 		return (Customer) this.outGoingQueue.poll();

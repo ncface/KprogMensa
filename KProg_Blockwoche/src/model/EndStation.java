@@ -50,10 +50,10 @@ public class EndStation extends SimpleStation {
 	protected boolean work() {
 		
 		//let the thread wait only if there are no objects in the incoming queue
-		if (numberOfInQueueObjects() == 0 ) return false;
+		if (numberOfInQueueCustomers() == 0 ) return false;
 		
 		//If there is an inqueue object found, handle it
-		if (numberOfInQueueObjects() > 0) this.handleObject(this.getNextInQueueObject());
+		if (numberOfInQueueCustomers() > 0) this.handleCustomer(this.getNextInQueueCustomer());
 						
 		//maybe there is more work to do
 		return true;
@@ -61,14 +61,14 @@ public class EndStation extends SimpleStation {
 	}
 	
 	@Override
-	protected void handleObject(Customer theObject){
+	protected void handleCustomer(Customer customer){
 				
 		
 			// the object chooses the outgoing queue and enter it
-			theObject.enterOutQueue(this);
+			customer.enterOutQueue(this);
 			
 			//  this is a just for fun action, the object gets invisible
-			theObject.theView.setVisible(false);
+			customer.theView.setVisible(false);
 					
 			//End the simulation if the condition is met
 			endSimulation();
@@ -84,7 +84,7 @@ public class EndStation extends SimpleStation {
 	private void endSimulation(){
 		
 		// Are all objects in the stations outgoing queue, then we are finish
-		if(Customer.getAllObjects().size() == numberOfOutQueueObjects()){
+		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
 											
 		Statistics.show("\n--- Simulation beendet ----");
 												
@@ -105,17 +105,17 @@ public class EndStation extends SimpleStation {
 	}
 	
 	@Override
-	protected void handleObjects(Collection<Customer> theObjects) {
+	protected void handleCustomers(Collection<Customer> customers) {
 				
 	}
 
 	@Override
-	protected Collection<Customer> getNextInQueueObjects() {
+	protected Collection<Customer> getNextInQueueCustomers() {
 		return null;
 	}
 
 	@Override
-	protected Collection<Customer> getNextOutQueueObjects() {
+	protected Collection<Customer> getNextOutQueueCustomers() {
 		return null;
 	}
 
