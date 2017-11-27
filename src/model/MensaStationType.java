@@ -4,7 +4,7 @@ package model;
  * defines several types of MensaStations
  */
 public enum MensaStationType {
-    VORSPEISE, HAUPTSPEISE, NACHTISCH, KASSE, DEFAULT;
+    VORSPEISE, HAUPTSPEISE, NACHTISCH, KASSE, DEFAULT, START, ENDE;
 
     /**
      * parser for MesaStationTypes
