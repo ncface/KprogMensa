@@ -73,22 +73,13 @@ public abstract class SimpleStation extends Station {
 	
 
 	@Override
-	public ArrayList<SynchronizedQueue> getAllInQueues() {
-		
-		// we have just one incoming queue
-		ArrayList<SynchronizedQueue> inQueues = new ArrayList<SynchronizedQueue>();
-		inQueues.add(inComingQueue);
-		return inQueues;
+	public SynchronizedQueue getInQueue() {
+		return inComingQueue;
 	}
 
 	@Override
-	public ArrayList<SynchronizedQueue> getAllOutQueues() {
-		
-		// we have just one outgoing queue
-		ArrayList<SynchronizedQueue> outQueues = new ArrayList<SynchronizedQueue>();
-		outQueues.add(outGoingQueue);
-		return outQueues;
-		
+	public SynchronizedQueue getOutQueue() {
+		return outGoingQueue;
 	}
 
 }
