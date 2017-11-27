@@ -30,8 +30,8 @@ public class MensaStation extends Station {
 	/** (private!) Constructor, creates a new process station 
 	 * 
 	 * @param label of the station 
-	 * @param inQueues a list of all incoming queues
-	 * @param outQueues a list of all outgoing queues
+	 * @param inQueue a list of all incoming queues
+	 * @param outQueue a list of all outgoing queues
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
@@ -54,8 +54,8 @@ public class MensaStation extends Station {
 	/** create a new process station and add it to the station list
 	 *
 	 * @param label of the station 
-	 * @param inQueues a list of all incoming queues
-	 * @param outQueues a list of all outgoing queues
+	 * @param inQueue a list of all incoming queues
+	 * @param outQueue a list of all outgoing queues
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
@@ -69,13 +69,13 @@ public class MensaStation extends Station {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	@Override
 	protected boolean work() {
 		boolean work = super.work();
-		SynchronizedQueue inQueue = inComingQueues.get(0);
+		SynchronizedQueue inQueue = inComingQueue;
 		Object [] allInQueueCostumer = inQueue.toArray();
 		for(int i=0; i<inQueue.size(); i++){
 			Customer waitingCostumer =  (Customer) allInQueueCostumer[i];
