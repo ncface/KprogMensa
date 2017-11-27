@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import view.StationView;
+import view.StationViewLabel;
 
 /**
  * Superclass for all Stations
@@ -23,6 +24,8 @@ public abstract class Station extends Actor {
     /** the view of the station */
 	@SuppressWarnings("unused")
 	private StationView theView;
+	private StationViewLabel theViewLabel;
+
 			
 	/** Constructor for all stations
 	 * 
@@ -37,6 +40,8 @@ public abstract class Station extends Actor {
 		
 		//create the view
 		this.theView = StationView.create(label, image, xPos, yPos);
+		this.theViewLabel = StationViewLabel.createLabel(label,xPos,yPos+30);
+
 		
 		 //add this station to the all stations list
 		allStations.add(this);

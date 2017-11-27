@@ -98,6 +98,8 @@ public class SimulationView extends JFrame {
 			this.repaint();
 		
 		}
+
+
 		
 	}
 	

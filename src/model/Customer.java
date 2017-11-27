@@ -89,7 +89,7 @@ import controller.Simulation;
 				
 		}
 					
-		/** Chose the next station with the shortest inQueue to go to
+		/** Choose the next station with the shortest inQueue to go to
 		 * 
 		 * @return the next station or null if no station was found
 		 */
