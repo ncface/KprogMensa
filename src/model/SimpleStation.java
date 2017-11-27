@@ -25,10 +25,11 @@ public abstract class SimpleStation extends Station {
 	 * @param outQueue the outgoing queue
 	 * @param xPos x position of the station 
 	 * @param yPos y position of the station 
-	 * @param image image of the station 
+	 * @param image image of the station
+	 * @param type the stationtype of the station
 	 */
-	protected SimpleStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) {
-		super(label, xPos, yPos, image);
+	protected SimpleStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image, StationType type) {
+		super(label, xPos, yPos, image, type);
 		
 		//the stations queues
 		this.inComingQueue = inQueue;

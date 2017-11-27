@@ -14,6 +14,9 @@ public class StartStation extends SimpleStation {
 						
 	/** instance of the start station */
 	private static StartStation theStartStation;
+
+	/** the station type for every startstation */
+	private static final StationType startStationType = StationType.START;
 	
 	/** (private!) Constructor, creates a new start station
 	 * 
@@ -26,7 +29,7 @@ public class StartStation extends SimpleStation {
 	 */
 	private StartStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
 		
-		super(label, inQueue, outQueue, xPos, yPos, image);
+		super(label, inQueue, outQueue, xPos, yPos, image, startStationType);
 		
 	}
 	

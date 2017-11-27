@@ -4,6 +4,7 @@ import io.Statistics;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.List;
 
 import view.CustomerView;
 import controller.Simulation;
@@ -88,7 +89,7 @@ import controller.Simulation;
 				
 		}
 					
-		/** Chose the next station to go to
+		/** Chose the next station with the shortest inQueue to go to
 		 * 
 		 * @return the next station or null if no station was found
 		 */
@@ -98,19 +99,31 @@ import controller.Simulation;
 			if(this.stationsToGo.size() < stationListPointer) return null;
 
 			//get the mensastationtype of the next station from the list and increase the list pointer
+			StationType stationType = this.stationsToGo.get(stationListPointer++);
 
-			
-			//get the label of the next station from the list and increase the list pointer
-			//String stationLabel = this.stationsToGo.get(stationListPointer++);
-					
+			//a list of possible stations with with a certain stationtype
+			List<Station> possibleStations = new ArrayList<>();
+
 			//looking for the matching station and return it
 			for (Station station : Station.getAllStations()){
-				
-				//if(stationLabel.equals(station.getLabel())) return station;
-					
+				if(stationType == station.getStationType()) possibleStations.add(station);
 			}
-			
-			return null; //the matching station wasn't found
+
+			//the number of possiblestations
+			int numberPossibleStations = possibleStations.size();
+
+			//looking for the station with the shortes inQueue
+			if (numberPossibleStations == 0)return null; //no station with the requested stationtype
+			else if (numberPossibleStations == 1)return possibleStations.get(0); //only one station with the requested stationtype
+			else{
+				Station stationWithShortestInQueue = possibleStations.get(0);
+				for (Station station: possibleStations) {
+					if (station.numberOfInQueueCustomers() < stationWithShortestInQueue.numberOfInQueueCustomers()) {
+						stationWithShortestInQueue = station;
+					}
+				}
+				return stationWithShortestInQueue;
+			}
 		}
 		
 		/** Chooses a suited incoming queue of the given station and enter it 
