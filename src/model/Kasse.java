@@ -44,7 +44,6 @@ public class Kasse extends MensaStation {
     @Override
     protected void handleCustomer(Customer customer) {
         super.handleCustomer(customer);
-        System.out.println("                                    it works");
         Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
         for(int i: amountFood){
             totalWeigth += i;
