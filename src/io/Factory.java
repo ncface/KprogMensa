@@ -3,6 +3,7 @@ import model.*;
 import view.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import model.MensaStation;
@@ -171,13 +172,17 @@ public class Factory {
 
 					//add always StartStation as first Station (every customer goes through startStation first)
 					stationsToGo.add(StationType.START);
-
+					
+					HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
 					for (Element theStation : allStations) {
-
-						stationsToGo.add(StationType.parseStationType(theStation.getText()));
-
+						StationType theStationType = StationType.parseStationType(theStation.getChild("name").getText());
+						int theStationMinWeight = Integer.valueOf(theStation.getChild("min").getText());
+						int theStationMaxWeight = Integer.valueOf(theStation.getChild("max").getText());
+						stationsToGo.add(theStationType);
+						weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
 					}
-					//add always EndStation as last Station (every customer goes through EndStation last)
+					//add always EndStation and Kasse as last Station (every customer goes through EndStation last)
+					stationsToGo.add(StationType.KASSE);
 					stationsToGo.add(StationType.ENDE);
 
 					//creating a new Customer object
@@ -203,7 +208,11 @@ public class Factory {
 		}
     }
     
-    /**
+    private static Integer newRandom(int min, int max) {
+		return (int)(Math.random() * (max - min) + min);
+	}
+
+	/**
      * create some process stations out of the XML file
      * 
      */

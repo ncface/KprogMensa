@@ -9,10 +9,21 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Vorspeise</station>
-			<station>Hauptspeise</station>
-			<station>Nachspeise</station>
-			<station>Kasse</station>
+			<station>
+				<name>Vorspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
+			<station>
+				<name>Hauptspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
+			<station>
+				<name>Nachspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
 		</sequence>
 	</object>
 	<object>
@@ -23,9 +34,16 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Hauptspeise</station>
-			<station>Nachspeise</station>
-			<station>Kasse</station>
+			<station>
+				<name>Hauptspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
+			<station>
+				<name>Nachspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
 		</sequence>
 	</object>
 	<object>
@@ -36,8 +54,11 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Hauptspeise</station>
-			<station>Kasse</station>
+			<station>
+				<name>Hauptspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
 		</sequence>
 	</object>
 	<object>
@@ -48,9 +69,16 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Vorspeise</station>
-			<station>Nachspeise</station>
-			<station>Kasse</station>
+			<station>
+				<name>Vorspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
+			<station>
+				<name>Nachspeise</name>
+				<min>100</min>
+				<max>300</max>	
+			</station>
 		</sequence>
 	</object>
 </settings>
