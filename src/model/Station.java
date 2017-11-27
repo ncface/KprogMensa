@@ -15,8 +15,12 @@ public abstract class Station extends Actor {
 		
 	/** list of all stations */
 	protected static ArrayList<Station> allStations = new ArrayList<Station>();
-	
-	/** the view of the station */
+    /**
+     * a parameter that describes the Type of this Station
+     */
+    protected StationType stationType;
+
+    /** the view of the station */
 	@SuppressWarnings("unused")
 	private StationView theView;
 			
@@ -27,7 +31,7 @@ public abstract class Station extends Actor {
 	 * @param yPos y position of the station 
 	 * @param image image of the station 
 	 */
-	protected Station(String label, int xPos, int yPos, String image) {
+	protected Station(String label, int xPos, int yPos, String image, StationType type) {
 		super(label, xPos, yPos);
 		
 		//create the view
@@ -35,7 +39,8 @@ public abstract class Station extends Actor {
 		
 		 //add this station to the all stations list
 		allStations.add(this);
-	}
+        this.stationType = type;
+    }
 	
 	@Override
 	protected boolean work() {
@@ -82,8 +87,16 @@ public abstract class Station extends Actor {
 	public static ArrayList<Station> getAllStations() {
 		return allStations;
 	}
-	
-	/** Get the number of all waiting customers in the incoming queues
+
+	/**
+	 * Get the StationType
+	 * @return the stationType
+	 */
+    public StationType getStationType() {
+        return stationType;
+    }
+
+    /** Get the number of all waiting customers in the incoming queues
 	 *
 	 * @return the number
 	 */

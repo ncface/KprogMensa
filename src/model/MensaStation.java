@@ -22,12 +22,7 @@ public class MensaStation extends Station {
 	/** a parameter that affects the speed of the treatment for an object */
 	private double troughPut;
 
-	/**
-	 * a parameter that describes the Type of this MensaStation
-	 */
-	private StationType type;
-	
-	/** the instance of our static inner Measurement class*/ 
+	/** the instance of our static inner Measurement class*/
 	Measurement measurement = new Measurement();
 				
 	/** (private!) Constructor, creates a new process station 
@@ -42,14 +37,11 @@ public class MensaStation extends Station {
 	 */
 	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
 		
-		super(label, xPos, yPos, image);
+		super(label, xPos, yPos, image, type);
 		
 		//the troughPut parameter 
 		this.troughPut = troughPut;
 
-		//the type
-		this.type = type;
-		
 		//the stations queues
 		this.inComingQueues = inQueues;
 		this.outGoingQueues = outQueues;
@@ -70,10 +62,6 @@ public class MensaStation extends Station {
 	
 		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image,type);
 		
-	}
-
-	public StationType getType() {
-		return type;
 	}
 
 	@Override
