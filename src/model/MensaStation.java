@@ -236,8 +236,8 @@ public class MensaStation extends Station {
 	public void printStatistics() {
 		
 		String theString = "\nStation Typ: " + this.label;
-		theString = theString + "\nAnzahl der behandelten Objekte: " + measurement.numbOfVisitedObjects;
-		theString = theString + "\nZeit zum Behandeln aller Objekte: " + measurement.inUseTime;
+		theString = theString + "\nAnzahl der behandelten Customer: " + measurement.numbOfVisitedObjects;
+		theString = theString + "\nZeit zum Behandeln aller Customer: " + measurement.inUseTime;
 		theString = theString + "\nDurchnittliche Behandlungsdauer: " + measurement.avgTreatmentTime();
 		
 		Statistics.show(theString);

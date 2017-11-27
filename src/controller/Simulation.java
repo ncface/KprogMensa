@@ -30,7 +30,6 @@ public class Simulation {
 	
 	
 	/**
-	 * starts the simulation
 	 */
 	public static void main(String[] args){
 		
@@ -46,7 +45,7 @@ public class Simulation {
 	 */
 	private void init(){
 		
-		//create all stations and objects for the starting scenario out of XML
+		//create all stations and customers for the starting scenario out of XML
 		Factory.createStartScenario();
 				
 		//the view of our simulation

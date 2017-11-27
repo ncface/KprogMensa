@@ -259,8 +259,8 @@ import controller.Simulation;
 		 */
 		public void printStatistics() {
 			
-			String theString = "\nObjekt: " + this.label;
-			theString = theString + "\nZeit zum Behandeln des Objekts: " + measurement.myTreatmentTime;
+			String theString = "\nCustomer: " + this.label;
+			theString = theString + "\nZeit zum Behandeln des Customer: " + measurement.myTreatmentTime;
 						
 			Statistics.show(theString);
 			
