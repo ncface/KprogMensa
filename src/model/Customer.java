@@ -24,6 +24,9 @@ import controller.Simulation;
 		
 		/** the process time of the customer*/
 		private int processTime;
+
+		/** the initial process time of the costumer*/
+		private final int INITIALPROCESSTIME;
 		
 		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
@@ -46,7 +49,7 @@ import controller.Simulation;
 		/** the actual station where this customer is in, null if it's not in a station or a stations queue */
 		private Station actualStation = null;
 
-		/** */
+		/** the different amount of food for the different stations*/
 		private Map<StationType, Integer> foodAmountAtStations;
 		
 		/** the instance of our static inner Measurement class*/ 
@@ -76,6 +79,7 @@ import controller.Simulation;
 			
 			this.stationsToGo = stationsToGo;
 			this.processTime = processtime;
+			this.INITIALPROCESSTIME = this.processTime;
 			this.mySpeed = speed;
 
 			this.foodAmountAtStations = foodAmountAtStations;
@@ -104,7 +108,15 @@ import controller.Simulation;
 			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation);
 				
 		}
-					
+
+		/**
+		 * a getter method for the foodAmountAtStations
+		 * @return foodAmountAtStations
+		 */
+		public Map<StationType, Integer> getFoodAmountAtStations() {
+			return foodAmountAtStations;
+		}
+
 		/** Choose the next station with the shortest inQueue to go to
 		 * 
 		 * @return the next station or null if no station was found
@@ -153,9 +165,19 @@ import controller.Simulation;
 			inQueue.offer(this);
 			//set actual station to the just entered station
 			this.actualStation = station;
+			updateProcessTime();
 		}
 
-	
+		/**
+		 * updates the processtime at the actual station according to the amount of food.
+		 *
+		 */
+		private void updateProcessTime(){
+			int amountFood = foodAmountAtStations.get(actualStation.getStationType());
+			this.processTime = (int) (INITIALPROCESSTIME * (1 + amountFood / 1000.0));
+		}
+
+
 		/** Chooses a suited outgoing queue of the given station and enter it
 		 * 
 		 * @param station the station from where the queue should be chosen

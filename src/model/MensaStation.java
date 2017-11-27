@@ -15,18 +15,18 @@ import controller.Simulation;
 public class MensaStation extends Station {
 	
 	/** a list of all incoming queues*/
-	private SynchronizedQueue inComingQueue;
+	protected SynchronizedQueue inComingQueue;
 	
 	/** a list of all outgoing queues*/
-	private SynchronizedQueue outGoingQueue;
+	protected SynchronizedQueue outGoingQueue;
 		
 	/** a parameter that affects the speed of the treatment for an object */
-	private double troughPut;
+	protected double troughPut;
 
 	/** the instance of our static inner Measurement class*/
 	Measurement measurement = new Measurement();
 				
-	/** (private!) Constructor, creates a new process station 
+	/** Constructor, creates a new process station
 	 * 
 	 * @param label of the station 
 	 * @param inQueue a list of all incoming queues
@@ -37,7 +37,7 @@ public class MensaStation extends Station {
 	 * @param image image of the station
 	 * @param type the stationtype of the station
 	 */
-	private MensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
+	protected MensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
 		
 		super(label, xPos, yPos, image, type);
 		
