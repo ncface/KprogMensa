@@ -162,11 +162,11 @@ public class Factory {
 					List<Element> allStations = sequenceGroup.getChildren("station");
 
 					//get the elements into a list
-					ArrayList<String> stationsToGo = new ArrayList<String>();
+					ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
 
 					for (Element theStation : allStations) {
 
-						stationsToGo.add(theStation.getText());
+						stationsToGo.add(StationType.parseStationType(theStation.getText()));
 
 					}
 
