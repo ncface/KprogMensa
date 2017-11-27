@@ -22,10 +22,9 @@ public class StationView extends ImageView {
 		super(image, xPos, yPos);
 		
 		this.setToolTipText(label);
+
 		
 	}
-	
-	
 	/** Creates a new view of the station
 	 * 
 	 * @param label of the station 
@@ -40,5 +39,6 @@ public class StationView extends ImageView {
 		return new StationView(label, image, xPos, yPos);
 		
 	}
+
 
 }

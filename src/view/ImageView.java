@@ -22,14 +22,14 @@ public abstract class ImageView extends JLabel {
 	protected ImageView(String image, int xPos, int yPos){
 		
 		super();
-				
+
 		//set up the image
 		ImageIcon imageIcon = new ImageIcon(image);
 		this.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
 		this.setIcon(imageIcon);
 		
 		this.setLocation(xPos, yPos);
-		
+
 		//add the image label to the simulation view
 		SimulationView.addActorView(this);
 		
