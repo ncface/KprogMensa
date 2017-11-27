@@ -107,7 +107,7 @@ import controller.Simulation;
 					
 			}
 			
-			return null; //the matching station isn't found
+			return null; //the matching station wasn't found
 		}
 		
 		/** Chooses a suited incoming queue of the given station and enter it 
