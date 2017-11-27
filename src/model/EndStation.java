@@ -18,6 +18,9 @@ public class EndStation extends SimpleStation {
 
 	/** the station type for every endstation */
 	private static final StationType endStationType = StationType.ENDE;
+
+	/** the total amount of food wanted of all customers*/
+	private static int totalAmountWantedFood;
 	
 	/** (private!) Constructor, creates a new end station
 	 * 
@@ -46,7 +49,15 @@ public class EndStation extends SimpleStation {
 		theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
 		
 	}
-	
+
+	/**
+	 * Getter method for the total amount of wanted food
+	 * @return totalAmountWantedFood
+	 */
+	public int getTotalAmountWantedFood(){
+		return totalAmountWantedFood;
+	}
+
 	@Override
 	protected boolean work() {
 		
@@ -70,11 +81,14 @@ public class EndStation extends SimpleStation {
 			
 			//  this is a just for fun action, the object gets invisible
 			customer.theView.setVisible(false);
-					
+
+			Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
+			for(int i: amountFood){
+				totalAmountWantedFood += i;
+			}
+
 			//End the simulation if the condition is met
 			endSimulation();
-		
-				
 	}
 	
 	

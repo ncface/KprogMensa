@@ -38,6 +38,14 @@ public class Kasse extends MensaStation {
     }
 
     /**
+     * Getter method for the total amount of food
+     * @return totalWeigth
+     */
+    public static int getTotalWeigth() {
+        return totalWeigth;
+    }
+
+    /**
      * @Override handleCustomer of the super class
      * calculates the total weight of food of the customer
      */
