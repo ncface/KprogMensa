@@ -21,7 +21,7 @@ import org.jdom2.input.SAXBuilder;
 public class Factory {
 	
 	/** the objects XML data file */
-	private static String theObjectDataFile = "xml/object.xml"; 
+	private static String theObjectDataFile = "xml/customer.xml";
 	
 	/** the stations XML data file */
 	private static String theStationDataFile = "xml/station.xml"; 
