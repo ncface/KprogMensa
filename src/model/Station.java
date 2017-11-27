@@ -29,7 +29,8 @@ public abstract class Station extends Actor {
 	 * @param label of the station 
 	 * @param xPos x position of the station 
 	 * @param yPos y position of the station 
-	 * @param image image of the station 
+	 * @param image image of the station
+	 * @param type the stationtype of the station
 	 */
 	protected Station(String label, int xPos, int yPos, String image, StationType type) {
 		super(label, xPos, yPos);

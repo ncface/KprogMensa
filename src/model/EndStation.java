@@ -15,6 +15,9 @@ public class EndStation extends SimpleStation {
 	/** instance of the start station */
 	@SuppressWarnings("unused")
 	private static EndStation theEndStation;
+
+	/** the station type for every endstation */
+	private static final StationType endStationType = StationType.ENDE;
 	
 	/** (private!) Constructor, creates a new end station
 	 * 
@@ -26,9 +29,7 @@ public class EndStation extends SimpleStation {
 	 * @param image image of the station  
 	 */
 	private EndStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
-		super(label, inQueue, outQueue, xPos, yPos, image);
-		
-		
+		super(label, inQueue, outQueue, xPos, yPos, image, endStationType);
 	}
 	
 	/** creates a new end station

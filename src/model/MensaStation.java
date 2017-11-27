@@ -33,7 +33,8 @@ public class MensaStation extends Station {
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
-	 * @param image image of the station 
+	 * @param image image of the station
+	 * @param type the stationtype of the station
 	 */
 	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
 		
@@ -56,7 +57,8 @@ public class MensaStation extends Station {
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
-	 * @param image image of the station 
+	 * @param image image of the station
+	 * @param type the stationtype of the station
 	 */
 	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
 	
