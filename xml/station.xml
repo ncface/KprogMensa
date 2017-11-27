@@ -19,8 +19,8 @@
 		</outqueue>
 	</station>
 	<station>
-		<label>Hauptgericht</label>
-		<type>hauptgericht</type>
+		<label>Hauptspeise</label>
+		<type>hauptspeise</type>
 		<troughput>1</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
@@ -37,8 +37,8 @@
 		</outqueue>
 	</station>
 	<station>
-		<label>Nachtisch</label>
-		<type>Nachtisch</type>
+		<label>Nachspeise</label>
+		<type>Nachspeise</type>
 		<troughput>2</troughput>
 		<x_position>500</x_position>
 		<y_position>150</y_position>

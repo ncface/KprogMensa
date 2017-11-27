@@ -99,7 +99,8 @@ import controller.Simulation;
 			if(this.stationsToGo.size() < stationListPointer) return null;
 
 			//get the mensastationtype of the next station from the list and increase the list pointer
-			StationType stationType = this.stationsToGo.get(stationListPointer++);
+			StationType stationType = this.stationsToGo.get(stationListPointer);
+			stationListPointer++;
 
 			//a list of possible stations with with a certain stationtype
 			List<Station> possibleStations = new ArrayList<>();
@@ -214,9 +215,9 @@ import controller.Simulation;
 						
 			//choose the next station to go to
 			Station station = this.getNextStation();
-			
+
 			//only move if there is a next station found
-			if(station == null) return false;
+			if(station == null)return false;
 					
 			//let the customer move to the chosen station
 			
