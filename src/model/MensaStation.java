@@ -3,6 +3,8 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import controller.Simulation;
 
 /**
@@ -65,6 +67,27 @@ public class MensaStation extends Station {
 		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image,type);
 		
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	@Override
+	protected boolean work() {
+		boolean work = super.work();
+		SynchronizedQueue inQueue = inComingQueues.get(0);
+		Object [] allInQueueCostumer = inQueue.toArray();
+		for(int i=0; i<inQueue.size(); i++){
+			Customer waitingCostumer =  (Customer) allInQueueCostumer[i];
+			if (waitingCostumer.leavesEarly(i)){
+				waitingCostumer.wakeUp();
+				inQueue.remove(waitingCostumer);
+				Statistics.show(waitingCostumer.getLabel()+" geht entnervt");
+			}
+		}
+		return work;
+	}
+
 
 	@Override
 	protected int numberOfInQueueCustomers(){
@@ -221,7 +244,6 @@ public class MensaStation extends Station {
 	
 	/**
 	 * get and print some statistics out of the Measurement class
-	 * 
 	 */
 	public void printStatistics() {
 		

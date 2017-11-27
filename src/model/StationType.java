@@ -4,7 +4,7 @@ package model;
  * defines several types of Stations
  */
 public enum StationType {
-    VORSPEISE, HAUPTSPEISE, NACHSPEISE, KASSE, DEFAULT, START, ENDE;
+    VORSPEISE, HAUPTSPEISE, NACHSPEISE, KASSE, DEFAULT, START, ENDE, EXTRA;
 
     /**
      * parser for StationTypes

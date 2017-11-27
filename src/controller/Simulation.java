@@ -22,7 +22,7 @@ public class Simulation {
 	public static int SPEEDFACTOR = 1;  
 	
 	/**the beat or speed of the clock, e.g. 300 means one beat every 300 milli seconds*/
-	public static final int CLOCKBEAT = 300 * SPEEDFACTOR; 
+	public static final int CLOCKBEAT = 250 * SPEEDFACTOR;
 	
 	/**the global clock */
 	//the clock must be thread safe -> AtomicLong. The primitive type long isn't, even if synchronized
