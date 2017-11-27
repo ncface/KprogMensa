@@ -96,7 +96,7 @@ public class Factory {
 			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
 
     		//CREATE THE INQUEUE
-    		// the positions
+    		// the positions-
     		int xPosInQueue = XPOS_STARTSTATION - SPACING_LEFT;
     		int yPosInQueue = YPOS_STARTSTATION;
     		
@@ -255,31 +255,21 @@ public class Factory {
 				//spacing einlesen um left und right davon einzulesen
 				Element spacing = mensaStation.getChild("spacing");
 
-				//CREATE THE INQUEUES
-
-				//get all the inqueues into a List object
-				List <Element> inqueues = mensaStation.getChildren("inqueue");
-
+				//CREATE THE INQUEUE
+				//get the inqueue into a List object
 				int xPosInQueue = xPos - Integer.parseInt(spacing.getChildText("left"));
 				int yPosInQueue = yPos;
 
 				//create a Synchronized Queue for the station inqueue
 				SynchronizedQueue theInqueue = SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue);;
 
-
-				//CREATE THE OUTQUEUES
-
-				//get all the outqueues into a List object
-				List <Element> outqueues = mensaStation.getChildren("outqueue");
-
-				//take first queue
-
+				//CREATE THE OUTQUEUE
+				//get the outqueue into a List object
 				int xPosOutQueue = xPos + Integer.parseInt(spacing.getChildText("right"));
 				int yPosOutQueue = yPos;
 
 				//create a Synchronized Queue for the station inqueue
 				SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
-
 
 				//creating a new Station object
 				MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
