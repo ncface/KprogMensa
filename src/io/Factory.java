@@ -186,7 +186,7 @@ public class Factory {
 					stationsToGo.add(StationType.ENDE);
 
 					//creating a new Customer object
-					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights);
         		
         		
         		/*
