@@ -141,39 +141,10 @@ import controller.Simulation;
 		 * 
 		 */
 		private void enterInQueue(Station station){
-			
-			//get the stations incoming queues
-			ArrayList<SynchronizedQueue> inQueues = station.getAllInQueues();
-			
-			//there is just one queue, enter it
-			if(inQueues.size()==1) inQueues.get(0).offer(this);
-			
-			//Do we have more than one incoming queue?
-			//We have to make a decision which queue we choose -> your turn 
-			else{
-				
-				//get the first queue and it's size
-				SynchronizedQueue queueBuffer = inQueues.get(0);
-				int queueSize = queueBuffer.size();
-								
-				//Looking for the shortest queue (in a simple way)
-				for (SynchronizedQueue inQueue : inQueues) {
-						
-					if(inQueue.size() < queueSize) {
-						queueBuffer = inQueue;
-						queueSize = inQueue.size();
-					}
-				}
-				
-				//enter the queue
-				queueBuffer.offer(this);
-				
-				//set actual station to the just entered station
-				this.actualStation = station;
-							
-								
-			}
-				
+			SynchronizedQueue inQueue = station.getInQueue();
+			inQueue.offer(this);
+			//set actual station to the just entered station
+			this.actualStation = station;
 		}
 		
 	
@@ -181,37 +152,9 @@ import controller.Simulation;
 		 * 
 		 * @param station the station from where the queue should be chosen
 		 */
-		void enterOutQueue(Station station){
-			
-			//get the stations outgoing queues
-			ArrayList<SynchronizedQueue> outQueues = station.getAllOutQueues();
-				
-			
-			//there is just one queue, enter it
-			if(outQueues.size()==1) outQueues.get(0).offer(this);
-			
-			//Do we have more than one outgoing queue?
-			//We have to make a decision which queue we choose -> your turn 
-			else{
-				
-				//get the first queue and it's size
-				SynchronizedQueue queueBuffer = outQueues.get(0);
-				int queueSize = queueBuffer.size();
-								
-				//Looking for the shortest queue (in a simple way)
-				for (SynchronizedQueue inQueue : outQueues) {
-						
-					if(inQueue.size() < queueSize) {
-						queueBuffer = inQueue;
-						queueSize = inQueue.size();
-					}
-				}
-				
-				//enter the queue
-				queueBuffer.offer(this);
-				
-			}
-		
+		protected void enterOutQueue(Station station){
+			SynchronizedQueue outQueue = station.getOutQueue();
+			outQueue.offer(this);
 		}
 		
 			

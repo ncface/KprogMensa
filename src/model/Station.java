@@ -147,12 +147,12 @@ public abstract class Station extends Actor {
 	/** Get all incoming queues
 	 * 
 	 */
-	public abstract ArrayList<SynchronizedQueue> getAllInQueues();
+	public abstract SynchronizedQueue getInQueue();
 	
 	
 	/** Get all outgoing queues
 	 * 
 	 */
-	public abstract ArrayList<SynchronizedQueue> getAllOutQueues();
+	public abstract SynchronizedQueue getOutQueue();
 	
 }

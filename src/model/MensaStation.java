@@ -3,7 +3,6 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import controller.Simulation;
 
@@ -69,8 +68,7 @@ public class MensaStation extends Station {
 	}
 
 	/**
-	 *
-	 * @return
+	 * executes the super method work of the super-class and checks if the customer has to leave early
 	 */
 	@Override
 	protected boolean work() {
@@ -257,14 +255,6 @@ public class MensaStation extends Station {
 	public SynchronizedQueue getInQueue() {
 		return inComingQueue;
 	}
-	
-	/**
-	 * Returns null, there is only one InQueue
-	 */
-	@Override
-	public ArrayList<SynchronizedQueue> getAllInQueues(){
-		return null;
-	}
 
 	/**
 	 * Returns the OutQueue of the MensaStation Object
@@ -273,15 +263,7 @@ public class MensaStation extends Station {
 	public SynchronizedQueue getOutQueue() {
 		return outGoingQueue;
 	}
-	
-	/**
-	 * Returns null, there is only one OutQueue
-	 */
-	@Override
-	public ArrayList<SynchronizedQueue> getAllOutQueues(){
-		return null;
-	}
-	
+
 	@Override
 	protected void handleCustomers(Collection<Customer> customers) {
 				
