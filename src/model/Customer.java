@@ -5,6 +5,7 @@ import io.Statistics;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import view.CustomerView;
 import controller.Simulation;
@@ -44,6 +45,9 @@ import controller.Simulation;
 		
 		/** the actual station where this customer is in, null if it's not in a station or a stations queue */
 		private Station actualStation = null;
+
+		/** */
+		private Map<StationType, Integer> foodAmountAtStations;
 		
 		/** the instance of our static inner Measurement class*/ 
 		Measurement measurement = new Measurement();
@@ -58,8 +62,9 @@ import controller.Simulation;
 		 * @param xPos x position of the customer
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
+		 * @param foodAmountAtStations the amount of food at the different mensastations
 		 */
-		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image){
+		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStations){
 			super(label, xPos, yPos);
 
 			waitingTime = 0;
@@ -72,6 +77,8 @@ import controller.Simulation;
 			this.stationsToGo = stationsToGo;
 			this.processTime = processtime;
 			this.mySpeed = speed;
+
+			this.foodAmountAtStations = foodAmountAtStations;
 						
 			//the first station to go to is the start station
 			Station station = this.getNextStation();
@@ -90,10 +97,11 @@ import controller.Simulation;
 		 * @param xPos x position of the customer
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
+		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image){
+		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStation){
 				
-			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image);
+			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation);
 				
 		}
 					
@@ -146,7 +154,7 @@ import controller.Simulation;
 			//set actual station to the just entered station
 			this.actualStation = station;
 		}
-		
+
 	
 		/** Chooses a suited outgoing queue of the given station and enter it
 		 * 
