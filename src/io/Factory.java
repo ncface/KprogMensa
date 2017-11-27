@@ -164,11 +164,16 @@ public class Factory {
 					//get the elements into a list
 					ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
 
+					//add always StartStation as first Station (every customer goes through startStation first)
+					stationsToGo.add(StationType.START);
+
 					for (Element theStation : allStations) {
 
 						stationsToGo.add(StationType.parseStationType(theStation.getText()));
 
 					}
+					//add always EndStation as last Station (every customer goes through EndStation last)
+					stationsToGo.add(StationType.ENDE);
 
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);

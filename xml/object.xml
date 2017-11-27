@@ -2,63 +2,55 @@
 <settings>
 	<anzahl_durchlaeufe>25</anzahl_durchlaeufe>
 	<object>
-		<label>Objekt_1</label>
+		<label>Customer_1</label>
 		<processtime>10</processtime>
 		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Start_Station</station>
 			<station>Vorspeise</station>
 			<station>Hauptgericht</station>
 			<station>Nachtisch</station>
 			<station>Kasse</station>
-			<station>End_Station</station>
 		</sequence>
 	</object>
 	<object>
-		<label>Objekt_2</label>
+		<label>Customer_2</label>
 		<processtime>8</processtime>
 		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Start_Station</station>
 			<station>Hauptgericht</station>
 			<station>Nachtisch</station>
 			<station>Kasse</station>
-			<station>End_Station</station>
 		</sequence>
 	</object>
 	<object>
-		<label>Objekt_3</label>
+		<label>Customer_3</label>
 		<processtime>4</processtime>
 		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Start_Station</station>
 			<station>Hauptgericht</station>
 			<station>Kasse</station>
-			<station>End_Station</station>
 		</sequence>
 	</object>
 	<object>
-		<label>Objekt_4</label>
+		<label>Customer_4</label>
 		<processtime>2</processtime>
 		<speed>5</speed>
 		<view>
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Start_Station</station>
 			<station>Vorspeise</station>
 			<station>Nachtisch</station>
 			<station>Kasse</station>
-			<station>End_Station</station>
 		</sequence>
 	</object>
 </settings>
