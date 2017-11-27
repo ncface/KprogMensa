@@ -7,13 +7,9 @@
 		<view>
 			<image>endstation.png</image>
 		</view>
-		<inqueue>
-			<x_position>720</x_position>
-			<y_position>260</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>720</x_position>
-			<y_position>380</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</end_station>
 </settings>

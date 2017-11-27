@@ -2,18 +2,14 @@
 <settings>
 	<start_station>
 		<label>Start_Station</label>
-		<x_position>20</x_position>
+		<x_position>40</x_position>
 		<y_position>300</y_position>
 		<view>
 			<image>startstation.png</image>
 		</view>
-		<inqueue>
-			<x_position>40</x_position>
-			<y_position>260</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>40</x_position>
-			<y_position>380</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</start_station>
 </settings>

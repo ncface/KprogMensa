@@ -9,14 +9,10 @@
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>180</x_position>
-			<y_position>40</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>220</x_position>
-			<y_position>180</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
 	<station>
 		<label>Hauptspeise</label>
@@ -27,14 +23,10 @@
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>330</x_position>
-			<y_position>290</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>370</x_position>
-			<y_position>430</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
 	<station>
 		<label>Nachspeise</label>
@@ -45,14 +37,10 @@
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>520</x_position>
-			<y_position>90</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>520</x_position>
-			<y_position>230</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
 	<station>
 		<label>Kasse</label>
@@ -63,14 +51,10 @@
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>550</x_position>
-			<y_position>290</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>550</x_position>
-			<y_position>430</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
 	
 </settings>
