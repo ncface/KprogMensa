@@ -17,7 +17,7 @@
 	<station>
 		<label>Hauptspeise</label>
 		<type>hauptspeise</type>
-		<troughput>1</troughput>
+		<troughput>6</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
 		<view>
@@ -56,5 +56,4 @@
 			<right>80</right>
 		</spacing>
 	</station>
-	
 </settings>

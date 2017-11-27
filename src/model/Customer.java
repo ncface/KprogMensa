@@ -26,8 +26,14 @@ import controller.Simulation;
 		
 		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
+
+		/** the frustration limit of the costumer */
+		private final int frustrationLimit = 3;
+
+		/** the waiting time of the costumer*/
+		private int waitingTime;
 				
-		/** all the station (mensastationtype) where the customer have to go to*/
+		/** all the station (stationtype) where the customer have to go to*/
 		private ArrayList<StationType> stationsToGo = new ArrayList<>();
 		
 		/** a pointer to the actual position of the stationsToGo list, start position is 0*/ 
@@ -55,7 +61,9 @@ import controller.Simulation;
 		 */
 		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image){
 			super(label, xPos, yPos);
-			
+
+			waitingTime = 0;
+
 			//create the view
 			this.theView = CustomerView.create(label, image, xPos, yPos);
 			
@@ -209,7 +217,9 @@ import controller.Simulation;
 			
 		@Override		
 		protected boolean work(){
-			
+			//the customer doesnt wait anymore
+			waitingTime = 0;
+
 			//the customer is leaving the station -> set actual station to null
 			this.actualStation = null;
 						
@@ -281,9 +291,31 @@ import controller.Simulation;
 						
 			Statistics.show(theString);
 			
-		}		
-		
-				
+		}
+
+		/**
+		 * decides if the costumer leaves the mensa earlier
+		 * @return true if he leaves early, else false
+		 */
+		public boolean leavesEarly(int personsInFrontOfThis){
+			waitingTime++;
+			int frustration = 0;
+			if(waitingTime<=10)frustration = 0;
+			else if (waitingTime>10 && waitingTime<=30)frustration = (waitingTime - 10) / 4;
+			else if (waitingTime>30)frustration = 5;
+
+			if (personsInFrontOfThis<=10)frustration = 0;
+			else if (personsInFrontOfThis>10 && personsInFrontOfThis<=30)frustration *= ((personsInFrontOfThis - 10)/10);
+			else if (personsInFrontOfThis>30)frustration *= 2;
+
+			if (frustration>frustrationLimit){
+				stationsToGo.set(stationListPointer, StationType.ENDE);
+				return true;
+			}
+			return false;
+		}
+
+
 		/** Get all customers
 		 * 
 		 * @return a list of all customers

@@ -36,13 +36,7 @@ public class Factory {
 	private static int XPOS_STARTSTATION;
 	
 	/** the y position of the starting station, also position for all starting objects */
-	private static int YPOS_STARTSTATION;
-
-	/** the spacing between Inqueue and Station (left side)*/
-	private static int SPACING_LEFT;
-
-	/** the spacing between Outqueue and Station (right side)*/
-	private static int SPACING_RIGHT;
+	private static int YPOS_STARTSTATION; 
 		
 	
 	/**
@@ -88,24 +82,25 @@ public class Factory {
     		Element viewGroup = startStation.getChild("view");
     		// the image
     		String image = viewGroup.getChildText("image");
-
-    		//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
-			Element spacingGroup = startStation.getChild("spacing");
-			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
-			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
-
+    		
     		//CREATE THE INQUEUE
+    		//the <inqueue> ... </inqueue> node
+    		Element inqueueGroup = startStation.getChild("inqueue");
+    		
     		// the positions
-    		int xPosInQueue = XPOS_STARTSTATION - SPACING_LEFT;
-    		int yPosInQueue = YPOS_STARTSTATION;
+    		int xPosInQueue = Integer.parseInt(inqueueGroup.getChildText("x_position"));
+    		int yPosInQueue = Integer.parseInt(inqueueGroup.getChildText("y_position"));
     		
     		//create the inqueue
     		SynchronizedQueue theInQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosInQueue, yPosInQueue);
     		
     		//CREATE THE OUTQUEUE
+    		//the <outqueue> ... </outqueue> node
+    		Element outqueueGroup = startStation.getChild("outqueue");
+    		
     		// the positions
-    		int xPosOutQueue = XPOS_STARTSTATION + SPACING_RIGHT;
-    		int yPosOutQueue = YPOS_STARTSTATION;
+    		int xPosOutQueue = Integer.parseInt(outqueueGroup.getChildText("x_position"));
+    		int yPosOutQueue = Integer.parseInt(outqueueGroup.getChildText("y_position"));
     		
     		//create the outqueue
     		SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
@@ -242,36 +237,36 @@ public class Factory {
         		Element viewGroup = mensaStation.getChild("view");
         		// read data
         		image = viewGroup.getChildText("image");
-
+        		        		
         		//CREATE THE INQUEUES
+        		
         		//get all the inqueues into a List object
-				//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
-        		List <Element> inqueues = mensaStation.getChildren("spacing");
+        		List <Element> inqueues = mensaStation.getChildren("inqueue");
         		
         		//create a list of the stations inqueues 
         		ArrayList<SynchronizedQueue> theInqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created inqueues
         		
         		for (Element inqueue : inqueues) {
-        			
-        			int xPosInQueue = xPos - Integer.parseInt(inqueue.getChildText("left"));
-            		int yPosInQueue = yPos;
+
+                    int xPosInQueue = xPos - Integer.parseInt(inqueue.getChildText("left"));
+                    int yPosInQueue = yPos;
             		
             		//create the actual inqueue an add it to the list
             		theInqueues.add(SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue));
             	}
         		        		
         		//CREATE THE OUTQUEUES
+        		
         		//get all the outqueues into a List object
-				//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
-        		List <Element> outqueues = mensaStation.getChildren("spacing");
+        		List <Element> outqueues = mensaStation.getChildren("outqueue");
         		
         		//create a list of the stations outqueues 
         		ArrayList<SynchronizedQueue> theOutqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created outqueues
         		
         		for (Element outqueue : outqueues) {
-        			
-        			int xPosOutQueue = xPos + Integer.parseInt(outqueue.getChildText("right"));
-            		int yPosOutQueue = yPos;
+
+                    int xPosOutQueue = xPos + Integer.parseInt(outqueue.getChildText("right"));
+                    int yPosOutQueue = yPos;
             		
             		//create the actual outqueue an add it to the list
             		theOutqueues.add(SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue));
@@ -319,24 +314,25 @@ public class Factory {
     		Element viewGroup = endStation.getChild("view");
     		// the image
     		String image = viewGroup.getChildText("image");
-
-			//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
-			Element spacingGroup = endStation.getChild("spacing");
-			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
-			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
-
+    		
     		//CREATE THE INQUEUE
+    		//the <inqueue> ... </inqueue> node
+    		Element inqueueGroup = endStation.getChild("inqueue");
+    		
     		// the positions
-			int xPosInQueue = xPos - SPACING_LEFT;
-			int yPosInQueue = yPos;
+    		int xPosInQueue = Integer.parseInt(inqueueGroup.getChildText("x_position"));
+    		int yPosInQueue = Integer.parseInt(inqueueGroup.getChildText("y_position"));
     		
     		//create the inqueue
     		SynchronizedQueue theInQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosInQueue, yPosInQueue);
     		
     		//CREATE THE OUTQUEUE
+    		//the <outqueue> ... </outqueue> node
+    		Element outqueueGroup = endStation.getChild("outqueue");
+    		
     		// the positions
-    		int xPosOutQueue = xPos + SPACING_RIGHT;
-    		int yPosOutQueue = yPos;
+    		int xPosOutQueue = Integer.parseInt(outqueueGroup.getChildText("x_position"));
+    		int yPosOutQueue = Integer.parseInt(outqueueGroup.getChildText("y_position"));
     		
     		//create the outqueue
     		SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);

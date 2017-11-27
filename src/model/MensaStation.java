@@ -3,6 +3,8 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import controller.Simulation;
 
 /**
@@ -14,10 +16,10 @@ import controller.Simulation;
 public class MensaStation extends Station {
 	
 	/** a list of all incoming queues*/
-	private ArrayList<SynchronizedQueue> inComingQueues = new ArrayList<SynchronizedQueue>();
+	private SynchronizedQueue inComingQueue;
 	
 	/** a list of all outgoing queues*/
-	private ArrayList<SynchronizedQueue> outGoingQueues = new ArrayList<SynchronizedQueue>();
+	private SynchronizedQueue outGoingQueue;
 		
 	/** a parameter that affects the speed of the treatment for an object */
 	private double troughPut;
@@ -28,15 +30,15 @@ public class MensaStation extends Station {
 	/** (private!) Constructor, creates a new process station 
 	 * 
 	 * @param label of the station 
-	 * @param inQueues a list of all incoming queues
-	 * @param outQueues a list of all outgoing queues
+	 * @param inQueue a list of all incoming queues
+	 * @param outQueue a list of all outgoing queues
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
 	 * @param image image of the station
 	 * @param type the stationtype of the station
 	 */
-	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
+	private MensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
 		
 		super(label, xPos, yPos, image, type);
 		
@@ -44,40 +46,53 @@ public class MensaStation extends Station {
 		this.troughPut = troughPut;
 
 		//the stations queues
-		this.inComingQueues = inQueues;
-		this.outGoingQueues = outQueues;
+		this.inComingQueue = inQueue;
+		this.outGoingQueue = outQueue;
 		
 	}
 	
 	/** create a new process station and add it to the station list
 	 *
 	 * @param label of the station 
-	 * @param inQueues a list of all incoming queues
-	 * @param outQueues a list of all outgoing queues
+	 * @param inQueue a list of all incoming queues
+	 * @param outQueue a list of all outgoing queues
 	 * @param troughPut a stations parameter that affects treatment of an object
 	 * @param xPos x position of the station
 	 * @param yPos y position of the station
 	 * @param image image of the station
 	 * @param type the stationtype of the station
 	 */
-	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
 	
-		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image,type);
+		new MensaStation(label, inQueue,outQueue , troughPut, xPos, yPos, image,type);
 		
 	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	protected boolean work() {
+		boolean work = super.work();
+		SynchronizedQueue inQueue = inComingQueue;
+		Object [] allInQueueCostumer = inQueue.toArray();
+		for(int i=0; i<inQueue.size(); i++){
+			Customer waitingCostumer =  (Customer) allInQueueCostumer[i];
+			if (waitingCostumer.leavesEarly(i)){
+				waitingCostumer.wakeUp();
+				inQueue.remove(waitingCostumer);
+				Statistics.show(waitingCostumer.getLabel()+" geht entnervt");
+			}
+		}
+		return work;
+	}
+
 
 	@Override
 	protected int numberOfInQueueCustomers(){
 		
-		int theNumber = 0;
-		
-		//We have more than one incoming queue -> get all incoming queues
-		for (SynchronizedQueue inQueue : this.inComingQueues) {
-						
-			theNumber = theNumber + inQueue.size();
-		}
-		
-		return theNumber;
+		return this.inComingQueue.size();
 		
 	}
 	
@@ -85,15 +100,7 @@ public class MensaStation extends Station {
 	@Override
 	protected int numberOfOutQueueCustomers() {
 		
-		int theNumber = 0;
-		
-		//maybe we have more than one outgoing queue -> get all outgoing queues
-		for (SynchronizedQueue outQueue : this.outGoingQueues) {
-						
-			theNumber = theNumber + outQueue.size();
-		}
-		
-		return theNumber;
+		return this.outGoingQueue.size();
 	
 	}
 	
@@ -101,34 +108,23 @@ public class MensaStation extends Station {
 	@Override
 	protected Customer getNextInQueueCustomer(){
 		
-		//maybe we have more than one incoming queue -> get all incoming queues
-		for (SynchronizedQueue inQueue : this.inComingQueues) {
-							
-			//We have to make a decision which queue we choose -> your turn 
-			//I'll take the first possible I get
-			if(inQueue.size() > 0){
-				return (Customer) inQueue.poll();
-			}
+		if(this.inComingQueue.size() > 0){
+			return (Customer) this.inComingQueue.poll();
 		}
 		
-		//nothing is found
+		//if there are no entries in the queue
 		return null;
+
 	}
 	
 	@Override
 	protected Customer getNextOutQueueCustomer() {
 		
-		//maybe we have more than one outgoing queue -> get all outgoing queues
-		for (SynchronizedQueue outQueue : this.outGoingQueues) {
-									
-		//We have to make a decision which queue we choose -> your turn 
-		//I'll take the first possible I get
-			if(outQueue.size() > 0){
-				return (Customer) outQueue.poll();
-			}
+		if(this.outGoingQueue.size() > 0){
+			return (Customer) this.outGoingQueue.poll();
 		}
-				
-		//nothing is found
+		
+		//if there are no entries in the queue
 		return null;
 		
 	}
@@ -221,7 +217,6 @@ public class MensaStation extends Station {
 	
 	/**
 	 * get and print some statistics out of the Measurement class
-	 * 
 	 */
 	public void printStatistics() {
 		
@@ -255,14 +250,36 @@ public class MensaStation extends Station {
 	}
 	
 		
+	/**
+	 * Returns the InQueue of the MensaStation Object
+	 * @return inComingQue
+	 */
+	public SynchronizedQueue getInQueue() {
+		return inComingQueue;
+	}
+	
+	/**
+	 * Returns null, there is only one InQueue
+	 */
 	@Override
-	public ArrayList<SynchronizedQueue> getAllInQueues() {
-		return inComingQueues;
+	public ArrayList<SynchronizedQueue> getAllInQueues(){
+		return null;
 	}
 
+	/**
+	 * Returns the OutQueue of the MensaStation Object
+	 * @return outComingQue
+	 */
+	public SynchronizedQueue getOutQueue() {
+		return outGoingQueue;
+	}
+	
+	/**
+	 * Returns null, there is only one OutQueue
+	 */
 	@Override
-	public ArrayList<SynchronizedQueue> getAllOutQueues() {
-		return outGoingQueues;
+	public ArrayList<SynchronizedQueue> getAllOutQueues(){
+		return null;
 	}
 	
 	@Override
