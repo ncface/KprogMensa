@@ -97,10 +97,10 @@ public class EndStation extends SimpleStation {
 	 * 
 	 */
 	private void endSimulation(){
-		
+		System.out.println(totalAmountWantedFood);
 		// Are all objects in the stations outgoing queue, then we are finish
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
-											
+
 		Statistics.show("\n--- Simulation beendet ----");
 												
 		//show some station statistics
