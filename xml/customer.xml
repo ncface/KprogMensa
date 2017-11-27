@@ -11,18 +11,18 @@
 		<sequence>
 			<station>
 				<name>Vorspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>50</min>
+				<max>200</max>	
 			</station>
 			<station>
 				<name>Hauptspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>200</min>
+				<max>500</max>	
 			</station>
 			<station>
 				<name>Nachspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>50</min>
+				<max>150</max>	
 			</station>
 		</sequence>
 	</object>
@@ -36,13 +36,13 @@
 		<sequence>
 			<station>
 				<name>Hauptspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>250</min>
+				<max>600</max>	
 			</station>
 			<station>
 				<name>Nachspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>50</min>
+				<max>150</max>	
 			</station>
 		</sequence>
 	</object>
@@ -56,8 +56,8 @@
 		<sequence>
 			<station>
 				<name>Hauptspeise</name>
-				<min>100</min>
-				<max>300</max>	
+				<min>300</min>
+				<max>600</max>	
 			</station>
 		</sequence>
 	</object>
@@ -71,13 +71,13 @@
 		<sequence>
 			<station>
 				<name>Vorspeise</name>
-				<min>100</min>
+				<min>150</min>
 				<max>300</max>	
 			</station>
 			<station>
 				<name>Nachspeise</name>
 				<min>100</min>
-				<max>300</max>	
+				<max>150</max>	
 			</station>
 		</sequence>
 	</object>
