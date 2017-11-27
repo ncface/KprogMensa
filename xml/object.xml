@@ -10,8 +10,8 @@
 		</view>
 		<sequence>
 			<station>Vorspeise</station>
-			<station>Hauptgericht</station>
-			<station>Nachtisch</station>
+			<station>Hauptspeise</station>
+			<station>Nachspeise</station>
 			<station>Kasse</station>
 		</sequence>
 	</object>
@@ -23,8 +23,8 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Hauptgericht</station>
-			<station>Nachtisch</station>
+			<station>Hauptspeise</station>
+			<station>Nachspeise</station>
 			<station>Kasse</station>
 		</sequence>
 	</object>
@@ -36,7 +36,7 @@
 			<image>object.png</image>
 		</view>
 		<sequence>
-			<station>Hauptgericht</station>
+			<station>Hauptspeise</station>
 			<station>Kasse</station>
 		</sequence>
 	</object>
@@ -49,7 +49,7 @@
 		</view>
 		<sequence>
 			<station>Vorspeise</station>
-			<station>Nachtisch</station>
+			<station>Nachspeise</station>
 			<station>Kasse</station>
 		</sequence>
 	</object>
