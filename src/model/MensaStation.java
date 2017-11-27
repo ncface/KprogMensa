@@ -25,7 +25,7 @@ public class MensaStation extends Station {
 	/**
 	 * a parameter that describes the Type of this MensaStation
 	 */
-	private MensaStationType type;
+	private StationType type;
 	
 	/** the instance of our static inner Measurement class*/ 
 	Measurement measurement = new Measurement();
@@ -40,7 +40,7 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station 
 	 */
-	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, MensaStationType type){
+	private MensaStation(String label, ArrayList<SynchronizedQueue> inQueues, ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
 		
 		super(label, xPos, yPos, image);
 		
@@ -66,13 +66,13 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station 
 	 */
-	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, MensaStationType type){
+	public static void create(String label, ArrayList<SynchronizedQueue> inQueues,ArrayList<SynchronizedQueue> outQueues , double troughPut, int xPos, int yPos, String image, StationType type){
 	
 		new MensaStation(label, inQueues,outQueues , troughPut, xPos, yPos, image,type);
 		
 	}
 
-	public MensaStationType getType() {
+	public StationType getType() {
 		return type;
 	}
 

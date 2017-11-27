@@ -215,7 +215,7 @@ public class Factory {
     			
     			// data variables:
     			String label;
-    			MensaStationType type;
+    			StationType type;
     			double troughPut;
     			int xPos ;
     			int yPos ;
@@ -223,7 +223,7 @@ public class Factory {
     			    			
     			// read data
     			label = mensaStation.getChildText("label");
-    			type = MensaStationType.parseMensaStationType(mensaStation.getChildText("type"));
+    			type = StationType.parseStationType(mensaStation.getChildText("type"));
     			troughPut = Double.parseDouble(mensaStation.getChildText("troughput"));
         		xPos = Integer.parseInt(mensaStation.getChildText("x_position"));
         		yPos = Integer.parseInt(mensaStation.getChildText("y_position"));

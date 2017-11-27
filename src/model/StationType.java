@@ -1,19 +1,19 @@
 package model;
 
 /**
- * defines several types of MensaStations
+ * defines several types of Stations
  */
-public enum MensaStationType {
+public enum StationType {
     VORSPEISE, HAUPTSPEISE, NACHTISCH, KASSE, DEFAULT, START, ENDE;
 
     /**
-     * parser for MesaStationTypes
+     * parser for StationTypes
      * @param str the Name
-     * @return the MensaStationType corresponding to the InputString,
+     * @return the StationType corresponding to the InputString,
      * if no Type fits DEFAULT is returned
      */
-    public static MensaStationType parseMensaStationType(String str){
-        for(MensaStationType type: MensaStationType.values()){
+    public static StationType parseStationType(String str){
+        for(StationType type: StationType.values()){
             if(str.toUpperCase().equals(type.toString())){
                 return type;
             }

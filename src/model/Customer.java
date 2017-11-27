@@ -26,8 +26,8 @@ import controller.Simulation;
 		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
 				
-		/** all the station (labels) where the customer have to go to*/
-		private ArrayList<String> stationsToGo = new ArrayList<String>();
+		/** all the station (mensastationtype) where the customer have to go to*/
+		private ArrayList<StationType> stationsToGo = new ArrayList<>();
 		
 		/** a pointer to the actual position of the stationsToGo list, start position is 0*/ 
 		private int stationListPointer = 0;
@@ -52,7 +52,7 @@ import controller.Simulation;
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
 		 */
-		private Customer(String label, ArrayList<String> stationsToGo, int processtime, int speed, int xPos, int yPos, String image){
+		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image){
 			super(label, xPos, yPos);
 			
 			//create the view
@@ -82,7 +82,7 @@ import controller.Simulation;
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
 		 */
-		public static void create(String label, ArrayList<String> stationsToGo, int processtime, int speed ,int xPos, int yPos, String image){
+		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image){
 				
 			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image);
 				
@@ -96,14 +96,17 @@ import controller.Simulation;
 						
 			//we are at the end of the list
 			if(this.stationsToGo.size() < stationListPointer) return null;
+
+			//get the mensastationtype of the next station from the list and increase the list pointer
+
 			
 			//get the label of the next station from the list and increase the list pointer
-			String stationLabel = this.stationsToGo.get(stationListPointer++);
+			//String stationLabel = this.stationsToGo.get(stationListPointer++);
 					
 			//looking for the matching station and return it
 			for (Station station : Station.getAllStations()){
 				
-				if(stationLabel.equals(station.getLabel())) return station;
+				//if(stationLabel.equals(station.getLabel())) return station;
 					
 			}
 			
