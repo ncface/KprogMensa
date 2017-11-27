@@ -243,37 +243,33 @@ public class Factory {
         		//get all the inqueues into a List object
         		List <Element> inqueues = mensaStation.getChildren("inqueue");
         		
-        		//create a list of the stations inqueues 
-        		ArrayList<SynchronizedQueue> theInqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created inqueues
+        		//take first queue
+        		Element inqueue = inqueues.get(0);
         		
-        		for (Element inqueue : inqueues) {
-        			
-        			int xPosInQueue = Integer.parseInt(inqueue.getChildText("x_position"));
-            		int yPosInQueue = Integer.parseInt(inqueue.getChildText("y_position"));
-            		
-            		//create the actual inqueue an add it to the list
-            		theInqueues.add(SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue));
-            	}
+        		int xPosInQueue = Integer.parseInt(inqueue.getChildText("x_position"));
+        		int yPosInQueue = Integer.parseInt(inqueue.getChildText("y_position"));
+        		
+        		//create a Synchronized Queue for the station inqueue 
+        		SynchronizedQueue theInqueue = SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue);;
+        		
         		        		
         		//CREATE THE OUTQUEUES
         		
         		//get all the outqueues into a List object
         		List <Element> outqueues = mensaStation.getChildren("outqueue");
         		
-        		//create a list of the stations outqueues 
-        		ArrayList<SynchronizedQueue> theOutqueues = new ArrayList<SynchronizedQueue>(); //ArrayList for the created outqueues
+        		//take first queue
+        		Element outqueue = outqueues.get(0);
         		
-        		for (Element outqueue : outqueues) {
-        			
-        			int xPosOutQueue = Integer.parseInt(outqueue.getChildText("x_position"));
-            		int yPosOutQueue = Integer.parseInt(outqueue.getChildText("y_position"));
-            		
-            		//create the actual outqueue an add it to the list
-            		theOutqueues.add(SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue));
-            	}
+        		int xPosOutQueue = Integer.parseInt(outqueue.getChildText("x_position"));
+        		int yPosOutQueue = Integer.parseInt(outqueue.getChildText("y_position"));
+        		
+        		//create a Synchronized Queue for the station inqueue 
+        		SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosOutQueue, yPosOutQueue);
+        		
         		
         		//creating a new Station object
-        		MensaStation.create(label, theInqueues, theOutqueues, troughPut, xPos, yPos, image,type);
+        		MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
         		
 			}
     		
