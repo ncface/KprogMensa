@@ -271,8 +271,16 @@ public class Factory {
 				//create a Synchronized Queue for the station inqueue
 				SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
-				//creating a new Station object
-				MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
+				//creating a new Station object or Kasse
+                if (type == StationType.KASSE)
+                {
+                    Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type);
+                }
+                else
+                {
+                    MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
+                }
+
         		
 			}
     		
