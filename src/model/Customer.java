@@ -31,8 +31,8 @@ import controller.Simulation;
 		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
 
-		/** the frustration limit of the costumer */
-		private final int frustrationLimit = 3;
+		/** the frustration limit of the costumer (value between 1 and 10)*/
+		private final int frustrationLimit;
 
 		/** the waiting time of the costumer*/
 		private int waitingTime;
@@ -67,9 +67,9 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param foodAmountAtStations the amount of food at the different mensastations
 		 */
-		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStations){
+		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStations, int frustrationLimit){
 			super(label, xPos, yPos);
-
+			
 			waitingTime = 0;
 
 			//create the view
@@ -81,7 +81,8 @@ import controller.Simulation;
 			this.processTime = processtime;
 			this.INITIALPROCESSTIME = this.processTime;
 			this.mySpeed = speed;
-
+			this.frustrationLimit = frustrationLimit;
+			
 			this.foodAmountAtStations = foodAmountAtStations;
 						
 			//the first station to go to is the start station
@@ -103,9 +104,9 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStation){
+		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStation, int frustrationLimit){
 				
-			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation);
+			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
 				
 		}
 

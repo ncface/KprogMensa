@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import model.MensaStation;
 import org.jdom2.Document;
@@ -192,9 +193,15 @@ public class Factory {
 					//add always EndStation and Kasse as last Station (every customer goes through EndStation last)
 					stationsToGo.add(StationType.KASSE);
 					stationsToGo.add(StationType.ENDE);
-
+					
+					//create a random frustrationLimit between 1 and 10
+					double maxFrustrationLimit = 10;
+					double stdDeviance = 2;
+					Random rand = new Random();
+					int frustrationLimit =(int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
+					
 					//creating a new Customer object
-					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights);
+					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
         		
         		
         		/*
