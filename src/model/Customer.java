@@ -281,20 +281,71 @@ import controller.Simulation;
 		 */
 		public boolean leavesEarly(int personsInFrontOfThis){
 			waitingTime++;
-			int frustration = 0;
-			if(waitingTime<=10)frustration = 0;
-			else if (waitingTime>10 && waitingTime<=30)frustration = (waitingTime - 10) / 4;
-			else if (waitingTime>30)frustration = 5;
+			//the amount of time the customer waits without frustration
+			final int LOWERLIMITWAITINGTIME = 10;
+			//the amount of time the customer waits after which the frustration doesn´t increase anymore
+			final int UPPERLIMITWAITINGTIME = 30;
+			//the number of persons in the waiting queue in front of the customer, the customer accepts with a frustration = 0
+			final int LOWERLIMITPERSONS = 10;
+			//the number of persons in the waiting queue in front of this customer, that don´t increase the frustration
+			final int UPPERLIMITPERSONS = 30;
 
-			if (personsInFrontOfThis<=10)frustration = 0;
-			else if (personsInFrontOfThis>10 && personsInFrontOfThis<=30)frustration *= ((personsInFrontOfThis - 10)/10);
-			else if (personsInFrontOfThis>30)frustration *= 2;
+			int frustration = (int)(calculateFrustrationByWaitingTime(LOWERLIMITWAITINGTIME, UPPERLIMITWAITINGTIME, waitingTime)/
+					calculateFrustrationByPersonsInFrontOfThis(LOWERLIMITPERSONS, UPPERLIMITPERSONS, personsInFrontOfThis));
 
 			if (frustration>frustrationLimit){
 				stationsToGo.set(stationListPointer, StationType.ENDE); //set the next station as endstation
 				return true;
 			}
 			return false;
+		}
+
+		/**
+		 * calculates a frustration value based on the persons in front of this person in the waiting Queue
+		 * the frustration can have values between 0 and 2
+		 * @param LOWERLIMITPERSONS the lower limit of persons in front of this person
+		 * @param UPPERLIMITPERSONS the upper limit of persons in front of this
+		 * @param personsInFrontOfThis the number of persons in front of this
+		 * @return a frustration value based on the persons in front of this one between 0 and 2
+		 */
+		private double calculateFrustrationByPersonsInFrontOfThis(final int LOWERLIMITPERSONS, final int UPPERLIMITPERSONS, int personsInFrontOfThis){
+			double frustration = 0;
+			//normiert den Frustrationswert auf 2
+			final double NORMIERUNG = UPPERLIMITPERSONS / 2;
+			if(personsInFrontOfThis <= LOWERLIMITPERSONS){
+				frustration = 0;
+			}
+			else if(personsInFrontOfThis > LOWERLIMITPERSONS && personsInFrontOfThis <= UPPERLIMITPERSONS){
+				frustration = (personsInFrontOfThis - LOWERLIMITPERSONS)/NORMIERUNG;
+			}
+			else if(personsInFrontOfThis > UPPERLIMITPERSONS){
+				frustration = 2;
+			}
+			return frustration;
+		}
+
+		/**
+		 * Calculates the frustration caused by the waitingTime of the Customer
+		 * the frustration can have values between 0 and 5
+		 * @param LOWERLIMITWAITINGTIME the lower limit of the waiting time accepted by a customer
+		 * @param UPPERLIMITWAITINGTIME the upper limit of the waiting time accepted by the customer
+		 * @param waitingTime the waiting time of the customer
+		 * @return a frustration value between 0 and 5
+		 */
+		private double calculateFrustrationByWaitingTime(final int LOWERLIMITWAITINGTIME, final int UPPERLIMITWAITINGTIME, int waitingTime){
+			double frustration = 0;
+			//normiert den frustrationswert auf maximal 5
+			final double NORMIERUNG = UPPERLIMITWAITINGTIME/5;
+			if(waitingTime <= LOWERLIMITWAITINGTIME){
+				frustration = 0;
+			}
+			else if (waitingTime > LOWERLIMITWAITINGTIME && waitingTime <= UPPERLIMITWAITINGTIME){
+				frustration = (waitingTime - LOWERLIMITWAITINGTIME)/NORMIERUNG;
+			}
+			else if (waitingTime > UPPERLIMITWAITINGTIME){
+				frustration = 5;
+			}
+			return frustration;
 		}
 
 
