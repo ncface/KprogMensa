@@ -288,7 +288,7 @@ import controller.Simulation;
 			else if (personsInFrontOfThis>30)frustration *= 2;
 
 			if (frustration>frustrationLimit){
-				stationsToGo.set(stationListPointer, StationType.ENDE);
+				stationsToGo.set(stationListPointer, StationType.ENDE); //set the next station as endstation
 				return true;
 			}
 			return false;
