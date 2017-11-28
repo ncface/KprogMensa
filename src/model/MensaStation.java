@@ -249,16 +249,16 @@ public class MensaStation extends Station {
 	
 		
 	/**
-	 * Returns the InQueue of the MensaStation Object
-	 * @return inComingQue
+	 * Returns the inQueue of the mensaStation object
+	 * @return the in coming queue
 	 */
 	public SynchronizedQueue getInQueue() {
 		return inComingQueue;
 	}
 
 	/**
-	 * Returns the OutQueue of the MensaStation Object
-	 * @return outComingQue
+	 * Returns the outQueue of the mensaStation object
+	 * @return the out goining queue
 	 */
 	public SynchronizedQueue getOutQueue() {
 		return outGoingQueue;

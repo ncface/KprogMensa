@@ -2,7 +2,10 @@ package model;
 
 import java.util.*;
 
-
+/**
+ * Class for a Kasse
+ * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ */
 public class Kasse extends MensaStation {
 
     private static int totalWeigth;
