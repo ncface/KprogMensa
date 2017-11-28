@@ -1,8 +1,6 @@
 package io;
 
-import model.AdditionalMensaStation;
-import model.Customer;
-import model.Station;
+import model.*;
 
 import java.io.*;
 
@@ -12,6 +10,7 @@ import java.io.*;
 public class DataCollection {
     private static String outFolderPath = "DataOutput/";
     private static PrintWriter printWriter;
+    private static int price;
 
     private DataCollection(){}
 
@@ -45,8 +44,47 @@ public class DataCollection {
         }
     }
 
-    public static void additionalStationOpened(Station station, long openingTime){
+    public static void additionalStationOpened(Station stationOpened, long openingTimeStation){
+        Station station = stationOpened;
+        long openingTime = openingTimeStation;
+    }
 
+    public static void calculateLoss(){
+        int totalAmountAtKasse = totalAmountAtKasse();
+        double moneyEarnedAtKasse = totalAmountAtKasse * price;
+
+        int totalAmountAtEndStation = totalAmountAtEndStation();
+        double totalAmountPossibleMoney = totalAmountAtEndStation * price;
+
+        double loss = moneyEarnedAtKasse - totalAmountPossibleMoney;
+
+        try {
+            String filePath = outFolderPath+"DataLoss.csv";
+            File outPutFile = new File(filePath);
+            DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
+            printWriter.println("Einnahmen,moeglicheEinnahmen,Verlust");
+            printWriter.println(""+moneyEarnedAtKasse+","+totalAmountPossibleMoney+","+loss);
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static int totalAmountAtKasse(){
+        return Kasse.getTotalWeigth();
+    }
+
+    private static int totalAmountAtEndStation(){
+        return EndStation.getTotalAmountWantedFood();
+    }
+
+    /**
+     * Setter for the price per gram
+     * @param price price per kilo
+     */
+    public static void setPrice(int price){
+        DataCollection.price = price / 1000;
     }
 
 }

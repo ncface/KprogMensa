@@ -1,5 +1,8 @@
 package model;
 
+import controller.Simulation;
+import io.DataCollection;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -54,6 +57,7 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
             if (station.getStationType() == StationType.ADDITIONAL &&
                     station.getLabel().toUpperCase().contains(stationType.toString())) {
                 station.stationType = stationType;
+                DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
                 break;
             }
         }

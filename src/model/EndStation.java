@@ -2,6 +2,7 @@ package model;
 
 import java.util.Collection;
 
+import io.DataCollection;
 import io.Statistics;
 
 /**
@@ -65,7 +66,7 @@ public class EndStation extends SimpleStation {
 	 * Getter method for the total amount of wanted food
 	 * @return totalAmountWantedFood
 	 */
-	public int getTotalAmountWantedFood(){
+	public static int getTotalAmountWantedFood(){
 		return totalAmountWantedFood;
 	}
 
@@ -111,20 +112,22 @@ public class EndStation extends SimpleStation {
 		// Are all objects in the stations outgoing queue, then we are finish
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
 
-		Statistics.show("\n--- Simulation beendet ----");
-												
-		//show some station statistics
-		for (MensaStation station : MensaStation.getAllProcessStations()) {
-				station.printStatistics();
-		}
-									
-		//show some objects statistics
-		for (Object object : this.outGoingQueue){
-			((Customer) object).printStatistics();
-		}
-														
-		// end simulation 
-		// System.exit(0); 
+			DataCollection.calculateLoss();
+
+			Statistics.show("\n--- Simulation beendet ----");
+
+			//show some station statistics
+			for (MensaStation station : MensaStation.getAllProcessStations()) {
+					station.printStatistics();
+			}
+
+			//show some objects statistics
+			for (Object object : this.outGoingQueue){
+				((Customer) object).printStatistics();
+			}
+
+			// end simulation
+			// System.exit(0);
 												
 		}
 	}
