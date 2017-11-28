@@ -6,6 +6,7 @@
 		<troughput>2</troughput>
 		<x_position>200</x_position>
 		<y_position>100</y_position>
+		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>
@@ -20,6 +21,7 @@
 		<troughput>6</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
+		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>
@@ -34,6 +36,7 @@
 		<troughput>2</troughput>
 		<x_position>500</x_position>
 		<y_position>150</y_position>
+		<operating_costs>0.2</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>
@@ -48,6 +51,7 @@
 		<troughput>2</troughput>
 		<x_position>550</x_position>
 		<y_position>350</y_position>
+		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>

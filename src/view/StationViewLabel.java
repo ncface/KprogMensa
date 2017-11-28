@@ -4,7 +4,7 @@ package view;
 /**
  * Class for the Label of the view of stations
  *
- * @author Herzog, Sebastian
+ * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-27
  */
 @SuppressWarnings("serial")
@@ -16,7 +16,6 @@ public class StationViewLabel extends LabelView {
      * @param xPos x position of the view
      * @param yPos y position of the view
      */
-    // MEIN KONSTRUKTOR
     private StationViewLabel(String text, int xPos, int yPos){
         super(text, xPos, yPos);
         this.setText(text);
@@ -31,7 +30,6 @@ public class StationViewLabel extends LabelView {
      *
      * @return the StationView
      */
-    // MEINE METHODE
     public static StationViewLabel createLabel(String text, int xPos, int yPos){
 
         return new StationViewLabel(text, xPos, yPos);

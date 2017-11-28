@@ -70,13 +70,19 @@ public abstract class SimpleStation extends Station {
 		//return simply the first object
 		return (Customer) this.outGoingQueue.poll();
 	}
-	
 
+	/**
+	 * Gibt die InComingQueue der SimpelStation zurück
+	 * @return inComingQueue
+	 */
 	@Override
 	public SynchronizedQueue getInQueue() {
 		return inComingQueue;
 	}
-
+	/**
+	 * Gibt die outGoingQueue der SimpelStation zurück
+	 * @return outGoingQueue
+	 */
 	@Override
 	public SynchronizedQueue getOutQueue() {
 		return outGoingQueue;

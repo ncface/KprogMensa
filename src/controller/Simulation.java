@@ -30,6 +30,7 @@ public class Simulation {
 	
 	
 	/**
+	 * Die Main-Methode der Anwendung.
 	 */
 	public static void main(String[] args){
 		
