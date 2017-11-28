@@ -19,9 +19,14 @@ public class DataCollection {
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
     private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
 
-
+    /**
+     * no instance should be created
+     */
     private DataCollection(){}
 
+    /**
+     * initialize the data files
+     */
     public static void prepareDataCollection(){
         deleteFiles();
         prepareFiles();
@@ -35,13 +40,16 @@ public class DataCollection {
             if (outPutFolder.exists()) {
                 File[] files = outPutFolder.listFiles();
                 for (File file : files) {
-                    file.delete();
+                    file.delete();//delete the files
                 }
             }else{
-                outPutFolder.mkdir();
+                outPutFolder.mkdir();//create folder if not existing
             }
     }
 
+    /**
+     * creates the datafiles
+     */
     private static void prepareFiles(){
         Map<String, String> headers = new HashMap<>();
         headers.put(filePathLeftEarly, "LeavingTime,Amount");
@@ -79,6 +87,11 @@ public class DataCollection {
         }
     }
 
+    /**
+     * records when an additional station opened
+     * @param stationOpened the station that opened
+     * @param openingTimeStation the time when station was opened
+     */
     public static void additionalStationOpened(Station stationOpened, long openingTimeStation){
         Station station = stationOpened;
         long openingTime = openingTimeStation;
@@ -93,6 +106,9 @@ public class DataCollection {
 
     }
 
+    /**
+     * records the loss of the simulation
+     */
     public static void calculateLoss(){
         int totalAmountAtKasse = totalAmountAtKasse();
         double moneyEarnedAtKasse = totalAmountAtKasse * price;
@@ -113,6 +129,9 @@ public class DataCollection {
 
     }
 
+    /**
+     * records the operating costs of every mensa station
+     */
     public static void processOperatingCosts(){
         try {
             File outPutFile = new File(filePathOperatingCosts);
@@ -130,6 +149,9 @@ public class DataCollection {
         }
     }
 
+    /**
+     * @return the total weigth sold at Kasse
+     */
     private static int totalAmountAtKasse(){
         return Kasse.getTotalWeigth();
     }
