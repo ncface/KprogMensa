@@ -196,10 +196,14 @@ public class Factory {
 					
 					//create a random frustrationLimit between 1 and 10
 					double maxFrustrationLimit = 10;
-					double stdDeviance = 2;
+					double stdDeviance = 4;
 					Random rand = new Random();
-					int frustrationLimit =(int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
-					
+					int frustrationLimit = 0;
+					//generate new limit until value is in range
+					do{
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
+					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
+					System.out.println(frustrationLimit);
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
         		
