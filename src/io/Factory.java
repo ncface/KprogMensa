@@ -266,7 +266,7 @@ public class Factory {
 				troughPut = Double.parseDouble(mensaStation.getChildText("troughput"));
 				xPos = Integer.parseInt(mensaStation.getChildText("x_position"));
 				yPos = Integer.parseInt(mensaStation.getChildText("y_position"));
-				operatingCostsPerClockbeat = Integer.parseInt(mensaStation.getChildText("operating_costs"));
+				operatingCostsPerClockbeat = Double.parseDouble(mensaStation.getChildText("operating_costs"));
 
 				//the <view> ... </view> node
 				Element viewGroup = mensaStation.getChild("view");
