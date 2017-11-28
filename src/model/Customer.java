@@ -175,8 +175,10 @@ import controller.Simulation;
 		private void updateProcessTime(){
 			StationType stationType = actualStation.getStationType();
 			if(foodAmountAtStations.containsKey(stationType)) {
-				int amountFood = foodAmountAtStations.get(stationType);
-				this.processTime = (int) (INITIALPROCESSTIME * (1 + amountFood / 1000.0));
+				int amountFoodInGram = foodAmountAtStations.get(stationType);
+				//convert the amountFoodInGram in amountFoodInKilogram
+				double amountFoodInKilogram = amountFoodInGram / 1000.0;
+				this.processTime = (int) (INITIALPROCESSTIME * (1 + amountFoodInKilogram));
 			}
 			else{
 				processTime = INITIALPROCESSTIME;

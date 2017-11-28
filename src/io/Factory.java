@@ -113,7 +113,6 @@ public class Factory {
 
     		//creating a new StartStation object
     		StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-			StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
 
 
     	} catch (JDOMException e) {
@@ -144,6 +143,10 @@ public class Factory {
 
     		//get all the objects into a List object
     		List <Element> allObjects = root.getChildren("object");
+
+    		//the counter for created Customer
+			int counterCustomer = 0;
+
     		for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
 				//separate every JDOM "object" Element from the list and create Java Customer objects
 				for (Element customer : allObjects) {
@@ -156,6 +159,8 @@ public class Factory {
 
 					// read data
 					label = customer.getChildText("label");
+					label += ("_"+counterCustomer); //add an unique identifier to the label of the customer
+					counterCustomer++;
 					processtime = Integer.parseInt(customer.getChildText("processtime"));
 					speed = Integer.parseInt(customer.getChildText("speed"));
 

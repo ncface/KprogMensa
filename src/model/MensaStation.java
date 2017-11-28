@@ -69,17 +69,19 @@ public class MensaStation extends Station {
 
 	/**
 	 * executes the super method work of the super-class and checks if the customer has to leave early
+	 *
+	 * @return true if the MensaStation has more work to do, and
+	 * false if the MensaStation has no more work to do for the moment, so the thread can fall into the wait() mode
 	 */
 	@Override
 	protected boolean work() {
 		boolean work = super.work();
-		SynchronizedQueue inQueue = inComingQueue;
-		Object [] allInQueueCostumer = inQueue.toArray();
-		for(int i=0; i<inQueue.size(); i++){
+		Object [] allInQueueCostumer = inComingQueue.toArray();
+		for(int i=0; i<allInQueueCostumer.length; i++){
 			Customer waitingCostumer =  (Customer) allInQueueCostumer[i];
 			if (waitingCostumer.leavesEarly(i)){
 				waitingCostumer.wakeUp();
-				inQueue.remove(waitingCostumer);
+				inComingQueue.remove(waitingCostumer);
 				Statistics.show(waitingCostumer.getLabel()+" geht entnervt");
 			}
 		}
