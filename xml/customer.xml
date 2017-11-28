@@ -2,7 +2,7 @@
 <settings>
 	<anzahl_durchlaeufe>100</anzahl_durchlaeufe>
 	<object>
-		<label>Customer_1</label>
+		<label>Customer_Typ_1</label>
 		<processtime>10</processtime>
 		<speed>5</speed>
 		<view>
@@ -27,7 +27,7 @@
 		</sequence>
 	</object>
 	<object>
-		<label>Customer_2</label>
+		<label>Customer_Typ_2</label>
 		<processtime>8</processtime>
 		<speed>5</speed>
 		<view>
@@ -47,7 +47,7 @@
 		</sequence>
 	</object>
 	<object>
-		<label>Customer_3</label>
+		<label>Customer_Typ_3</label>
 		<processtime>4</processtime>
 		<speed>5</speed>
 		<view>
@@ -62,7 +62,7 @@
 		</sequence>
 	</object>
 	<object>
-		<label>Customer_4</label>
+		<label>Customer_Typ_4</label>
 		<processtime>2</processtime>
 		<speed>5</speed>
 		<view>
