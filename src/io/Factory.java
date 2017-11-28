@@ -23,16 +23,16 @@ import org.jdom2.input.SAXBuilder;
 public class Factory implements FactoryInterface{
 	
 	/** the objects XML data file */
-	private static String theObjectDataFile = "xml/Szenario 0/customer.xml";
+	private static String theObjectDataFile = "xml/Szenario 1/customer.xml";
 	
 	/** the stations XML data file */
-	private static String theStationDataFile = "xml/Szenario 0/station.xml";
+	private static String theStationDataFile = "xml/Szenario 1/station.xml";
 	
 	/** the start station XML data file */
-	private static String theStartStationDataFile = "xml/Szenario 0/startstation.xml";
+	private static String theStartStationDataFile = "xml/Szenario 1/startstation.xml";
 	
 	/** the end station XML data file */
-	private static String theEndStationDataFile = "xml/Szenario 0/endstation.xml";
+	private static String theEndStationDataFile = "xml/Szenario 1/endstation.xml";
 	
 	/** the end station XML data file */
 	private static String theStatisticsDataFile = "xml/Szenario 0/statistics.xml";
@@ -304,7 +304,6 @@ public class Factory implements FactoryInterface{
 			for(Element element:allLimits){
 				StationType type = StationType.parseStationType(element.getChildText("type"));
 				int limit = Integer.parseInt(element.getChildText("limit"));
-				type.setInQueueLimit(limit);
 			}
 
 			//get all the stations into a List object
