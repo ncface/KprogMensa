@@ -10,6 +10,8 @@ public final class SelectionDialog extends JDialog {
     private static SelectionDialog selectionDialog = new SelectionDialog();
     private final String XMLPath = "xml/";
     private final String JSONPath = "json/";
+    private ButtonGroup szenarioSelection;
+    private JPanel szenarioSelectionPanel;
 
     public static void main(String[] args){
         create();
@@ -35,32 +37,33 @@ public final class SelectionDialog extends JDialog {
         JLabel szenario = new JLabel("Szenario:");
 
         ButtonGroup formatSelection = new ButtonGroup();
-        ButtonGroup szenarioSelection = new ButtonGroup();
+        szenarioSelection = new ButtonGroup();
 
         JPanel formatSelectionPanel = new JPanel();
-        JPanel szenarioSelectionPanel = new JPanel();
+        szenarioSelectionPanel = new JPanel();
 
         JRadioButton JSONButton = new JRadioButton("JSON");
         JSONButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                updateSzenarioSelection(JSONPath);
             }
         });
         formatSelection.add(JSONButton);
         formatSelectionPanel.add(JSONButton);
+
         JRadioButton XMLButton = new JRadioButton("XML");
         XMLButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                updateSzenarioSelection(XMLPath);
             }
         });
         XMLButton.setSelected(true);
         formatSelection.add(XMLButton);
         formatSelectionPanel.add(XMLButton);
 
-        File szenarioFolders = new File("xml/");
+        File szenarioFolders = new File(XMLPath);
         File[] allSzenarios = szenarioFolders.listFiles();
 
         for(File file : allSzenarios){
@@ -80,5 +83,24 @@ public final class SelectionDialog extends JDialog {
         this.pack();
         this.setVisible(true);
 
+    }
+
+    private void updateSzenarioSelection(String Path) {
+        this.setVisible(false);
+        szenarioSelection.clearSelection();
+        szenarioSelectionPanel.removeAll();
+        File szenarioFolders = new File(Path);
+        File[] allSzenarios = szenarioFolders.listFiles();
+
+        for(File file : allSzenarios){
+            String name = file.getName();
+            JRadioButton szenarioButton = new JRadioButton(name);
+            szenarioSelection.add(szenarioButton);
+            szenarioSelectionPanel.add(szenarioButton);
+            szenarioButton.setSelected(true);
+        }
+
+        this.pack();
+        this.setVisible(true);
     }
 }
