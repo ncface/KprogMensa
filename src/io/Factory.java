@@ -113,6 +113,7 @@ public class Factory {
 
     		//creating a new StartStation object
     		StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+			StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
 
 
     	} catch (JDOMException e) {
@@ -120,7 +121,7 @@ public class Factory {
 		} catch (IOException e) {
 				e.printStackTrace();
 		} catch (Exception e) {
-    			e.printStackTrace();
+			e.printStackTrace();
 		}
      }
 	
