@@ -258,6 +258,7 @@ public class Factory {
 				int xPos ;
 				int yPos ;
 				String image;
+				double operatingCostsPerClockbeat;
 
 				// read data
 				label = mensaStation.getChildText("label");
@@ -265,6 +266,7 @@ public class Factory {
 				troughPut = Double.parseDouble(mensaStation.getChildText("troughput"));
 				xPos = Integer.parseInt(mensaStation.getChildText("x_position"));
 				yPos = Integer.parseInt(mensaStation.getChildText("y_position"));
+				operatingCostsPerClockbeat = Integer.parseInt(mensaStation.getChildText("operating_costs"));
 
 				//the <view> ... </view> node
 				Element viewGroup = mensaStation.getChild("view");
@@ -293,11 +295,11 @@ public class Factory {
 				//creating a new Station object or Kasse
                 if (type == StationType.KASSE)
                 {
-                    Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type);
+                    Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else
                 {
-                    MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
+                    MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
                 }
 
         		
