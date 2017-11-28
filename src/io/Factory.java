@@ -20,7 +20,7 @@ import org.jdom2.input.SAXBuilder;
  * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public class Factory {
+public class Factory implements FactoryInterface{
 	
 	/** the objects XML data file */
 	private static String theObjectDataFile = "xml/customer.xml";
