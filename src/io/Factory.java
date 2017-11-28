@@ -196,6 +196,7 @@ public class Factory {
 					
 					//create a random frustrationLimit between 1 and 10
 					double maxFrustrationLimit = 10;
+					//The gaussian standard deviance (deviation)
 					double stdDeviance = 4;
 					Random rand = new Random();
 					int frustrationLimit = 0;
