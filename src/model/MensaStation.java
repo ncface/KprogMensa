@@ -25,6 +25,12 @@ public class MensaStation extends Station {
 
 	/** the instance of our static inner Measurement class*/
 	Measurement measurement = new Measurement();
+
+	/** the operating kosts of the MensaStation per clockbeat*/
+	private double operatingCostsPerClockbeat;
+
+	/** the opening time of the MensaStation*/
+	private long openingTime;
 				
 	/** Constructor, creates a new process station
 	 * 
@@ -36,13 +42,18 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station
 	 * @param type the stationtype of the station
+	 * @param operatingCostsPerClockbeat operating costs per clockbeat of the mensaStation
 	 */
-	protected MensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
+	protected MensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos,
+						   String image, StationType type, double operatingCostsPerClockbeat){
 		
 		super(label, xPos, yPos, image, type);
 		
 		//the troughPut parameter 
 		this.troughPut = troughPut;
+
+		//the operating costs per clockbeat of the MensaStation
+		this.operatingCostsPerClockbeat = operatingCostsPerClockbeat;
 
 		//the stations queues
 		this.inComingQueue = inQueue;
@@ -60,10 +71,12 @@ public class MensaStation extends Station {
 	 * @param yPos y position of the station
 	 * @param image image of the station
 	 * @param type the stationtype of the station
+	 * @param operatingCostsPerClockbeat operating costs per clockbeat of the mensaStation
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos, String image, StationType type){
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos,
+							  String image, StationType type, double operatingCostsPerClockbeat){
 	
-		new MensaStation(label, inQueue,outQueue , troughPut, xPos, yPos, image,type);
+		new MensaStation(label, inQueue,outQueue , troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
 		
 	}
 
@@ -207,14 +220,22 @@ public class MensaStation extends Station {
 		private int avgTreatmentTime() {
 			
 			if(numbOfVisitedObjects == 0) return 0; //in case that a station wasn't visited
-			else
 			return inUseTime/numbOfVisitedObjects;
 			
 		}
 		
 	}
-	
-	
+
+	/**
+	 * calculates the operating costs of the MensaStation
+	 * @return	the operating costs
+	 */
+	public double calculateOperatingCosts(){
+		long endTime = Simulation.getGlobalTime();
+		long operatingTime = endTime - this.openingTime;
+		return operatingTime * this.operatingCostsPerClockbeat;
+	}
+
 	/**
 	 * get and print some statistics out of the Measurement class
 	 */
@@ -248,8 +269,17 @@ public class MensaStation extends Station {
 				
 		return allMensaStations;
 	}
-	
-		
+
+	/**
+	 * Setter method for the opening time of the MensaStation
+	 * only sets the opening time when opening time wasnt set before
+	 */
+	public void setOpeningTime() {
+		if (openingTime == 0) {
+			this.openingTime = Simulation.getGlobalTime();
+		}
+	}
+
 	/**
 	 * Returns the inQueue of the mensaStation object
 	 * @return the in coming queue

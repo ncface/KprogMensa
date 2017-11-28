@@ -6,7 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import controller.Simulation;
+import model.AdditionalMensaStation;
+import model.MensaStation;
 import model.StartStation;
+import model.Station;
 
 
 /**
@@ -30,7 +33,14 @@ public class StartButton extends JButton implements ActionListener{
 		
 		//set the simulation on
 		Simulation.isRunning = true;
-		
+
+		//set the opening time of all MensaStation which are not additional
+		for (Station station: Station.getAllStations()){
+			if (station instanceof MensaStation && !(station instanceof AdditionalMensaStation)){
+				((MensaStation) station).setOpeningTime();
+			}
+		}
+
 		//wake up the start station -> lets the simulation run
 		StartStation.getStartStation().wakeUp();
 	
