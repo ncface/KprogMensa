@@ -1,71 +1,82 @@
 <?xml version="1.0"?>
 <settings>
+	<type_limit>
+		<type>Hauptspeise</type>
+		<limit>5</limit>
+	</type_limit>
 	<station>
-		<label>Station_1</label>
+		<label>Vorspeise</label>
+		<type>vorspeise</type>
+		<troughput>2</troughput>
+		<x_position>200</x_position>
+		<y_position>200</y_position>
+		<operating_costs>0.1</operating_costs>
+		<view>
+			<image>station.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</station>
+	<station>
+		<label>Hauptspeise</label>
+		<type>hauptspeise</type>
+		<troughput>6</troughput>
+		<x_position>400</x_position>
+		<y_position>200</y_position>
+		<operating_costs>0.4</operating_costs>
+		<view>
+			<image>station.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</station>
+	<station>
+		<label>Hauptspeise</label>
+		<type>additional</type>
+		<troughput>6</troughput>
+		<x_position>400</x_position>
+		<y_position>80</y_position>
+		<operating_costs>0.4</operating_costs>
+		<view>
+			<image>station.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</station>
+	<station>
+		<label>Nachspeise</label>
+		<type>Nachspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
 		<y_position>100</y_position>
+		<operating_costs>0.2</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>180</x_position>
-			<y_position>40</y_position>
-		</inqueue>
-		<inqueue>
-			<x_position>220</x_position>
-			<y_position>40</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>220</x_position>
-			<y_position>180</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
 	<station>
-		<label>Station_2</label>
-		<troughput>1</troughput>
-		<x_position>350</x_position>
-		<y_position>350</y_position>
-		<view>
-			<image>station.png</image>
-		</view>
-		<inqueue>
-			<x_position>330</x_position>
-			<y_position>290</y_position>
-		</inqueue>
-		<inqueue>
-			<x_position>370</x_position>
-			<y_position>290</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>370</x_position>
-			<y_position>430</y_position>
-		</outqueue>
-	</station>
-	<station>
-		<label>Station_3</label>
+		<label>Kasse</label>
+		<type>kasse</type>
 		<troughput>2</troughput>
-		<x_position>500</x_position>
-		<y_position>150</y_position>
+		<x_position>600</x_position>
+		<y_position>200</y_position>
+		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
 		</view>
-		<inqueue>
-			<x_position>480</x_position>
-			<y_position>90</y_position>
-		</inqueue>
-		<inqueue>
-			<x_position>520</x_position>
-			<y_position>90</y_position>
-		</inqueue>
-		<inqueue>
-			<x_position>560</x_position>
-			<y_position>90</y_position>
-		</inqueue>
-		<outqueue>
-			<x_position>520</x_position>
-			<y_position>230</y_position>
-		</outqueue>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
 	</station>
-	
 </settings>

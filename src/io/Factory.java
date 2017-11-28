@@ -23,19 +23,19 @@ import org.jdom2.input.SAXBuilder;
 public class Factory implements FactoryInterface{
 	
 	/** the objects XML data file */
-	private static String theObjectDataFile = "xml/customer.xml";
+	private static String theObjectDataFile = "xml/Szenario 0/customer.xml";
 	
 	/** the stations XML data file */
-	private static String theStationDataFile = "xml/station.xml"; 
+	private static String theStationDataFile = "xml/Szenario 0/station.xml"; 
 	
 	/** the start station XML data file */
-	private static String theStartStationDataFile = "xml/startstation.xml"; 
+	private static String theStartStationDataFile = "xml/Szenario 0/startstation.xml"; 
 	
 	/** the end station XML data file */
-	private static String theEndStationDataFile = "xml/endstation.xml"; 
+	private static String theEndStationDataFile = "xml/Szenario 0/endstation.xml"; 
 	
 	/** the end station XML data file */
-	private static String theStatisticsDataFile = "xml/statistics.xml"; 
+	private static String theStatisticsDataFile = "xml/Szenario 0/statistics.xml"; 
 	
 	/** the x position of the starting station, also position for all starting objects */
 	private static int XPOS_STARTSTATION;
@@ -254,7 +254,8 @@ public class Factory implements FactoryInterface{
 					int frustrationLimit;
 					//generate new gauss limit until value is in range
 					do{
-						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + Customer.MAXFRUSTRATIONLIMIT);
+						//move of the mean value 2/3 to the right
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + (Customer.MAXFRUSTRATIONLIMIT*2/3));
 					}while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
 					//creating a new Customer object
