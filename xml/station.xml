@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <settings>
+	<type_limit>
+		<type>Hauptspeise</type>
+		<limit>5</limit>
+	</type_limit>
 	<station>
 		<label>Vorspeise</label>
 		<type>vorspeise</type>

@@ -61,7 +61,7 @@ public class Factory implements FactoryInterface{
 		createMensaStation();
 		createEndStation();
 	}
-	
+
 	/**
      * create the start station
      * 
@@ -245,6 +245,14 @@ public class Factory implements FactoryInterface{
 
 			//the <settings> ... </settings> node
 			Element root = theXMLDoc.getRootElement();
+
+			//add the inQueueLimits to the types
+			List<Element> allLimits = root.getChildren("type_limit");
+			for(Element element:allLimits){
+				StationType type = StationType.parseStationType(element.getChildText("type"));
+				int limit = Integer.parseInt(element.getChildText("limit"));
+				type.setInQueueLimit(limit);
+			}
 
 			//get all the stations into a List object
 			List <Element> stations = root.getChildren("station");
