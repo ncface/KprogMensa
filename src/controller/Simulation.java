@@ -47,7 +47,7 @@ public class Simulation {
 	 */
 	private void init(){
 		//reset all data files in DataOutput
-		DataCollection.deleteFiles();
+		DataCollection.prepareDataCollection();
 
 		//create all stations and customers for the starting scenario out of XML
 		Factory.createStartScenario();
