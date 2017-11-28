@@ -60,13 +60,16 @@ public class Factory implements FactoryInterface{
 		* because the objects constructor puts the objects into the start stations outgoing queue
 		*/ 
 		createStartStation(); 
-		createObjects();
+		createCustomers();
 		createMensaStation();
 		createEndStation();
 		addObserverToObservable();
 		createDataCollection();
 	}
-	
+
+	/**
+	 * reads the values for the DataCollection
+	 */
 	private static void createDataCollection() {
 		try {
     		
@@ -116,7 +119,6 @@ public class Factory implements FactoryInterface{
 
 	/**
      * create the start station
-     * 
      */
      private static void createStartStation(){
     	
@@ -178,10 +180,9 @@ public class Factory implements FactoryInterface{
      }
 	
 	/**
-     * create some objects out of the XML file
-     * 
+     * create some customers out of the XML file
      */
-     private static void createObjects(){
+     private static void createCustomers(){
     	
     	try {
 		
@@ -212,7 +213,8 @@ public class Factory implements FactoryInterface{
 
 					// read data
 					label = customer.getChildText("label");
-					label += ("_"+counterCustomer); //add an unique identifier to the label of the customer
+					//add an unique identifier to the label of the customer
+					label += ("_"+counterCustomer);
 					counterCustomer++;
 					processtime = Integer.parseInt(customer.getChildText("processtime"));
 					speed = Integer.parseInt(customer.getChildText("speed"));
@@ -233,7 +235,9 @@ public class Factory implements FactoryInterface{
 
 					//add always StartStation as first Station (every customer goes through startStation first)
 					stationsToGo.add(StationType.START);
-					
+
+					//adds all stations where the customer wants to go and
+					// reads the <name>,<min>,<max> for the wanted food of the customer
 					HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
 					for (Element theStation : allStations) {
 						StationType theStationType = StationType.parseStationType(theStation.getChild("name").getText());
@@ -260,17 +264,6 @@ public class Factory implements FactoryInterface{
 
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
-        		
-        		
-        		/*
-        		 * TIP: Make copies of the object like this (e.g. 5)
-
-        		for (int i = 0; i < 5; i++) {
-
-        			Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-
-        		}
-        		*/
 				}
 			}
     	
@@ -280,14 +273,19 @@ public class Factory implements FactoryInterface{
 				e.printStackTrace();
 		}
     }
-    
-    private static Integer newRandom(int min, int max) {
+
+	/**
+	 * creates a random value in the given range
+	 * @param min the minimum value for the random Generator
+	 * @param max the maximum value for the random Generator
+	 * @return the random integer
+	 */
+	private static Integer newRandom(int min, int max) {
 		return (int)(Math.random() * (max - min) + min);
 	}
 
 	/**
-     * create some process stations out of the XML file
-     * 
+     * create some mensa stations out of the XML file
      */
      private static void createMensaStation(){
     	
@@ -354,23 +352,17 @@ public class Factory implements FactoryInterface{
 				//create a Synchronized Queue for the station inqueue
 				SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
-				//creating a new Station object or Kasse
-                if (type == StationType.KASSE)
-                {
+				//creating a new Kasse, AdditionalMensaStation or MensaStation Object depending on the station type
+                if (type == StationType.KASSE) {
                     Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else if(type == StationType.ADDITIONAL){
 					AdditionalMensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
 				}
-                else
-                {
+                else{
                     MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
                 }
-
-        		
 			}
-    		
-    	
     	} catch (JDOMException e) {
 				e.printStackTrace();
 		} catch (IOException e) {
@@ -381,7 +373,6 @@ public class Factory implements FactoryInterface{
     
      /**
      * create the end station
-     * 
      */
      private static void createEndStation(){
     	

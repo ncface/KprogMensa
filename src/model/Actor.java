@@ -62,10 +62,7 @@ public abstract class Actor extends Thread {
 			//let the thread sleep for a little time
 			//without that we've got a running problem 
 			Actor.sleep(Simulation.CLOCKBEAT);
-					
-				act(); 
-				
-						
+				act();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -73,9 +70,9 @@ public abstract class Actor extends Thread {
 	}
 
 
-	/** Acting method for all actors
-	 *  Waits until the wakeUp() method notifies the thread, then the work() method is called
-	 *
+	/**
+	 * Acting method for all actors
+	 * Waits until the wakeUp() method notifies the thread, then the work() method is called
 	 */
 	private synchronized void act(){
 		
@@ -97,16 +94,16 @@ public abstract class Actor extends Thread {
 			
 	}
 		
-	/** Working method of the actor
-	 * 
+	/**
+	 * Working method of the actor
 	 * @return true if the actor has more work to do, and
 	 * false if the actor has no more work to do for the moment, so the thread can fall into the wait() mode
 	 */
 	protected abstract boolean work();
 	
 
-	/** Wakes up the actor thread. This is the method where the notify() call must be placed
-	 * 
+	/**
+	 * Wakes up the actor thread. This is the method where the notify() call must be placed
 	 */
 	public synchronized void wakeUp() {
 		Statistics.show(this.getLabel() + " notify()");
