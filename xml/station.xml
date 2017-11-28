@@ -9,7 +9,7 @@
 		<type>vorspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
-		<y_position>100</y_position>
+		<y_position>200</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -22,9 +22,24 @@
 	<station>
 		<label>Hauptspeise</label>
 		<type>hauptspeise</type>
-		<troughput>1</troughput>
-		<x_position>350</x_position>
-		<y_position>350</y_position>
+		<troughput>6</troughput>
+		<x_position>400</x_position>
+		<y_position>200</y_position>
+		<operating_costs>0.4</operating_costs>
+		<view>
+			<image>station.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</station>
+	<station>
+		<label>Hauptspeise</label>
+		<type>additional</type>
+		<troughput>6</troughput>
+		<x_position>400</x_position>
+		<y_position>80</y_position>
 		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -38,8 +53,8 @@
 		<label>Nachspeise</label>
 		<type>Nachspeise</type>
 		<troughput>2</troughput>
-		<x_position>500</x_position>
-		<y_position>150</y_position>
+		<x_position>200</x_position>
+		<y_position>100</y_position>
 		<operating_costs>0.2</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -53,8 +68,8 @@
 		<label>Kasse</label>
 		<type>kasse</type>
 		<troughput>2</troughput>
-		<x_position>550</x_position>
-		<y_position>350</y_position>
+		<x_position>600</x_position>
+		<y_position>200</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>

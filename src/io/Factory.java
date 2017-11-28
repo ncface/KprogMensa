@@ -62,14 +62,19 @@ public class Factory implements FactoryInterface{
 		createEndStation();
 		addObserverToObservable();
 	}
-
+	
+	/**
+	 * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
+	 */
 	private static void addObserverToObservable() {
+		//make list and add all additionalMensaStations
 		List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
 		for(Station station: Station.getAllStations()){
 			if(station instanceof AdditionalMensaStation) {
 				additionalMensaStations.add((AdditionalMensaStation) station);
 			}
 		}
+		//add observers to the observable MensaStations when StationTypes matches
 		for(Station station: Station.getAllStations()){
 			for (Station additionalMensaStation: additionalMensaStations){
 				if (additionalMensaStation.getLabel().toUpperCase().contains(station.getStationType().toString())){
@@ -108,7 +113,7 @@ public class Factory implements FactoryInterface{
     		// the image
     		String image = viewGroup.getChildText("image");
 
-    		//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
+			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = startStation.getChild("spacing");
 			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
 			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
@@ -211,16 +216,16 @@ public class Factory implements FactoryInterface{
 					stationsToGo.add(StationType.KASSE);
 					stationsToGo.add(StationType.ENDE);
 					
-					//create a random frustrationLimit between 1 and 10
-					double maxFrustrationLimit = 10;
-					//The gaussian standard deviance (deviation)
-					double stdDeviance = 4;
+					//get the gaussian standard deviance (deviation)
+					double stdDeviance = Integer.parseInt(root.getChildText("stdDeviance"));
 					Random rand = new Random();
-					int frustrationLimit = 0;
-					//generate new limit until value is in range
+					
+					//limit gets calculated
+					int frustrationLimit;
+					//generate new gauss limit until value is in range
 					do{
-						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
-					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + Customer.MAXFRUSTRATIONLIMIT);
+					}while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
@@ -299,7 +304,7 @@ public class Factory implements FactoryInterface{
 				// read data
 				image = viewGroup.getChildText("image");
 
-				//spacing einlesen um left und right davon einzulesen
+				//reads spacing and gets later the left and right side spacing from it
 				Element spacing = mensaStation.getChild("spacing");
 
 				//CREATE THE INQUEUE
@@ -372,7 +377,7 @@ public class Factory implements FactoryInterface{
     		// the image
     		String image = viewGroup.getChildText("image");
 
-			//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
+			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = endStation.getChild("spacing");
 			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
 			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
