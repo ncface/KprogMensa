@@ -60,6 +60,26 @@ public class Factory implements FactoryInterface{
 		createObjects();
 		createMensaStation();
 		createEndStation();
+		addObserverToObservable();
+	}
+
+	private static void addObserverToObservable() {
+		List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
+		for(Station station: Station.getAllStations()){
+			if(station.getStationType() == StationType.ADDITIONAL) {
+				if (station instanceof AdditionalMensaStation) {
+					additionalMensaStations.add((AdditionalMensaStation) station);
+				}
+			}
+		}
+		for(Station station: Station.getAllStations()){
+			for (Station additionalMensaStation: additionalMensaStations){
+				if (additionalMensaStation.getLabel().toUpperCase().contains(station.getStationType().toString())){
+					System.out.println("																		klöklöklöklö");
+					((MensaStation)station).setObserver((AdditionalMensaStation)additionalMensaStation);
+				}
+			}
+		}
 	}
 
 	/**
@@ -307,7 +327,7 @@ public class Factory implements FactoryInterface{
                     Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else if(type == StationType.ADDITIONAL){
-                	AdditionalMensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
+					AdditionalMensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
 				}
                 else
                 {

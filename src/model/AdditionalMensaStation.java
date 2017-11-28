@@ -22,6 +22,25 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
         super(label, inQueue, outQueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
     }
 
+    /** create a new process station and add it to the station list
+     *
+     * @param label of the station
+     * @param inQueue a list of all incoming queues
+     * @param outQueue a list of all outgoing queues
+     * @param troughPut a stations parameter that affects treatment of an object
+     * @param xPos x position of the station
+     * @param yPos y position of the station
+     * @param image image of the station
+     * @param type the stationtype of the station
+     * @param operatingCostsPerClockbeat operating costs per clockbeat of the mensaStation
+     */
+    public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos,
+                              String image, StationType type, double operatingCostsPerClockbeat){
+
+        new AdditionalMensaStation(label, inQueue,outQueue , troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
+
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         MensaStation.MensaStationObservable mensaStationObservable = (MensaStation.MensaStationObservable) o;
@@ -35,5 +54,6 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
                 break;
             }
         }
+        System.out.println("                                                       asdfasdfasdfasdfasdf");
     }
 }

@@ -39,7 +39,7 @@
 		<type>additional</type>
 		<troughput>6</troughput>
 		<x_position>350</x_position>
-		<y_position>350</y_position>
+		<y_position>250</y_position>
 		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>

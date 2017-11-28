@@ -116,9 +116,13 @@ public class MensaStation extends Station {
 	@Override
 	protected int numberOfInQueueCustomers(){
 		int numberOfInQueueCustomers = this.inComingQueue.size();
+		System.out.println("					"+ this.stationType.toString());
+		System.out.println("					"+numberOfInQueueCustomers);
+		System.out.println("					"+this.stationType.getInQueueLimit());
 		if (numberOfInQueueCustomers>this.stationType.getInQueueLimit()){
+			System.out.println("													"+mensaStationObservable.countObservers());
 			mensaStationObservable.notifyObservers();
-			mensaStationObservable.deleteObservers();
+			//mensaStationObservable.deleteObservers();
 		}
 		return numberOfInQueueCustomers;
 		
@@ -258,6 +262,14 @@ public class MensaStation extends Station {
 		protected MensaStation getOuterObject(){
 			return mensaStation;
 		}
+	}
+
+	/**
+	 * Setter method to add an Observer object
+	 * @param additionalMensaStation the observer object
+	 */
+	public void setObserver(AdditionalMensaStation additionalMensaStation){
+		this.mensaStationObservable.addObserver(additionalMensaStation);
 	}
 
 	/**
