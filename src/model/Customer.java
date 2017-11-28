@@ -1,9 +1,11 @@
 package model;
 
+import io.DataCollection;
 import io.Statistics;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -197,9 +199,22 @@ import controller.Simulation;
 			SynchronizedQueue outQueue = station.getOutQueue();
 			outQueue.offer(this);
 		}
-		
-			
-		@Override		
+
+		/**
+		 * Getter method for the total amount of food the customer would like to buy
+		 * @return the total amount
+		 */
+		public int getTotalAmount(){
+			Collection<Integer> amounts = foodAmountAtStations.values();
+			int totalAmount = 0;
+			for (int amount: amounts){
+				totalAmount += amount;
+			}
+			return totalAmount;
+		}
+
+
+		@Override
 		protected boolean work(){
 			//the customer doesnt wait anymore
 			waitingTime = 0;
@@ -297,6 +312,7 @@ import controller.Simulation;
 
 			if (frustration>frustrationLimit){
 				stationsToGo.set(stationListPointer, StationType.ENDE); //set the next station as endstation
+				DataCollection.customerLeftEarly(this, Simulation.getGlobalTime());
 				return true;
 			}
 			return false;
