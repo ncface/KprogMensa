@@ -22,8 +22,8 @@ public class Kasse extends MensaStation {
      * @param image     image of the station
      * @param type      the stationtype of the station
      */
-    protected Kasse(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type) {
-        super(label, inQueue, outQueue, troughPut, xPos, yPos, image, type);
+    protected Kasse(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type, double operatingCostsPerClockbeat) {
+        super(label, inQueue, outQueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
     }
 
     /**
@@ -37,8 +37,8 @@ public class Kasse extends MensaStation {
      * @param image     image of the station
      * @param type      the stationtype of the station
      */
-    public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type){
-        new Kasse(label, inQueue, outQueue, troughPut, xPos, yPos, image, type);
+    public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type, double operatingCostsPerClockbeat){
+        new Kasse(label, inQueue, outQueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
     }
 
     /**

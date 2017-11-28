@@ -203,7 +203,7 @@ public class Factory {
 					do{
 						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
 					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
-					System.out.println(frustrationLimit);
+
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
         		
