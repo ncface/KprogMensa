@@ -34,6 +34,9 @@ public class Factory implements FactoryInterface{
 	/** the end station XML data file */
 	private static String theEndStationDataFile = "xml/endstation.xml"; 
 	
+	/** the end station XML data file */
+	private static String theStatisticsDataFile = "xml/statistics.xml"; 
+	
 	/** the x position of the starting station, also position for all starting objects */
 	private static int XPOS_STARTSTATION;
 	
@@ -61,8 +64,35 @@ public class Factory implements FactoryInterface{
 		createMensaStation();
 		createEndStation();
 		addObserverToObservable();
+		createDataCollection();
 	}
 	
+	private static void createDataCollection() {
+		try {
+    		
+    		//read the information from the XML file into a JDOM Document
+    		Document theXMLDoc = new SAXBuilder().build(theStatisticsDataFile);
+    		
+    		//the <settings> ... </settings> node
+    		Element root = theXMLDoc.getRootElement();
+    		
+    		//get the start_station into a List object
+    		Element startStation = root.getChild("values");
+    		
+    		//get the label
+    		Double pricePerKilo = Double.parseDouble(startStation.getChildText("pricePerKilo"));
+    		    		    		
+    		DataCollection.setPrice(pricePerKilo);
+
+    	} catch (JDOMException e) {
+				e.printStackTrace();
+		} catch (IOException e) {
+				e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
 	 */
