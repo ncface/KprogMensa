@@ -219,16 +219,16 @@ public class Factory implements FactoryInterface{
 					stationsToGo.add(StationType.KASSE);
 					stationsToGo.add(StationType.ENDE);
 					
-					//create a random frustrationLimit between 1 and 10
-					double maxFrustrationLimit = 10;
-					//The gaussian standard deviance (deviation)
-					double stdDeviance = 4;
+					//get the gaussian standard deviance (deviation)
+					double stdDeviance = Integer.parseInt(root.getChildText("stdDeviance"));
 					Random rand = new Random();
-					int frustrationLimit = 0;
+					
+					//limit gets calculated
+					int frustrationLimit;
 					//generate new gauss limit until value is in range
 					do{
-						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
-					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + Customer.MAXFRUSTRATIONLIMIT);
+					}while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);

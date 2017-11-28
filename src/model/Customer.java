@@ -28,6 +28,9 @@ import controller.Simulation;
 		/** the initial process time of the costumer*/
 		private final int INITIALPROCESSTIME;
 		
+		/** the initial process time of the costumer*/
+		public static final int MAXFRUSTRATIONLIMIT = 10;
+		
 		/** the speed of the customer, the higher the lower */
 		private int mySpeed;
 
