@@ -26,16 +26,16 @@ public class Factory implements FactoryInterface{
 	private static String theObjectDataFile = "xml/Szenario 0/customer.xml";
 	
 	/** the stations XML data file */
-	private static String theStationDataFile = "xml/Szenario 0/station.xml"; 
+	private static String theStationDataFile = "xml/Szenario 0/station.xml";
 	
 	/** the start station XML data file */
-	private static String theStartStationDataFile = "xml/Szenario 0/startstation.xml"; 
+	private static String theStartStationDataFile = "xml/Szenario 0/startstation.xml";
 	
 	/** the end station XML data file */
-	private static String theEndStationDataFile = "xml/Szenario 0/endstation.xml"; 
+	private static String theEndStationDataFile = "xml/Szenario 0/endstation.xml";
 	
 	/** the end station XML data file */
-	private static String theStatisticsDataFile = "xml/Szenario 0/statistics.xml"; 
+	private static String theStatisticsDataFile = "xml/Szenario 0/statistics.xml";
 	
 	/** the x position of the starting station, also position for all starting objects */
 	private static int XPOS_STARTSTATION;
