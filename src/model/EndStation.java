@@ -21,6 +21,12 @@ public class EndStation extends SimpleStation {
 
 	/** the total amount of food wanted of all customers*/
 	private static int totalAmountWantedFood;
+
+	/** the total number of available EndStation objects */
+	private static final int TOTALNUMBERENDSTATIONOBJECTS = 1;
+
+	/** counter for the number of created EndStation objects */
+	private static int counterEndStation = 0;
 	
 	/** (private!) Constructor, creates a new end station
 	 * 
@@ -44,9 +50,13 @@ public class EndStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
-	
-		theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+		if(counterEndStation < TOTALNUMBERENDSTATIONOBJECTS) {
+			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
+		}
+		else{
+			throw new Exception();
+		}
 		
 	}
 
