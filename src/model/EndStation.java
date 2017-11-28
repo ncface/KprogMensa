@@ -53,6 +53,7 @@ public class EndStation extends SimpleStation {
 	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
 		if(counterEndStation < TOTALNUMBERENDSTATIONOBJECTS) {
 			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
+			counterEndStation++;
 		}
 		else{
 			throw new Exception();
