@@ -3,6 +3,7 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 
 import controller.Simulation;
 
@@ -31,7 +32,13 @@ public class MensaStation extends Station {
 
 	/** the opening time of the MensaStation*/
 	private long openingTime;
-				
+
+	/** a reference to the mensaStaiton itself*/
+	private MensaStation mensaStation;
+
+	/** a mensaStationObservable for this mensaStation*/
+	private MensaStationObservable mensaStationObservable;
+
 	/** Constructor, creates a new process station
 	 * 
 	 * @param label of the station 
@@ -58,7 +65,11 @@ public class MensaStation extends Station {
 		//the stations queues
 		this.inComingQueue = inQueue;
 		this.outGoingQueue = outQueue;
-		
+
+		//creates a MensaStationObservable for this mensaStation
+		this.mensaStationObservable = new MensaStationObservable();
+
+		this.mensaStation = this;
 	}
 	
 	/** create a new process station and add it to the station list
@@ -104,8 +115,12 @@ public class MensaStation extends Station {
 
 	@Override
 	protected int numberOfInQueueCustomers(){
-		
-		return this.inComingQueue.size();
+		int numberOfInQueueCustomers = this.inComingQueue.size();
+		if (numberOfInQueueCustomers>this.stationType.getInQueueLimit()){
+			mensaStationObservable.notifyObservers();
+			mensaStationObservable.deleteObservers();
+		}
+		return numberOfInQueueCustomers;
 		
 	}
 	
@@ -224,6 +239,25 @@ public class MensaStation extends Station {
 			
 		}
 		
+	}
+
+	/**
+	 * an inner class which allows to observe the mensa station
+	 */
+	protected class MensaStationObservable extends Observable{
+		@Override
+		public void notifyObservers() {
+			setChanged();
+			super.notifyObservers();
+		}
+
+		/**
+		 * getter for the mensaStation
+		 * @return the outer object
+		 */
+		protected MensaStation getOuterObject(){
+			return mensaStation;
+		}
 	}
 
 	/**
