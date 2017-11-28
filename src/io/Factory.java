@@ -196,6 +196,7 @@ public class Factory implements FactoryInterface{
 					
 					//create a random frustrationLimit between 1 and 10
 					double maxFrustrationLimit = 10;
+					//The gaussian standard deviance (deviation)
 					double stdDeviance = 4;
 					Random rand = new Random();
 					int frustrationLimit = 0;
@@ -297,6 +298,9 @@ public class Factory implements FactoryInterface{
                 {
                     Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
+                else if(type == StationType.ADDITIONAL){
+                	AdditionalMensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
+				}
                 else
                 {
                     MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
