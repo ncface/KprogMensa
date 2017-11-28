@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * Class for a Kasse
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @version 2017-11-28
  */
 public class Kasse extends MensaStation {
 
@@ -49,7 +50,7 @@ public class Kasse extends MensaStation {
     }
 
     /**
-     * @Override handleCustomer of the super class
+     * @Override handleCustomer of the super class (MensaStation)
      * calculates the total weight of food of the customer
      */
     @Override
