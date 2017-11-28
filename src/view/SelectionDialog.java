@@ -6,16 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public final class SelectionDialog extends JDialog {
+public final class SelectionDialog extends JDialog{
     private static SelectionDialog selectionDialog = new SelectionDialog();
     private final String XMLPath = "xml/";
     private final String JSONPath = "json/";
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
-
-    public static void main(String[] args){
-        create();
-    }
 
     public static SelectionDialog create() {
         return selectionDialog;
@@ -85,7 +81,7 @@ public final class SelectionDialog extends JDialog {
 
     }
 
-    private void updateSzenarioSelection(String Path) {
+    public void updateSzenarioSelection(String Path) {
         this.setVisible(false);
         szenarioSelection.clearSelection();
         szenarioSelectionPanel.removeAll();
