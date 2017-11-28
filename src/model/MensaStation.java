@@ -9,8 +9,8 @@ import controller.Simulation;
 /**
  * Class for a mensa station
  * 
- * @author Jaeger, Schmidt
- * @version 2017-10-29
+ * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @version 2017-11-28
  */
 public class MensaStation extends Station {
 	

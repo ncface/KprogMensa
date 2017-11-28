@@ -2,6 +2,8 @@ package model;
 
 /**
  * defines several types of Stations
+ * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @version 2017-11-28
  */
 public enum StationType {
     VORSPEISE, HAUPTSPEISE, NACHSPEISE, KASSE, DEFAULT, START, ENDE, EXTRA;

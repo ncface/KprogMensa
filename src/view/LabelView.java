@@ -1,13 +1,12 @@
 package view;
 
-//import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 
 /**
  * A JLabel class for LabelViews
  *
- * @author Herzog, Sebastian
+ * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-27
  */
 @SuppressWarnings("serial")
@@ -19,7 +18,6 @@ public abstract class LabelView extends JLabel {
      * @param xPos x position of the view
      * @param yPos y position of the view
      */
-    // MEIN KONSTRUKTOR
     protected LabelView(String text, int xPos, int yPos){
         JLabel stationLabel = new JLabel();
         stationLabel.setSize(100,100);

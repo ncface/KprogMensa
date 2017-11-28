@@ -17,8 +17,8 @@ import org.jdom2.input.SAXBuilder;
  * This is an abstract factory that creates instances
  * of actor types like objects, stations and their queues 
  * 
- * @author Jaeger, Schmidt
- * @version 2017-10-29
+ * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @version 2017-11-28
  */
 public class Factory {
 	
@@ -196,10 +196,14 @@ public class Factory {
 					
 					//create a random frustrationLimit between 1 and 10
 					double maxFrustrationLimit = 10;
-					double stdDeviance = 2;
+					double stdDeviance = 4;
 					Random rand = new Random();
-					int frustrationLimit =(int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
-					
+					int frustrationLimit = 0;
+					//generate new limit until value is in range
+					do{
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
+					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
+					System.out.println(frustrationLimit);
 					//creating a new Customer object
 					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
         		
@@ -254,6 +258,7 @@ public class Factory {
 				int xPos ;
 				int yPos ;
 				String image;
+				double operatingCostsPerClockbeat;
 
 				// read data
 				label = mensaStation.getChildText("label");
@@ -261,6 +266,7 @@ public class Factory {
 				troughPut = Double.parseDouble(mensaStation.getChildText("troughput"));
 				xPos = Integer.parseInt(mensaStation.getChildText("x_position"));
 				yPos = Integer.parseInt(mensaStation.getChildText("y_position"));
+				operatingCostsPerClockbeat = Integer.parseInt(mensaStation.getChildText("operating_costs"));
 
 				//the <view> ... </view> node
 				Element viewGroup = mensaStation.getChild("view");
@@ -289,11 +295,11 @@ public class Factory {
 				//creating a new Station object or Kasse
                 if (type == StationType.KASSE)
                 {
-                    Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type);
+                    Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else
                 {
-                    MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type);
+                    MensaStation.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image,type, operatingCostsPerClockbeat);
                 }
 
         		
