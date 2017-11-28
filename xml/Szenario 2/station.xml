@@ -36,7 +36,7 @@
 	</station>
 	<station>
 		<label>Hauptspeise2</label>
-		<type>additional</type>
+		<type>hauptspeise</type>
 		<troughput>6</troughput>
 		<x_position>400</x_position>
 		<y_position>80</y_position>

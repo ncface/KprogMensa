@@ -35,7 +35,7 @@
 		</spacing>
 	</station>
 	<station>
-		<label>Hauptspeise</label>
+		<label>Hauptspeise2</label>
 		<type>additional</type>
 		<troughput>6</troughput>
 		<x_position>400</x_position>
