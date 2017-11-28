@@ -254,7 +254,8 @@ public class Factory implements FactoryInterface{
 					int frustrationLimit;
 					//generate new gauss limit until value is in range
 					do{
-						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + Customer.MAXFRUSTRATIONLIMIT);
+						//move of the mean value 2/3 to the right
+						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + (Customer.MAXFRUSTRATIONLIMIT*2/3));
 					}while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
 					//creating a new Customer object
