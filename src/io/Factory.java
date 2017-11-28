@@ -116,7 +116,7 @@ public class Factory implements FactoryInterface{
     		// the image
     		String image = viewGroup.getChildText("image");
 
-    		//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
+			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = startStation.getChild("spacing");
 			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
 			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
@@ -307,7 +307,7 @@ public class Factory implements FactoryInterface{
 				// read data
 				image = viewGroup.getChildText("image");
 
-				//spacing einlesen um left und right davon einzulesen
+				//reads spacing and gets later the left and right side spacing from it
 				Element spacing = mensaStation.getChild("spacing");
 
 				//CREATE THE INQUEUE
@@ -380,7 +380,7 @@ public class Factory implements FactoryInterface{
     		// the image
     		String image = viewGroup.getChildText("image");
 
-			//Spacing aus XML holen. Das ist der Abstand zwischen der visualisierten In- bzw Outqueue und der Station.
+			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = endStation.getChild("spacing");
 			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
 			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
