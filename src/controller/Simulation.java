@@ -1,5 +1,6 @@
 package controller;
 
+import io.DataCollection;
 import view.SimulationView;
 import io.Factory;
 import io.Statistics;
@@ -45,7 +46,9 @@ public class Simulation {
 	 * 
 	 */
 	private void init(){
-		
+		//reset all data files in DataOutput
+		DataCollection.deleteFiles();
+
 		//create all stations and customers for the starting scenario out of XML
 		Factory.createStartScenario();
 				

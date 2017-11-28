@@ -41,6 +41,9 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
 
     }
 
+    /**
+     * when notified, updates the stationtype of one additional station if there is one available
+     */
     @Override
     public void update(Observable o, Object arg) {
         MensaStation.MensaStationObservable mensaStationObservable = (MensaStation.MensaStationObservable) o;
@@ -54,6 +57,5 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
                 break;
             }
         }
-        System.out.println("                                                       asdfasdfasdfasdfasdf");
     }
 }

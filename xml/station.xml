@@ -22,24 +22,9 @@
 	<station>
 		<label>Hauptspeise</label>
 		<type>hauptspeise</type>
-		<troughput>6</troughput>
+		<troughput>1</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
-		<operating_costs>0.4</operating_costs>
-		<view>
-			<image>station.png</image>
-		</view>
-		<spacing>
-			<left>40</left>
-			<right>80</right>
-		</spacing>
-	</station>
-	<station>
-		<label>Hauptspeise</label>
-		<type>additional</type>
-		<troughput>6</troughput>
-		<x_position>350</x_position>
-		<y_position>250</y_position>
 		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>
