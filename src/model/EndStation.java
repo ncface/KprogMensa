@@ -113,6 +113,7 @@ public class EndStation extends SimpleStation {
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
 
 			DataCollection.calculateLoss();
+			DataCollection.processOperatingCosts();
 
 			Statistics.show("\n--- Simulation beendet ----");
 

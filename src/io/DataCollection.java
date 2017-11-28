@@ -4,6 +4,7 @@ import model.*;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +17,8 @@ public class DataCollection {
     private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
+    private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
+
 
     private DataCollection(){}
 
@@ -43,7 +46,8 @@ public class DataCollection {
         Map<String, String> headers = new HashMap<>();
         headers.put(filePathLeftEarly, "LeavingTime,Amount");
         headers.put(filePathAdditionalStation,"OpeningTime,StationType");
-        headers.put(filePathMoneyLoss,"Einnahmen,moeglicheEinnahmen,Verlust");
+        headers.put(filePathMoneyLoss,"earnings,possibleEarnings,loss");
+        headers.put(filePathOperatingCosts,"Station,OperatingCosts");
         try {
             for (String filePath: headers.keySet()) {
                 File outPutFile = new File(filePath);
@@ -107,6 +111,23 @@ public class DataCollection {
             e.printStackTrace();
         }
 
+    }
+
+    public static void processOperatingCosts(){
+        try {
+            File outPutFile = new File(filePathOperatingCosts);
+            DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
+            List<Station> stations = Station.getAllStations();
+            for (Station station: stations){
+                if (station instanceof MensaStation){
+                    MensaStation mensaStation = (MensaStation) station;
+                    printWriter.println(mensaStation.getLabel()+","+mensaStation.calculateOperatingCosts());
+                }
+            }
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static int totalAmountAtKasse(){

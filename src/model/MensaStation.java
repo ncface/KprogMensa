@@ -3,6 +3,7 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Observable;
 
 import controller.Simulation;
