@@ -17,6 +17,12 @@ public class StartStation extends SimpleStation {
 
 	/** the station type for every startstation */
 	private static final StationType startStationType = StationType.START;
+
+	/** the total number of available StartStationObjects*/
+	private static final int TOTALNUMBERSTARTSTATIONOBJECTS = 1;
+
+	/** counter for the number of created StartStations Objects*/
+	private static int counterStartStation = 0;
 	
 	/** (private!) Constructor, creates a new start station
 	 * 
@@ -43,10 +49,13 @@ public class StartStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
-	
-		theStartStation = new StartStation(label, inQueue, outQueue, xPos, yPos, image);
-		
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+		if (counterStartStation<TOTALNUMBERSTARTSTATIONOBJECTS) {
+			theStartStation = new StartStation(label, inQueue, outQueue, xPos, yPos, image);
+			counterStartStation++;
+		}else{
+			throw new Exception();
+		}
 	}
 	
 			

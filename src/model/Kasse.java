@@ -2,7 +2,10 @@ package model;
 
 import java.util.*;
 
-
+/**
+ * Class for a Kasse
+ * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ */
 public class Kasse extends MensaStation {
 
     private static int totalWeigth;
@@ -38,13 +41,20 @@ public class Kasse extends MensaStation {
     }
 
     /**
+     * Getter method for the total amount of food
+     * @return totalWeigth
+     */
+    public static int getTotalWeigth() {
+        return totalWeigth;
+    }
+
+    /**
      * @Override handleCustomer of the super class
      * calculates the total weight of food of the customer
      */
     @Override
     protected void handleCustomer(Customer customer) {
         super.handleCustomer(customer);
-        System.out.println("                                    it works");
         Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
         for(int i: amountFood){
             totalWeigth += i;

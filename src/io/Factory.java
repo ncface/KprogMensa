@@ -110,15 +110,18 @@ public class Factory {
     		
     		//create the outqueue
     		SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
-    		    		
+
     		//creating a new StartStation object
     		StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-    	    
-    	
+			StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+
+
     	} catch (JDOMException e) {
 				e.printStackTrace();
 		} catch (IOException e) {
 				e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
      }
 	
@@ -351,6 +354,8 @@ public class Factory {
 				e.printStackTrace();
 		} catch (IOException e) {
 				e.printStackTrace();
+		} catch (Exception e){
+    		e.printStackTrace();
 		}
      }
         

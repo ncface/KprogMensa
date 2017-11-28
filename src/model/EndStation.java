@@ -18,6 +18,15 @@ public class EndStation extends SimpleStation {
 
 	/** the station type for every endstation */
 	private static final StationType endStationType = StationType.ENDE;
+
+	/** the total amount of food wanted of all customers*/
+	private static int totalAmountWantedFood;
+
+	/** the total number of available EndStation objects */
+	private static final int TOTALNUMBERENDSTATIONOBJECTS = 1;
+
+	/** counter for the number of created EndStation objects */
+	private static int counterEndStation = 0;
 	
 	/** (private!) Constructor, creates a new end station
 	 * 
@@ -41,12 +50,25 @@ public class EndStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
-	
-		theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+		if(counterEndStation < TOTALNUMBERENDSTATIONOBJECTS) {
+			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
+			counterEndStation++;
+		}
+		else{
+			throw new Exception();
+		}
 		
 	}
-	
+
+	/**
+	 * Getter method for the total amount of wanted food
+	 * @return totalAmountWantedFood
+	 */
+	public int getTotalAmountWantedFood(){
+		return totalAmountWantedFood;
+	}
+
 	@Override
 	protected boolean work() {
 		
@@ -70,11 +92,14 @@ public class EndStation extends SimpleStation {
 			
 			//  this is a just for fun action, the object gets invisible
 			customer.theView.setVisible(false);
-					
+
+			Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
+			for(int i: amountFood){
+				totalAmountWantedFood += i;
+			}
+
 			//End the simulation if the condition is met
 			endSimulation();
-		
-				
 	}
 	
 	
@@ -83,10 +108,9 @@ public class EndStation extends SimpleStation {
 	 * 
 	 */
 	private void endSimulation(){
-		
 		// Are all objects in the stations outgoing queue, then we are finish
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
-											
+
 		Statistics.show("\n--- Simulation beendet ----");
 												
 		//show some station statistics
