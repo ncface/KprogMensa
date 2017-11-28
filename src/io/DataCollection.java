@@ -29,9 +29,13 @@ public class DataCollection {
      */
     private static void deleteFiles(){
             File outPutFolder = new File(outFolderPath);
-            File[] files = outPutFolder.listFiles();
-            for(File file: files){
-                file.delete();
+            if (outPutFolder.exists()) {
+                File[] files = outPutFolder.listFiles();
+                for (File file : files) {
+                    file.delete();
+                }
+            }else{
+                outPutFolder.mkdir();
             }
     }
 

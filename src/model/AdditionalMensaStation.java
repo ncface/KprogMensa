@@ -57,6 +57,7 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
             if (station.getStationType() == StationType.ADDITIONAL &&
                     station.getLabel().toUpperCase().contains(stationType.toString())) {
                 station.stationType = stationType;
+                ((MensaStation)station).setOpeningTime();
                 DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
                 break;
             }
