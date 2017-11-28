@@ -62,8 +62,12 @@ public class Factory implements FactoryInterface{
 		createEndStation();
 		addObserverToObservable();
 	}
-
+	
+	/**
+	 * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
+	 */
 	private static void addObserverToObservable() {
+		//make list and add all additionalMensaStations
 		List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
 		for(Station station: Station.getAllStations()){
 			if(station.getStationType() == StationType.ADDITIONAL) {
@@ -72,6 +76,7 @@ public class Factory implements FactoryInterface{
 				}
 			}
 		}
+		//add observers to the observable MensaStations when StationTypes matches
 		for(Station station: Station.getAllStations()){
 			for (Station additionalMensaStation: additionalMensaStations){
 				if (additionalMensaStation.getLabel().toUpperCase().contains(station.getStationType().toString())){
@@ -220,7 +225,7 @@ public class Factory implements FactoryInterface{
 					double stdDeviance = 4;
 					Random rand = new Random();
 					int frustrationLimit = 0;
-					//generate new limit until value is in range
+					//generate new gauss limit until value is in range
 					do{
 						frustrationLimit = (int) (rand.nextGaussian()* stdDeviance + maxFrustrationLimit);
 					}while(frustrationLimit <= 1 || frustrationLimit >= maxFrustrationLimit);
