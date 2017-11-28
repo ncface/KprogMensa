@@ -11,14 +11,14 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
     /**
      * Constructor, creates a new additional mensa station
      *
-     * @param label                      of the additional mensa station
-     * @param inQueue                    a list of all incoming queues
-     * @param outQueue                   a list of all outgoing queues
-     * @param troughPut                  an additional mensa stations parameter that affects treatment of an object
-     * @param xPos                       x position of the additional mensa station
-     * @param yPos                       y position of the additional mensa station
-     * @param image                      image of the additional mensa station
-     * @param type                       the stationtype of the additional mensa station
+     * @param label of the additional mensa station
+     * @param inQueue a list of all incoming queues
+     * @param outQueue a list of all outgoing queues
+     * @param troughPut an additional mensa stations parameter that affects treatment of an object
+     * @param xPos x position of the additional mensa station
+     * @param yPos y position of the additional mensa station
+     * @param image image of the additional mensa station
+     * @param type the stationtype of the additional mensa station
      * @param operatingCostsPerClockbeat operating costs per clockbeat of the additional mensaStation
      */
     protected AdditionalMensaStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type, double operatingCostsPerClockbeat) {
@@ -27,15 +27,15 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
 
     /** create a new process station and add it to the station list
      *
-     * @param label of the station
+     * @param label of the additional mensa station
      * @param inQueue a list of all incoming queues
      * @param outQueue a list of all outgoing queues
-     * @param troughPut a stations parameter that affects treatment of an object
-     * @param xPos x position of the station
-     * @param yPos y position of the station
-     * @param image image of the station
-     * @param type the stationtype of the station
-     * @param operatingCostsPerClockbeat operating costs per clockbeat of the mensaStation
+     * @param troughPut an additional mensa stations parameter that affects treatment of an object
+     * @param xPos x position of the additional mensa station
+     * @param yPos y position of the additional mensa station
+     * @param image image of the additional mensa station
+     * @param type the stationtype of the additional mensa station
+     * @param operatingCostsPerClockbeat operating costs per clockbeat of the additional mensaStation
      */
     public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue , double troughPut, int xPos, int yPos,
                               String image, StationType type, double operatingCostsPerClockbeat){
@@ -49,16 +49,24 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
      */
     @Override
     public void update(Observable o, Object arg) {
+        //get the observable object
         MensaStation.MensaStationObservable mensaStationObservable = (MensaStation.MensaStationObservable) o;
+
+        //get the outer object and the station type
         MensaStation mensaStation = mensaStationObservable.getOuterObject();
         StationType stationType = mensaStation.getStationType();
-        //checks if there is one station which is ADDITIONAL and has a label that contains the stationType of the Observable
+
+        //iterate over all stations and choose station to open
         for (Station station: Station.getAllStations()){
+            //checks if there is one station which is ADDITIONAL and has a label that contains the stationType of the Observable
             if (station.getStationType() == StationType.ADDITIONAL &&
                     station.getLabel().toUpperCase().contains(stationType.toString())) {
                 station.stationType = stationType;
+
+                //set opening time for calculation of the operation costs
                 ((MensaStation)station).setOpeningTime();
                 DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
+                //open only one station
                 break;
             }
         }
