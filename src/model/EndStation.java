@@ -2,6 +2,7 @@ package model;
 
 import java.util.Collection;
 
+import controller.Simulation;
 import io.DataCollection;
 import io.Statistics;
 
@@ -111,6 +112,9 @@ public class EndStation extends SimpleStation {
 	private void endSimulation(){
 		// Are all customers in the stations outgoing queue, then we are finish
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
+
+			//Set the static variable isRunning to false
+			Simulation.isRunning = false;
 
 			// calculate data collection
 			DataCollection.calculateLoss();

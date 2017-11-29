@@ -113,6 +113,9 @@ public class Simulation {
 				try {
 				
 					Thread.sleep(CLOCKBEAT);
+
+					//updates the data collection
+					DataCollection.updateNumberCustomersInQueue();
 					
 					//Increase the global clock
 					clock.incrementAndGet();

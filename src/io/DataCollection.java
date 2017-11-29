@@ -1,5 +1,6 @@
 package io;
 
+import controller.Simulation;
 import model.*;
 
 import java.io.*;
@@ -18,6 +19,7 @@ public class DataCollection {
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
     private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
+    private static final String filePathNumberCustomers = outFolderPath+"DataNumberCustomers.csv";
 
     /**
      * no instance should be created
@@ -56,6 +58,13 @@ public class DataCollection {
         headers.put(filePathAdditionalStation,"OpeningTime,StationType");
         headers.put(filePathMoneyLoss,"earnings,possibleEarnings,loss");
         headers.put(filePathOperatingCosts,"Station,OperatingCosts");
+        String headerNumberCustomer = "Time";
+        for (Station station: Station.getAllStations()){
+            if (station instanceof MensaStation){
+                headerNumberCustomer += "," + station.getLabel();
+            }
+        }
+        headers.put(filePathNumberCustomers,headerNumberCustomer);
         try {
             for (String filePath: headers.keySet()) {
                 File outPutFile = new File(filePath);
@@ -148,6 +157,32 @@ public class DataCollection {
             e.printStackTrace();
         }
     }
+
+    /**
+     * collects the numbers of incoming queue customers of every mensa station
+     */
+    public static void updateNumberCustomersInQueue(){
+        try {
+            if (Simulation.isRunning) {
+                File outPutFile = new File(filePathNumberCustomers);
+                DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
+                List<Station> stations = Station.getAllStations();
+                String info = "" + Simulation.getGlobalTime();
+                for (Station station : stations) {
+                    if (station instanceof MensaStation) {
+                        MensaStation mensaStation = (MensaStation) station;
+                        info += "," + mensaStation.getNumberOfInQueueCustomers();
+                    }
+                }
+                printWriter.println(info);
+                printWriter.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * @return the total weigth sold at Kasse

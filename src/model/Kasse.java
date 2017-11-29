@@ -70,20 +70,32 @@ public class Kasse extends MensaStation {
         }
     }
 
+    /**
+     * checks if the number of in queue customers is too big
+     * @return the number of in queue customers
+     */
     @Override
     protected int numberOfInQueueCustomers(){
         int numberOfInQueueCustomers = this.inComingQueue.size();
         if (numberOfInQueueCustomers>this.stationType.getInQueueLimit()){
+            //number of in queue customers is too big
             startAdditionalKasse();
         }
         return numberOfInQueueCustomers;
     }
 
+    /**
+     * starts an additional kasse if one additional kasse is available
+     */
     private void startAdditionalKasse(){
+        //iterates over all stations
         for (Station station: Station.getAllStations()){
+            //checks if there is one station which is ADDITIONAL and has a label that contains the stationType Kasse
             if (station.getStationType() == StationType.ADDITIONAL &&
                     station.getLabel().toUpperCase().contains(stationType.toString())) {
                 station.stationType = stationType;
+
+                //set opening time for calculation of the operation costs
                 ((MensaStation)station).setOpeningTime();
                 DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
                 //open only one station
