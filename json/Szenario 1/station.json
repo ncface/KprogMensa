@@ -1,8 +1,11 @@
 {
-   "type_limit": {
+   "type_limits":
+   [
+      {
       "type": "Hauptspeise",
       "limit": "5"
-   },
+      }
+   ],
    "station": [
       {
          "label": "Vorspeise",
