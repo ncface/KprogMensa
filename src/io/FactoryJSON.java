@@ -172,15 +172,6 @@ public class FactoryJSON implements FactoryInterface {
         //read the information from the JSON file into the jsonObject
         jsonObject = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
 
-        //read the information from the XML file into a JDOM Document
-        // Document theXMLDoc = new SAXBuilder().build(theStartStationDataFile);
-
-        //the <settings> ... </settings> node
-        //Element root = theXMLDoc.getRootElement();
-
-        //get the start_station into a List object
-        //Element startStation = root.getChild("start_station");
-
         //get the label
         String label = jsonObject.getString("label");
 
@@ -249,7 +240,7 @@ public class FactoryJSON implements FactoryInterface {
                     //cast array to object
                     JSONObject customer = (JSONObject) customerType;
 
-                    //variables for cutsomer generating
+                    //variables for customer generating
                     String label = null;
                     int processtime = 0;
                     int speed = 0;
@@ -266,6 +257,7 @@ public class FactoryJSON implements FactoryInterface {
                     JSONObject viewTag = customer.getJSONObject("view");
                     imagePath = viewTag.getString("image");
 
+                    //get all the stations, where the object wants to go to
                     JSONArray allStations = customer.getJSONArray("sequence");
 
                     //get the elements into a list
@@ -284,7 +276,7 @@ public class FactoryJSON implements FactoryInterface {
                         int theStationMaxWeight = theStation.getInt("max");
                         //add the station to the list where the customer should go
                         stationsToGo.add(theStationType);
-                        //add the weight of the food, the customer shoult take in the stations
+                        //add the weight of the food, the customer should take in the stations
                         weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
                     }
                     //add always EndStation and Kasse as last Station (every customer goes through EndStation last)
@@ -334,7 +326,7 @@ public class FactoryJSON implements FactoryInterface {
             //add the inQueueLimits to the types
             for(Object typeLimit : typeLimits){
                 JSONObject station = (JSONObject) typeLimit;
-                
+
                 //set the limit to of maximum queue size
                 StationType statioType = StationType.parseStationType(station.getString("type"));
                 int limit = station.getInt("limit");
@@ -347,7 +339,7 @@ public class FactoryJSON implements FactoryInterface {
             for (Object station : allStations) {
             	//cast array to station
                 JSONObject mensaStation = (JSONObject) station;
-                
+
                 //variables for customer generating
                 String label;
                 StationType type;

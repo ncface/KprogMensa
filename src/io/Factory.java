@@ -211,7 +211,7 @@ public class Factory implements FactoryInterface{
     		Element root = theXMLDoc.getRootElement();
 
     		//get anzalhDurchlaeufe
-			int anzahlDurchlaeufe = Integer.parseInt(root.getChildText("anzahl_durchlaeufe"));
+			int amountOfToGeneratingCustomersPerType = Integer.parseInt(root.getChildText("anzahl_durchlaeufe"));
 
     		//get all the objects into a List object
     		List <Element> allObjects = root.getChildren("object");
@@ -219,11 +219,11 @@ public class Factory implements FactoryInterface{
     		//the counter for created Customer
 			int counterCustomer = 0;
 
-    		for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
+    		for(int iterations = 0 ; iterations < amountOfToGeneratingCustomersPerType ; iterations++) {
 				//separate every JDOM "object" Element from the list and create Java Customer objects
 				for (Element customer : allObjects) {
 
-					// data variables:
+					//variables for customer generating
 					String label = null;
 					int processtime = 0;
 					int speed = 0;
@@ -261,7 +261,9 @@ public class Factory implements FactoryInterface{
 						StationType theStationType = StationType.parseStationType(theStation.getChild("name").getText());
 						int theStationMinWeight = Integer.valueOf(theStation.getChild("min").getText());
 						int theStationMaxWeight = Integer.valueOf(theStation.getChild("max").getText());
+						//add the station to the list where the customer should go
 						stationsToGo.add(theStationType);
+						//add the weight of the food, the customer should take in the stations
 						weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
 					}
 					//add always EndStation and Kasse as last Station (every customer goes through EndStation last)
