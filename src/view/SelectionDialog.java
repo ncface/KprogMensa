@@ -133,13 +133,11 @@ public final class SelectionDialog extends JDialog implements Runnable{
      * @param path the path of the selected format directory
      */
     public void updateSzenarioSelection(String path) {
-        this.setVisible(false);
         szenarioSelection.clearSelection();
         szenarioSelectionPanel.removeAll();
         createRadioButtons(path);
 
         this.pack();
-        this.setVisible(true);
     }
 
     /**
