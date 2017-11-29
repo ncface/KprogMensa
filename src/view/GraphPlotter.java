@@ -1,12 +1,14 @@
 package view;
 
+import controller.Simulation;
+import model.MensaStation;
+import model.Station;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,6 +49,10 @@ public class GraphPlotter extends JPanel {
 	/** Label for the y axis */
 	private String labelForY;
 
+	private Map<MensaStation, Color> stationColor = new HashMap<>();
+
+	private Color color;
+
 	/**
 	 * List with points to draw. It holds the y coordinates of points. x
 	 * coordinates are spaced
@@ -75,8 +81,11 @@ public class GraphPlotter extends JPanel {
 		f.setSize(this.DEFAULT_FRAME_SIZE_X + PAD, this.DEFAULT_FRAME_SIZE_Y + PAD);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
+		initialise();
 	}
-	
+
+
+
 	/**
 	 * 
 	 * Constructor of this class
@@ -99,13 +108,29 @@ public class GraphPlotter extends JPanel {
 		f.setSize(this.DEFAULT_FRAME_SIZE_X + PAD, this.DEFAULT_FRAME_SIZE_Y + PAD);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
+		initialise();
 	}
 
-	public static void main(String[] args){
-		GraphPlotter plotter = new GraphPlotter(100,100,"Alles","Nichts");
-		plotter.setDataPoint(5);
-		plotter.setDataPoint(10);
-		plotter.add(50);
+	private void initialise() {
+		for(Station station : Station.getAllStations()){
+			if(station instanceof MensaStation) {
+				int r = 0, g = 0, b = 0;
+				b += 64;
+				if (b > 255) {
+					b = 0;
+					g += 64;
+					if (g > 255) {
+						g = 0;
+						r += 64;
+						if (r > 255) {
+							r = 0;
+						}
+					}
+				}
+				stationColor.put((MensaStation)station, new Color(r,g,b));
+			}
+
+		}
 	}
 
 	/** method that draws the points and lines between the points */
@@ -142,7 +167,7 @@ public class GraphPlotter extends JPanel {
 		int y0 = h - PAD;
 
 		// draw the points as little circles
-		g2.setPaint(Color.blue);
+		g2.setPaint(color);
 		for (int i = 0; i < dataPoints.size(); i++) {
 			int x = x0 + (int) (xScale * (i + 1));
 			int y = y0 - (int) (yScale * dataPoints.get(i));
@@ -171,11 +196,14 @@ public class GraphPlotter extends JPanel {
 	 * 
 	 * @param p point to draw (y-coord)
 	 */
-	public void add(int p) {
+	public void add(int p, MensaStation station) {
 		if (getSizeOfDataPoints() > this.maxValueForX) {
 			deleteLastDataPoint();
 		}
 		setDataPoint(p);
+		color = stationColor.get(station);
 		this.repaint();
 	}
+
+
 }
