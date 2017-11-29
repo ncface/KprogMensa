@@ -1,0 +1,14 @@
+{
+   "start_station": {
+      "label": "Start_Station",
+      "x_position": "40",
+      "y_position": "350",
+      "view": {
+         "image": "startstation.png"
+      },
+      "spacing": {
+         "left": "40",
+         "right": "80"
+      }
+   }
+}

@@ -21,22 +21,25 @@ import org.jdom2.input.SAXBuilder;
  * @version 2017-11-28
  */
 public class Factory implements FactoryInterface{
-	
+	private static final String FORMAT_DIRECTORY = "xml/";
+
+	private static String SCENARIO_DIRECTORY;
+
 	/** the objects XML data file */
-	private static String theObjectDataFile = "xml/Szenario 1/customer.xml";
+	private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
 	
 	/** the stations XML data file */
-	private static String theStationDataFile = "xml/Szenario 1/station.xml";
+	private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.xml";
 	
 	/** the start station XML data file */
-	private static String theStartStationDataFile = "xml/Szenario 1/startstation.xml";
+	private static String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.xml";
 	
 	/** the end station XML data file */
-	private static String theEndStationDataFile = "xml/Szenario 1/endstation.xml";
+	private static String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.xml";
 	
 	/** the end station XML data file */
-	private static String theStatisticsDataFile = "xml/Szenario 1/statistics.xml";
-	
+	private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
+
 	/** the x position of the starting station, also position for all starting objects */
 	private static int XPOS_STARTSTATION;
 	
@@ -66,6 +69,17 @@ public class Factory implements FactoryInterface{
 		addObserverToObservable();
 		createDataCollection();
 	}
+
+	/**
+	 * Setter for the scenarioFolder.
+	 * sets only if the scenario folder was not set before
+	 * @param scenario the name of the scenarioFolder
+	 */
+	public static void setScenario(String scenario){
+		if(SCENARIO_DIRECTORY == "") {
+			SCENARIO_DIRECTORY = scenario;
+		}
+	};
 
 	/**
 	 * reads the values for the DataCollection
