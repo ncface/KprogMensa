@@ -50,9 +50,6 @@ public class Simulation {
 	private void init(){
 		SelectionDialog selectionDialog = SelectionDialog.create();
 		String[] selectedFormatAndScenario = selectionDialog.getSelected();
-		//reset all data files in DataOutput
-		DataCollection.prepareDataCollection();
-
 		//create all stations and customers for the starting scenario out of XML or JSON
 		if(selectedFormatAndScenario[0].contains("xml")){
 			Factory.setScenario(selectedFormatAndScenario[1]);
@@ -62,6 +59,9 @@ public class Simulation {
 			FactoryJSON.setScenario(selectedFormatAndScenario[1]);
 			FactoryJSON.createStartScenario();
 		}
+
+		//reset all data files in DataOutput
+		DataCollection.prepareDataCollection();
 				
 		//the view of our simulation
 		new SimulationView();

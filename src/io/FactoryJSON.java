@@ -77,14 +77,19 @@ public class FactoryJSON implements FactoryInterface {
     }
 
     /**
-     * sets the scenariofolder only if it has not been set before
-     * @param scenario the new scenario folder
+     * Setter for the scenarioFolder.
+     * updates the filepaths
+     * @param scenario the name of the scenarioFolder
      */
     public static void setScenario(String scenario){
-        if(SCENARIO_DIRECTORY == ""){
-            SCENARIO_DIRECTORY = scenario;
-        }
-    };
+        SCENARIO_DIRECTORY = scenario;
+        String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
+        theObjectDataFile = path + "customer.json";
+        theStationDataFile = path + "station.json";
+        theStatisticsDataFile = path + "statistics.json";
+        theStartStationDataFile = path + "startstation.json";
+        theEndStationDataFile = path + "endstation.json";
+    }
 
     /**
      * Singleton for a jsonObject.

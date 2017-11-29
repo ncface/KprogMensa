@@ -72,12 +72,18 @@ public class Factory implements FactoryInterface{
 
 	/**
 	 * Setter for the scenarioFolder.
-	 * sets only if the scenario folder was not set before
+	 * updates the filepaths
 	 * @param scenario the name of the scenarioFolder
 	 */
 	public static void setScenario(String scenario){
 			SCENARIO_DIRECTORY = scenario;
-	};
+			String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
+			theObjectDataFile = path + "customer.xml";
+			theStationDataFile = path + "station.xml";
+			theStatisticsDataFile = path + "statistics.xml";
+			theStartStationDataFile = path + "startstation.xml";
+			theEndStationDataFile = path + "endstation.xml";
+	}
 
 	/**
 	 * reads the values for the DataCollection
