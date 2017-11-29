@@ -1,8 +1,8 @@
 /bin/
 /.idea/
 /.settings/
-/.classpath
 /.project
 /.settings/
-.checkstyle
+/.checkstyle
+/.classpath
 /DataOutput/

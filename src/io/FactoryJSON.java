@@ -92,31 +92,28 @@ public class FactoryJSON implements FactoryInterface {
 
     /**
      * Singleton for a jsonObject.
-     *      //If jsonObject is not initialized
      * 	- load json file
      * 	- create new instance of JSON Object
      *
-     * @param theJSONEbayDataFile , json File in which the information is written in
+     * @param theJSONDataFile , json File in which the information is written in
      * @return the JSONObject
      */
-    public static JSONObject loadJSONObject(String theJSONEbayDataFile){
-        //if(jsonObject==null){
-            try {
-                // load the JSON-File into a String
-                FileReader fr = new FileReader(theJSONEbayDataFile);
-                BufferedReader br = new BufferedReader(fr);
-                String json = "";
-                for(String line=""; line!=null; line = br.readLine())
-                    json+=line;
-                br.close();
+    public static JSONObject loadJSONObject(String theJSONDataFile){
+        try {
+            // load the JSON-File into a String
+            FileReader fr = new FileReader(theJSONDataFile);
+            BufferedReader br = new BufferedReader(fr);
+            String json = "";
+            for(String line=""; line!=null; line = br.readLine())
+                json+=line;
+            br.close();
 
-                // create a new JSON Object with the
-                jsonObject = new JSONObject(json);
+            // create a new JSON Object with the
+            jsonObject = new JSONObject(json);
 
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        //}
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         return jsonObject;
     }
 
@@ -132,7 +129,7 @@ public class FactoryJSON implements FactoryInterface {
             //Element root = theXMLDoc.getRootElement();
 
             //get the start_station into a List object
-           // Element startStation = root.getChild("values");
+            // Element startStation = root.getChild("values");
 
             //get the label
             Double pricePerKilo = jsonObject.getDouble("pricePerKilo");
@@ -237,8 +234,8 @@ public class FactoryJSON implements FactoryInterface {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theObjectDataFile);
 
-            //get anzalhDurchlaeufe
-            int anzahlDurchlaeufe = jsonObject.getInt("anzahl_durchlaeufe");
+            //get amountOfToGeneratingCustomersPerType from Json
+            int amountOfToGeneratingCustomersPerType = jsonObject.getInt("anzahl_durchlaeufe");
 
             //iterate through the JSONArray to load single JSON objects into a list
             JSONArray objects = jsonObject.getJSONArray("object");
@@ -246,32 +243,30 @@ public class FactoryJSON implements FactoryInterface {
             //the counter for created Customer
             int counterCustomer = 0;
 
-            for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
+            for(int iterations = 0 ; iterations < amountOfToGeneratingCustomersPerType ; iterations++) {
+            	//iterate over all CustomerTypes
+                for (Object customerType : objects) {
+                    //cast array to object
+                    JSONObject customer = (JSONObject) customerType;
 
-                for (Object customerJOA : objects) {
-                    //das einzelne JSONObject aus dem JSONArray ziehen
-
-                    JSONObject customer = (JSONObject) customerJOA;
-
-
-                    // data variables:
+                    //variables for cutomer generating
                     String label = null;
                     int processtime = 0;
                     int speed = 0;
-                    String image = null;
+                    String imagePath = null;
 
                     // read data
                     label = customer.getString("label");
-                    label += ("_"+counterCustomer); //add an unique identifier to the label of the customer
-                    counterCustomer++;
+                    //add an unique identifier to the label of the customer
+                    label += ("_"+counterCustomer++);
                     processtime = customer.getInt("processtime");
                     speed = customer.getInt("speed");
 
                     //the <view> ... </view> node
-                    JSONObject viewJO = customer.getJSONObject("view");
-                    image = viewJO.getString("image");
+                    JSONObject viewTag = customer.getJSONObject("view");
+                    imagePath = viewTag.getString("image");
 
-                    JSONArray stations = customer.getJSONArray("sequence");
+                    JSONArray allStations = customer.getJSONArray("sequence");
 
                     //get the elements into a list
                     ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
@@ -280,13 +275,16 @@ public class FactoryJSON implements FactoryInterface {
                     stationsToGo.add(StationType.START);
 
                     HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
-                    for (Object theStationJOA : stations) {
-                        JSONObject theStation = (JSONObject) theStationJOA;
+                    for (Object station : allStations) {
+                    	//cast array to object
+                        JSONObject theStation = (JSONObject) station;
 
-                        StationType theStationType = StationType.parseStationType(theStation.getString("name")); //.getText()); weg da schon string erhalten?
-                        int theStationMinWeight = theStation.getInt("min"); //.getText());
-                        int theStationMaxWeight = theStation.getInt("max"); //.getText());
+                        StationType theStationType = StationType.parseStationType(theStation.getString("name"));
+                        int theStationMinWeight = theStation.getInt("min");
+                        int theStationMaxWeight = theStation.getInt("max");
+                        //add the station to the list where the customer should go
                         stationsToGo.add(theStationType);
+                        //add the weight of the food, the customer shoult take in the stations
                         weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
                     }
                     //add always EndStation and Kasse as last Station (every customer goes through EndStation last)
@@ -306,7 +304,7 @@ public class FactoryJSON implements FactoryInterface {
                     }while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
                     //creating a new Customer object
-                    Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
+                    Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, imagePath, weights, frustrationLimit);
 
                 }
             }
