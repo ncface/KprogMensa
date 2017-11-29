@@ -12,6 +12,9 @@ public final class SelectionDialog extends JDialog{
     private final String JSONPath = "json/";
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
+    ButtonGroup formatSelection;
+    private String selectedSzenario;
+    private String selectedFormat;
 
     public static void main(String[] args){create();}
 
@@ -29,18 +32,19 @@ public final class SelectionDialog extends JDialog{
         JPanel main = new JPanel();
         contentPane.add(main);
 
-        main.setLayout(new GridLayout(2,2));
+        main.setLayout(new GridLayout(3,2));
 
         JLabel eingabeFormat = new JLabel("Eingabeformat:");
         JLabel szenario = new JLabel("Szenario:");
 
-        ButtonGroup formatSelection = new ButtonGroup();
+        formatSelection = new ButtonGroup();
         szenarioSelection = new ButtonGroup();
 
         JPanel formatSelectionPanel = new JPanel();
         szenarioSelectionPanel = new JPanel();
 
         JRadioButton JSONButton = new JRadioButton("JSON");
+        JSONButton.setActionCommand(JSONPath);
         JSONButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,6 +55,7 @@ public final class SelectionDialog extends JDialog{
         formatSelectionPanel.add(JSONButton);
 
         JRadioButton XMLButton = new JRadioButton("XML");
+        XMLButton.setActionCommand(XMLPath);
         XMLButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,15 +68,35 @@ public final class SelectionDialog extends JDialog{
 
         createRadioButtons(XMLPath);
 
+        JPanel buttonPanel = new JPanel();
+
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                okClicked();
+            }
+        });
+        buttonPanel.add(okButton);
+
         main.add(eingabeFormat);
         main.add(szenario);
         main.add(formatSelectionPanel);
         main.add(szenarioSelectionPanel);
+        main.add(buttonPanel);
+
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         this.setModal(true);
         this.pack();
         this.setVisible(true);
 
+    }
+
+    public void okClicked() {
+        selectedFormat = formatSelection.getSelection().getActionCommand();
+        selectedSzenario = szenarioSelection.getSelection().getActionCommand();
+        this.dispose();
     }
 
     public void updateSzenarioSelection(String path) {
@@ -91,9 +116,20 @@ public final class SelectionDialog extends JDialog{
         for(File file : allSzenarios){
             String name = file.getName();
             JRadioButton szenarioButton = new JRadioButton(name);
+            szenarioButton.setActionCommand(file.getName() + "/");
             szenarioSelection.add(szenarioButton);
             szenarioSelectionPanel.add(szenarioButton);
             szenarioButton.setSelected(true);
         }
     }
+
+    public String getSelectedSzenario(){
+
+        return selectedSzenario;
+    }
+    public String getSelectedFormat(){
+
+        return selectedFormat;
+    }
+
 }
