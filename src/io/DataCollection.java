@@ -78,7 +78,7 @@ public class DataCollection {
         try {
             File outPutFile = new File(filePathLeftEarly);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
-            int amount = customer.getTotalAmount();
+            int amount = customer.getTotalAmountWantedFood();
             String data = leavingTime + ", " + amount;
             printWriter.println(data);
             printWriter.close();
@@ -153,7 +153,7 @@ public class DataCollection {
      * @return the total weigth sold at Kasse
      */
     private static int totalAmountAtKasse(){
-        return Kasse.getTotalWeigth();
+        return Kasse.getTotalWeigthPaid();
     }
 
     private static int totalAmountAtEndStation(){

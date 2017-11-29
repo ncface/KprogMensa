@@ -33,7 +33,8 @@ public class StartStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station 
 	 */
-	private StartStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
+	private StartStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
+						 String image){
 		
 		super(label, inQueue, outQueue, xPos, yPos, image, startStationType);
 		
@@ -49,7 +50,8 @@ public class StartStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
+							  String image)throws Exception{
 		if (counterStartStation<TOTALNUMBERSTARTSTATIONOBJECTS) {
 			theStartStation = new StartStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterStartStation++;
@@ -62,10 +64,10 @@ public class StartStation extends SimpleStation {
 	@Override
 	protected void handleCustomer(Customer customer){
 				
-		//the object chooses an outgoing queue and enter it
+		//the customer enters the outgoing queue
 		customer.enterOutQueue(this);
 		
-		//let the next objects start with a little delay
+		//let the next customer start with a little delay
 		try {
 			Thread.sleep(Simulation.CLOCKBEAT);
 		} catch (InterruptedException e) {

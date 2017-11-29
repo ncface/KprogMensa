@@ -35,7 +35,7 @@ public class Factory implements FactoryInterface{
 	private static String theEndStationDataFile = "xml/Szenario 1/endstation.xml";
 	
 	/** the end station XML data file */
-	private static String theStatisticsDataFile = "xml/Szenario 0/statistics.xml";
+	private static String theStatisticsDataFile = "xml/Szenario 1/statistics.xml";
 	
 	/** the x position of the starting station, also position for all starting objects */
 	private static int XPOS_STARTSTATION;
@@ -302,6 +302,7 @@ public class Factory implements FactoryInterface{
 			for(Element element:allLimits){
 				StationType type = StationType.parseStationType(element.getChildText("type"));
 				int limit = Integer.parseInt(element.getChildText("limit"));
+				type.setInQueueLimit(limit);
 			}
 
 			//get all the stations into a List object

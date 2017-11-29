@@ -42,7 +42,8 @@ public class SimulationView extends JFrame {
 	 * 
 	 */
 	private void init(){
-		
+
+		//set default window settings
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);

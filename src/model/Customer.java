@@ -55,10 +55,19 @@ import controller.Simulation;
 		private Station actualStation = null;
 
 		/** the different amount of food for the different stations*/
-		private Map<StationType, Integer> foodAmountAtStations;
+		private Map<StationType, Integer> customerFoodAmountAtStationsWanted;
 		
 		/** the instance of our static inner Measurement class*/ 
 		Measurement measurement = new Measurement();
+
+		/** the amount of time the customer waits without frustration */
+		private final int LOWERLIMITWAITINGTIME = 10;
+		/** the amount of time the customer waits after which the frustration doesn´t increase anymore */
+		private final int UPPERLIMITWAITINGTIME = 30;
+		/** the number of persons in the waiting queue in front of the customer, the customer accepts with a frustration = 0 */
+		private final int LOWERLIMITPERSONS = 10;
+		/** the number of persons in the waiting queue in front of this customer, that don´t increase the frustration */
+		private final int UPPERLIMITPERSONS = 30;
 		
 				
 		/** (private!) Constructor, creates a new customer model and send it to the start station
@@ -70,9 +79,9 @@ import controller.Simulation;
 		 * @param xPos x position of the customer
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
-		 * @param foodAmountAtStations the amount of food at the different mensastations
+		 * @param customerFoodAmountAtStationsWanted the amount of food at the different mensastations
 		 */
-		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStations, int frustrationLimit){
+		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
 			super(label, xPos, yPos);
 			
 			waitingTime = 0;
@@ -88,7 +97,7 @@ import controller.Simulation;
 			this.mySpeed = speed;
 			this.frustrationLimit = frustrationLimit;
 			
-			this.foodAmountAtStations = foodAmountAtStations;
+			this.customerFoodAmountAtStationsWanted = customerFoodAmountAtStationsWanted;
 						
 			//the first station to go to is the start station
 			Station station = this.getNextStation();
@@ -109,18 +118,19 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos, String image, Map<StationType,Integer> foodAmountAtStation, int frustrationLimit){
+		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos,
+								  String image, Map<StationType,Integer> foodAmountAtStation, int frustrationLimit){
 				
 			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
 				
 		}
 
 		/**
-		 * a getter method for the foodAmountAtStations
-		 * @return foodAmountAtStations
+		 * a getter method for the customerFoodAmountAtStationsWanted
+		 * @return customerFoodAmountAtStationsWanted
 		 */
-		public Map<StationType, Integer> getFoodAmountAtStations() {
-			return foodAmountAtStations;
+		public Map<StationType, Integer> getCustomerFoodAmountAtStationsWanted() {
+			return customerFoodAmountAtStationsWanted;
 		}
 
 		/** Choose the next station with the shortest inQueue to go to
@@ -143,7 +153,7 @@ import controller.Simulation;
 				if(stationType == station.getStationType()) possibleStations.add(station);
 			}
 
-			//the number of possiblestations
+			//the number of possible stations
 			int numberPossibleStations = possibleStations.size();
 
 			//looking for the station with the shortes inQueue
@@ -152,6 +162,7 @@ import controller.Simulation;
 			else{
 				Station stationWithShortestInQueue = possibleStations.get(0);
 				for (Station station: possibleStations) {
+					//choose station with shortest inQueue
 					if (station.numberOfInQueueCustomers() < stationWithShortestInQueue.numberOfInQueueCustomers()) {
 						stationWithShortestInQueue = station;
 					}
@@ -167,22 +178,23 @@ import controller.Simulation;
 		 */
 		private void enterInQueue(Station station){
 			SynchronizedQueue inQueue = station.getInQueue();
-			inQueue.offer(this);
-			//set actual station to the just entered station
-			this.actualStation = station;
-			updateProcessTime();
+			if(inQueue.offer(this)) {
+				//set actual station to the just entered station
+				this.actualStation = station;
+				updateProcessTime();
+			}
 		}
 
 		/**
 		 * updates the processtime at the actual station according to the amount of food.
-		 *
 		 */
 		private void updateProcessTime(){
-			StationType stationType = actualStation.getStationType();
-			if(foodAmountAtStations.containsKey(stationType)) {
-				int amountFoodInGram = foodAmountAtStations.get(stationType);
+			StationType stationTypeWantedFood = actualStation.getStationType();
+			if(customerFoodAmountAtStationsWanted.containsKey(stationTypeWantedFood)) {
+				int amountFoodInGram = customerFoodAmountAtStationsWanted.get(stationTypeWantedFood);
 				//convert the amountFoodInGram in amountFoodInKilogram
 				double amountFoodInKilogram = amountFoodInGram / 1000.0;
+				//calculate the process time
 				this.processTime = (int) (INITIALPROCESSTIME * (1 + amountFoodInKilogram));
 			}
 			else{
@@ -191,8 +203,8 @@ import controller.Simulation;
 		}
 
 
-		/** Chooses a suited outgoing queue of the given station and enter it
-		 * 
+		/**
+		 * Chooses the outgoing queue of the given station and enter it
 		 * @param station the station from where the queue should be chosen
 		 */
 		protected void enterOutQueue(Station station){
@@ -202,15 +214,15 @@ import controller.Simulation;
 
 		/**
 		 * Getter method for the total amount of food the customer would like to buy
-		 * @return the total amount
+		 * @return the total amount of food wanted
 		 */
-		public int getTotalAmount(){
-			Collection<Integer> amounts = foodAmountAtStations.values();
-			int totalAmount = 0;
-			for (int amount: amounts){
-				totalAmount += amount;
+		public int getTotalAmountWantedFood(){
+			Collection<Integer> amountsWantedFood = customerFoodAmountAtStationsWanted.values();
+			int totalAmountWantedFood = 0;
+			for (int amount: amountsWantedFood){
+				totalAmountWantedFood += amount;
 			}
-			return totalAmount;
+			return totalAmountWantedFood;
 		}
 
 
@@ -229,9 +241,7 @@ import controller.Simulation;
 			if(station == null)return false;
 					
 			//let the customer move to the chosen station
-			
 			Statistics.show(this.getLabel() + " geht zur " + station.getLabel());
-			
 			//while target is not achieved 
 			while (!(station.getXPos() == this.xPos && station.getYPos() == this.yPos)) {
 				
@@ -264,9 +274,6 @@ import controller.Simulation;
 									
 			//work is done
 			return false;
-			
-			
-					
 		}
 		
 		/**
@@ -280,8 +287,8 @@ import controller.Simulation;
 			
 		}
 		
-		/**Print some statistics
-		 * 
+		/**
+		 * Print some statistics
 		 */
 		public void printStatistics() {
 			
@@ -298,20 +305,14 @@ import controller.Simulation;
 		 */
 		public boolean leavesEarly(int personsInFrontOfThis){
 			waitingTime++;
-			//the amount of time the customer waits without frustration
-			final int LOWERLIMITWAITINGTIME = 10;
-			//the amount of time the customer waits after which the frustration doesn´t increase anymore
-			final int UPPERLIMITWAITINGTIME = 30;
-			//the number of persons in the waiting queue in front of the customer, the customer accepts with a frustration = 0
-			final int LOWERLIMITPERSONS = 10;
-			//the number of persons in the waiting queue in front of this customer, that don´t increase the frustration
-			final int UPPERLIMITPERSONS = 30;
 
-			int frustration = (int)(calculateFrustrationByWaitingTime(LOWERLIMITWAITINGTIME, UPPERLIMITWAITINGTIME, waitingTime)/
-					calculateFrustrationByPersonsInFrontOfThis(LOWERLIMITPERSONS, UPPERLIMITPERSONS, personsInFrontOfThis));
+			int frustration = (int)(calculateFrustrationByWaitingTime(waitingTime)/
+					calculateFrustrationByPersonsInFrontOfThis(personsInFrontOfThis));
 
 			if (frustration>frustrationLimit){
-				stationsToGo.set(stationListPointer, StationType.ENDE); //set the next station as endstation
+				//set the next station as endstation
+				stationsToGo.set(stationListPointer, StationType.ENDE);
+				//write in data collection
 				DataCollection.customerLeftEarly(this, Simulation.getGlobalTime());
 				return true;
 			}
@@ -319,38 +320,12 @@ import controller.Simulation;
 		}
 
 		/**
-		 * calculates a frustration value based on the persons in front of this person in the waiting Queue
-		 * the frustration can have values between 0 and 2
-		 * @param LOWERLIMITPERSONS the lower limit of persons in front of this person
-		 * @param UPPERLIMITPERSONS the upper limit of persons in front of this
-		 * @param personsInFrontOfThis the number of persons in front of this
-		 * @return a frustration value based on the persons in front of this one between 0 and 2
-		 */
-		private double calculateFrustrationByPersonsInFrontOfThis(final int LOWERLIMITPERSONS, final int UPPERLIMITPERSONS, int personsInFrontOfThis){
-			double frustration = 0;
-			//normiert den Frustrationswert auf 2
-			final double NORMIERUNG = UPPERLIMITPERSONS / 2;
-			if(personsInFrontOfThis <= LOWERLIMITPERSONS){
-				frustration = 0;
-			}
-			else if(personsInFrontOfThis > LOWERLIMITPERSONS && personsInFrontOfThis <= UPPERLIMITPERSONS){
-				frustration = (personsInFrontOfThis - LOWERLIMITPERSONS)/NORMIERUNG;
-			}
-			else if(personsInFrontOfThis > UPPERLIMITPERSONS){
-				frustration = 2;
-			}
-			return frustration;
-		}
-
-		/**
 		 * Calculates the frustration caused by the waitingTime of the Customer
 		 * the frustration can have values between 0 and 5
-		 * @param LOWERLIMITWAITINGTIME the lower limit of the waiting time accepted by a customer
-		 * @param UPPERLIMITWAITINGTIME the upper limit of the waiting time accepted by the customer
 		 * @param waitingTime the waiting time of the customer
 		 * @return a frustration value between 0 and 5
 		 */
-		private double calculateFrustrationByWaitingTime(final int LOWERLIMITWAITINGTIME, final int UPPERLIMITWAITINGTIME, int waitingTime){
+		private double calculateFrustrationByWaitingTime(int waitingTime){
 			double frustration = 0;
 			//normiert den frustrationswert auf maximal 5
 			final double NORMIERUNG = UPPERLIMITWAITINGTIME/5;
@@ -366,6 +341,27 @@ import controller.Simulation;
 			return frustration;
 		}
 
+		/**
+		 * calculates a frustration value based on the persons in front of this person in the waiting Queue
+		 * the frustration can have values between 0 and 2
+		 * @param personsInFrontOfThis the number of persons in front of this
+		 * @return a frustration value based on the persons in front of this one between 0 and 2
+		 */
+		private double calculateFrustrationByPersonsInFrontOfThis(int personsInFrontOfThis){
+			double frustration = 0;
+			//normiert den Frustrationswert auf maximal 2
+			final double NORMIERUNG = UPPERLIMITPERSONS / 2;
+			if(personsInFrontOfThis <= LOWERLIMITPERSONS){
+				frustration = 0;
+			}
+			else if(personsInFrontOfThis > LOWERLIMITPERSONS && personsInFrontOfThis <= UPPERLIMITPERSONS){
+				frustration = (personsInFrontOfThis - LOWERLIMITPERSONS)/NORMIERUNG;
+			}
+			else if(personsInFrontOfThis > UPPERLIMITPERSONS){
+				frustration = 2;
+			}
+			return frustration;
+		}
 
 		/** Get all customers
 		 * 

@@ -6,7 +6,7 @@ import io.DataCollection;
 import io.Statistics;
 
 /**
- * Class for the end station. This is the last station where all objects are collected
+ * Class for the end station. This is the last station where all customers are collected
  * 
  * @author Jaeger, Schmidt
  * @version 2017-10-26
@@ -18,7 +18,7 @@ public class EndStation extends SimpleStation {
 	private static EndStation theEndStation;
 
 	/** the station type for every endstation */
-	private static final StationType endStationType = StationType.ENDE;
+	private static final StationType ENDSTATIONTYPE = StationType.ENDE;
 
 	/** the total amount of food wanted of all customers*/
 	private static int totalAmountWantedFood;
@@ -39,7 +39,7 @@ public class EndStation extends SimpleStation {
 	 * @param image image of the station  
 	 */
 	private EndStation(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image){
-		super(label, inQueue, outQueue, xPos, yPos, image, endStationType);
+		super(label, inQueue, outQueue, xPos, yPos, image, ENDSTATIONTYPE);
 	}
 	
 	/** creates a new end station
@@ -52,7 +52,7 @@ public class EndStation extends SimpleStation {
 	 * @param image image of the station  
 	 */
 	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
-		if(counterEndStation < TOTALNUMBERENDSTATIONOBJECTS) {
+		if(counterEndStation<TOTALNUMBERENDSTATIONOBJECTS) {
 			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterEndStation++;
 		}
@@ -94,7 +94,8 @@ public class EndStation extends SimpleStation {
 			//  this is a just for fun action, the object gets invisible
 			customer.theView.setVisible(false);
 
-			Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
+			// add the amount of wanted food of the customer to the total, global amount of wanted food
+			Collection<Integer> amountFood = customer.getCustomerFoodAmountAtStationsWanted().values();
 			for(int i: amountFood){
 				totalAmountWantedFood += i;
 			}
@@ -104,14 +105,14 @@ public class EndStation extends SimpleStation {
 	}
 	
 	
-	/** End the simulation if the condition is met
-	 *
-	 * 
+	/**
+	 * End the simulation if the condition is met
 	 */
 	private void endSimulation(){
-		// Are all objects in the stations outgoing queue, then we are finish
+		// Are all customers in the stations outgoing queue, then we are finish
 		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
 
+			// calculate data collection
 			DataCollection.calculateLoss();
 			DataCollection.processOperatingCosts();
 

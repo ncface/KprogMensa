@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Kasse extends MensaStation {
 
-    private static int totalWeigth;
+    private static int totalWeigthPaid;
 
     /**
      * Constructor, creates a new Kasse
@@ -21,8 +21,10 @@ public class Kasse extends MensaStation {
      * @param yPos      y position of the station
      * @param image     image of the station
      * @param type      the stationtype of the station
+     * @param operatingCostsPerClockbeat the operating costs per clockbeat
      */
-    protected Kasse(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type, double operatingCostsPerClockbeat) {
+    protected Kasse(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos,
+                    String image, StationType type, double operatingCostsPerClockbeat) {
         super(label, inQueue, outQueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
     }
 
@@ -36,17 +38,19 @@ public class Kasse extends MensaStation {
      * @param yPos      y position of the station
      * @param image     image of the station
      * @param type      the stationtype of the station
+     * @param operatingCostsPerClockbeat the operating costs per clockbeat
      */
-    public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos, String image, StationType type, double operatingCostsPerClockbeat){
+    public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, double troughPut, int xPos, int yPos,
+                              String image, StationType type, double operatingCostsPerClockbeat){
         new Kasse(label, inQueue, outQueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
     }
 
     /**
      * Getter method for the total amount of food
-     * @return totalWeigth
+     * @return totalWeigthPaid
      */
-    public static int getTotalWeigth() {
-        return totalWeigth;
+    public static int getTotalWeigthPaid() {
+        return totalWeigthPaid;
     }
 
     /**
@@ -56,9 +60,10 @@ public class Kasse extends MensaStation {
     @Override
     protected void handleCustomer(Customer customer) {
         super.handleCustomer(customer);
-        Collection<Integer> amountFood = customer.getFoodAmountAtStations().values();
-        for(int i: amountFood){
-            totalWeigth += i;
+        // get all amounts of food the cusotmer buys
+        Collection<Integer> amountFoodToPay = customer.getCustomerFoodAmountAtStationsWanted().values();
+        for(int i: amountFoodToPay){
+            totalWeigthPaid += i;
         }
     }
 }

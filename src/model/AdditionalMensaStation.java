@@ -51,11 +51,9 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
     public void update(Observable o, Object arg) {
         //get the observable object
         MensaStation.MensaStationObservable mensaStationObservable = (MensaStation.MensaStationObservable) o;
-
         //get the outer object and the station type
         MensaStation mensaStation = mensaStationObservable.getOuterObject();
         StationType stationType = mensaStation.getStationType();
-
         //iterate over all stations and choose station to open
         for (Station station: Station.getAllStations()){
             //checks if there is one station which is ADDITIONAL and has a label that contains the stationType of the Observable
@@ -66,6 +64,7 @@ public class AdditionalMensaStation extends MensaStation implements Observer{
                 //set opening time for calculation of the operation costs
                 ((MensaStation)station).setOpeningTime();
                 DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
+                mensaStationObservable.deleteObserver((AdditionalMensaStation)station);
                 //open only one station
                 break;
             }

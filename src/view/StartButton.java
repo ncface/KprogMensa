@@ -34,7 +34,7 @@ public class StartButton extends JButton implements ActionListener{
 		//set the simulation on
 		Simulation.isRunning = true;
 
-		//set the opening time of all MensaStation which are not additional
+		//set the opening time of all MensaStations which are not additional
 		for (Station station: Station.getAllStations()){
 			if (station instanceof MensaStation && !(station instanceof AdditionalMensaStation)){
 				((MensaStation) station).setOpeningTime();

@@ -8,9 +8,13 @@ package model;
 public enum StationType {
     VORSPEISE(0), HAUPTSPEISE(0), NACHSPEISE(0), KASSE(0), DEFAULT(0), START(0), ENDE(0), ADDITIONAL(0);
 
-
+    /** the limit for customers in the incoming queue before opening an additional station*/
     private int inQueueLimit;
 
+    /**
+     * set incoming queue limit for the station types
+     * @param inQueueLimit the incoming queue limit
+     */
     StationType(int inQueueLimit){
         this.inQueueLimit = inQueueLimit;
     }
@@ -27,6 +31,7 @@ public enum StationType {
                 return type;
             }
         }
+        //creates type even if there is no matching string
         return DEFAULT;
     }
 

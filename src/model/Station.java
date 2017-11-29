@@ -16,9 +16,8 @@ public abstract class Station extends Actor {
 		
 	/** list of all stations */
 	protected static ArrayList<Station> allStations = new ArrayList<Station>();
-    /**
-     * a parameter that describes the Type of this Station
-     */
+
+     /** the Type of this Station */
     protected StationType stationType;
 
     /** the view of the station */
@@ -59,8 +58,9 @@ public abstract class Station extends Actor {
 				
 		//If there is an customer in the out queue -> wake it up
 		if(numberOfOutQueueCustomers() > 0){
-			
-			Customer myCustomer = (Customer) this.getNextOutQueueCustomer();//get the customer
+
+			//get the customer
+			Customer myCustomer = (Customer) this.getNextOutQueueCustomer();
 			
 			//instruct the customer to move to the next station
 			myCustomer.wakeUp();
@@ -144,13 +144,13 @@ public abstract class Station extends Actor {
 	protected abstract Collection<Customer> getNextOutQueueCustomers();
 	
 		
-	/** Get all incoming queues
+	/** Get the incoming queue
 	 * 
 	 */
 	public abstract SynchronizedQueue getInQueue();
 	
 	
-	/** Get all outgoing queues
+	/** Get the outgoing queue
 	 * 
 	 */
 	public abstract SynchronizedQueue getOutQueue();

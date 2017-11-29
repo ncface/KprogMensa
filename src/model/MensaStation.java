@@ -16,19 +16,19 @@ import controller.Simulation;
  */
 public class MensaStation extends Station {
 	
-	/** a list of all incoming queues*/
+	/** the incoming queue*/
 	protected SynchronizedQueue inComingQueue;
 	
-	/** a list of all outgoing queues*/
+	/** the outgoing queue*/
 	protected SynchronizedQueue outGoingQueue;
 		
-	/** a parameter that affects the speed of the treatment for an object */
+	/** a parameter that affects the speed of the treatment for an customer */
 	protected double troughPut;
 
 	/** the instance of our static inner Measurement class*/
 	Measurement measurement = new Measurement();
 
-	/** the operating kosts of the MensaStation per clockbeat*/
+	/** the operating costs of the MensaStation per clockbeat*/
 	private double operatingCostsPerClockbeat;
 
 	/** the opening time of the MensaStation*/
@@ -102,9 +102,11 @@ public class MensaStation extends Station {
 	protected boolean work() {
 		boolean work = super.work();
 		Object [] allInQueueCostumer = inComingQueue.toArray();
+		// search for customers who want to leave early
 		for(int i=0; i<allInQueueCostumer.length; i++){
 			Customer waitingCostumer =  (Customer) allInQueueCostumer[i];
 			if (waitingCostumer.leavesEarly(i)){
+				//when customer leaves early
 				waitingCostumer.wakeUp();
 				inComingQueue.remove(waitingCostumer);
 				Statistics.show(waitingCostumer.getLabel()+" geht entnervt");
@@ -117,9 +119,9 @@ public class MensaStation extends Station {
 	@Override
 	protected int numberOfInQueueCustomers(){
 		int numberOfInQueueCustomers = this.inComingQueue.size();
+		//notify additionalMensaStations when inQueue too long
 		if (numberOfInQueueCustomers>this.stationType.getInQueueLimit()){
 			mensaStationObservable.notifyObservers();
-			//mensaStationObservable.deleteObservers();
 		}
 		return numberOfInQueueCustomers;
 		

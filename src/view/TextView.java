@@ -27,7 +27,8 @@ public abstract class TextView extends JLabel {
 	protected TextView(String text, int xPos, int yPos){
 		
 		super();
-		
+
+		//set values for the jlabel
 		this.setSize(width, height);
 		this.setBorder(LineBorder.createBlackLineBorder());
 		this.setHorizontalAlignment(CENTER);

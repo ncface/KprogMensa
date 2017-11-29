@@ -2,7 +2,7 @@
 <settings>
 	<type_limit>
 		<type>Hauptspeise</type>
-		<limit>5</limit>
+		<limit>10</limit>
 	</type_limit>
 	<station>
 		<label>Vorspeise</label>
