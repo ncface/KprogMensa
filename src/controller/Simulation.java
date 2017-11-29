@@ -4,7 +4,7 @@ import io.DataCollection;
 import view.SelectionDialog;
 import io.FactoryJSON;
 import view.SimulationView;
-import io.Factory;
+import io.FactoryXML;
 import io.Statistics;
 import java.util.concurrent.atomic.AtomicLong;
 import model.Actor;
@@ -52,8 +52,8 @@ public class Simulation {
 		String[] selectedFormatAndScenario = selectionDialog.getSelected();
 		//create all stations and customers for the starting scenario out of XML or JSON
 		if(selectedFormatAndScenario[0].contains("xml")){
-			Factory.setScenario(selectedFormatAndScenario[1]);
-			Factory.createStartScenario();
+			FactoryXML.setScenario(selectedFormatAndScenario[1]);
+			FactoryXML.createStartScenario();
 		}
 		else if(selectedFormatAndScenario[0].contains("json")){
 			FactoryJSON.setScenario(selectedFormatAndScenario[1]);

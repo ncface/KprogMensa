@@ -340,7 +340,7 @@ public class FactoryJSON implements FactoryInterface {
             	//cast array to station
                 JSONObject mensaStation = (JSONObject) station;
 
-                //variables for customer generating
+                //variables for station generating
                 String label;
                 StationType type;
                 double troughPut;
@@ -415,14 +415,14 @@ public class FactoryJSON implements FactoryInterface {
             //get label
             String label = jsonObject.getString("label");
 
-            //position
+            //get position
             int xPos = Integer.parseInt(jsonObject.getString("x_position"));
             int yPos = Integer.parseInt(jsonObject.getString("y_position"));
 
             //the <view> ... </view> node
-            JSONObject viewJO = jsonObject.getJSONObject("view");
+            JSONObject viewNode = jsonObject.getJSONObject("view");
             // the image
-            String image = viewJO.getString("image");
+            String imagePath = viewNode.getString("image");
 
             //reads spacing and gets later the left and right side spacing from it
             //the <view> ... </view> node
@@ -448,7 +448,7 @@ public class FactoryJSON implements FactoryInterface {
             SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
             //creating a new EndStation object
-            EndStation.create(label, theInQueue, theOutQueue, xPos, yPos, image);
+            EndStation.create(label, theInQueue, theOutQueue, xPos, yPos, imagePath);
 
 
         } catch (JSONException e) {
