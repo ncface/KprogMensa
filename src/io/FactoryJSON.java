@@ -24,21 +24,23 @@ import org.json.JSONObject;
  * @version 2017-11-28
  */
 public class FactoryJSON implements FactoryInterface {
+    private static final String FORMAT_DIRECTORY = "json/";
 
+    private static String SCENARIO_DIRECTORY = "Scenario 1/";
     /** the objects JSON data file */
-    private static String theObjectDataFile = "json/customer.json";
+    private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
 
     /** the stations JSON data file */
-    private static String theStationDataFile = "json/station.json";
+    private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.json";
 
     /** the start station JSON data file */
-    private static String theStartStationDataFile = "json/startstation.json";
+    private static String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.json";
 
     /** the end station JSON data file */
-    private static String theEndStationDataFile = "json/endstation.json";
+    private static String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.json";
 
     /** the end station XML data file */
-    private static String theStatisticsDataFile = "json/statistics.xml";
+    private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
     private static JSONObject jsonObject;
@@ -73,6 +75,16 @@ public class FactoryJSON implements FactoryInterface {
         createDataCollection();
 
     }
+
+    /**
+     * sets the scenariofolder only if it has not been set before
+     * @param scenario the new scenario folder
+     */
+    public static void setScenario(String scenario){
+        if(SCENARIO_DIRECTORY == ""){
+            SCENARIO_DIRECTORY = scenario;
+        }
+    };
 
     /**
      * Singleton for a jsonObject.
