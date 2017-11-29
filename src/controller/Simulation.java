@@ -1,6 +1,7 @@
 package controller;
 
 import io.DataCollection;
+import view.SelectionDialog;
 import view.SimulationView;
 import io.Factory;
 import io.Statistics;
@@ -46,6 +47,8 @@ public class Simulation {
 	 * 
 	 */
 	private void init(){
+		SelectionDialog selectionDialog = SelectionDialog.create();
+		String selectedFormatAndScenario = selectionDialog.getSelected();
 		//reset all data files in DataOutput
 		DataCollection.prepareDataCollection();
 

@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public final class SelectionDialog extends JDialog{
+public final class SelectionDialog extends JDialog implements Runnable{
     private static SelectionDialog selectionDialog = new SelectionDialog();
     private final String XMLPath = "xml/";
     private final String JSONPath = "json/";
@@ -15,8 +17,7 @@ public final class SelectionDialog extends JDialog{
     ButtonGroup formatSelection;
     private String selectedSzenario;
     private String selectedFormat;
-
-    public static void main(String[] args){create();}
+    private Lock lock = new ReentrantLock();
 
     public static SelectionDialog create() {
         return selectionDialog;
@@ -96,6 +97,9 @@ public final class SelectionDialog extends JDialog{
     public void okClicked() {
         selectedFormat = formatSelection.getSelection().getActionCommand();
         selectedSzenario = szenarioSelection.getSelection().getActionCommand();
+        synchronized (lock){
+            lock.notify();
+        }
         this.dispose();
     }
 
@@ -123,13 +127,20 @@ public final class SelectionDialog extends JDialog{
         }
     }
 
-    public String getSelectedSzenario(){
+    public String getSelected(){
+        Thread thread = new Thread(this,"thread1");
+        thread.start();
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (Exception e) {
+            }
+        }
 
-        return selectedSzenario;
+        return selectedFormat + selectedSzenario;
     }
-    public String getSelectedFormat(){
 
-        return selectedFormat;
-    }
+    public void run(){}
+
 
 }
