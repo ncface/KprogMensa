@@ -49,16 +49,17 @@ public class Simulation {
 	 */
 	private void init(){
 		SelectionDialog selectionDialog = SelectionDialog.create();
-		String selectedFormatAndScenario = selectionDialog.getSelected();
+		String[] selectedFormatAndScenario = selectionDialog.getSelected();
 		//reset all data files in DataOutput
 		DataCollection.prepareDataCollection();
 
 		//create all stations and customers for the starting scenario out of XML or JSON
-		if(selectedFormatAndScenario.contains("xml")){
+		if(selectedFormatAndScenario[0].contains("xml")){
+			Factory.setScenario(selectedFormatAndScenario[1]);
 			Factory.createStartScenario();
-			Factory.setScenario("");
 		}
-		else if(selectedFormatAndScenario.contains("json")){
+		else if(selectedFormatAndScenario[0].contains("json")){
+			FactoryJSON.setScenario(selectedFormatAndScenario[1]);
 			FactoryJSON.createStartScenario();
 		}
 				
