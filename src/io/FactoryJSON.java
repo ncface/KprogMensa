@@ -249,7 +249,7 @@ public class FactoryJSON implements FactoryInterface {
                     //cast array to object
                     JSONObject customer = (JSONObject) customerType;
 
-                    //variables for cutomer generating
+                    //variables for cutsomer generating
                     String label = null;
                     int processtime = 0;
                     int speed = 0;
@@ -328,32 +328,27 @@ public class FactoryJSON implements FactoryInterface {
             jsonObject = loadJSONObject(theStationDataFile);
 
             //load all JSONObjects from "station" into a JSONArray
-            JSONArray limits = jsonObject.getJSONArray("type_limits");
+            JSONArray typeLimits = jsonObject.getJSONArray("type_limits");
 
 
             //add the inQueueLimits to the types
-            for(Object stationJOA : limits){
-                JSONObject station = (JSONObject) stationJOA;
-
-                StationType type = StationType.parseStationType(station.getString("type"));
+            for(Object typeLimit : typeLimits){
+                JSONObject station = (JSONObject) typeLimit;
+                
+                //set the limit to of maximum queue size
+                StationType statioType = StationType.parseStationType(station.getString("type"));
                 int limit = station.getInt("limit");
-                type.setInQueueLimit(limit);
+                statioType.setInQueueLimit(limit);
             }
 
-            //List <JSONObject> allStations = new ArrayList<>();
-
             JSONArray allStations = jsonObject.getJSONArray("station");
-            /**for(Object objectIterator : stations)
-            {
-                JSONObject jo = (JSONObject) objectIterator;
-                allStations.add(jo);
-            }*/
 
             //separate every JDOM "station" Element from the list and create Java Station objects
-            for (Object mensaStationJOA : allStations) {
-
-                JSONObject mensaStation = (JSONObject) mensaStationJOA;
-                // data variables:
+            for (Object station : allStations) {
+            	//cast array to station
+                JSONObject mensaStation = (JSONObject) station;
+                
+                //variables for customer generating
                 String label;
                 StationType type;
                 double troughPut;
