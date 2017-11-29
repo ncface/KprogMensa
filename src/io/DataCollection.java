@@ -17,6 +17,8 @@ public class DataCollection {
     private static PrintWriter printWriter;
     private static double price;
     private static GraphPlotter plotter = new GraphPlotter(1000,40,"Queue length","time");
+    private static int numberCalled = 0;
+    private static int plotWhenReached = 10;
     private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
@@ -173,10 +175,13 @@ public class DataCollection {
                 for (Station station : stations) {
                     if (station instanceof MensaStation) {
                         MensaStation mensaStation = (MensaStation) station;
-                        plotter.add(mensaStation.getNumberOfInQueueCustomers(),mensaStation);
+                        if(numberCalled % plotWhenReached == 0) {
+                            plotter.add(mensaStation.getNumberOfInQueueCustomers(), mensaStation);
+                        }
                         info += "," + mensaStation.getNumberOfInQueueCustomers();
                     }
                 }
+                numberCalled++;
                 printWriter.println(info);
                 printWriter.close();
             }

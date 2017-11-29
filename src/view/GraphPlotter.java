@@ -32,7 +32,7 @@ public class GraphPlotter extends JPanel {
 	/** Padding to Frame */
 	private final int PAD = 30;
 	/** Radius of dot */
-	private final int DOT_RADIUS = 3;
+	private final int DOT_RADIUS = 1;
 	/** Padding of label */
 	private final int LABEL_PAD = 10;
 	/** Height of label */
