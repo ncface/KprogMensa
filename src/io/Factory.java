@@ -302,6 +302,7 @@ public class Factory implements FactoryInterface{
 			for(Element element:allLimits){
 				StationType type = StationType.parseStationType(element.getChildText("type"));
 				int limit = Integer.parseInt(element.getChildText("limit"));
+				type.setInQueueLimit(limit);
 			}
 
 			//get all the stations into a List object
