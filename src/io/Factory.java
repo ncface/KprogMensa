@@ -23,7 +23,7 @@ import org.jdom2.input.SAXBuilder;
 public class Factory implements FactoryInterface{
 	private static final String FORMAT_DIRECTORY = "xml/";
 
-	private static String SCENARIO_DIRECTORY;
+	private static String SCENARIO_DIRECTORY = "Szenario 1/";
 
 	/** the objects XML data file */
 	private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
@@ -316,7 +316,7 @@ public class Factory implements FactoryInterface{
 			Element root = theXMLDoc.getRootElement();
 
 			//add the inQueueLimits to the types
-			List<Element> allLimits = root.getChildren("type_limit");
+			List<Element> allLimits = root.getChildren("type_limits");
 			for(Element element:allLimits){
 				StationType type = StationType.parseStationType(element.getChildText("type"));
 				int limit = Integer.parseInt(element.getChildText("limit"));

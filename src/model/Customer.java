@@ -4,10 +4,7 @@ import io.DataCollection;
 import io.Statistics;
 
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import view.CustomerView;
 import controller.Simulation;
@@ -153,16 +150,16 @@ import controller.Simulation;
 				if(stationType == station.getStationType()) possibleStations.add(station);
 			}
 
-			//the number of possible stations
+			// the number of possible stations
 			int numberPossibleStations = possibleStations.size();
 
-			//looking for the station with the shortes inQueue
+			// looking for the station with the shortest InQueue
 			if (numberPossibleStations == 0)return null; //no station with the requested stationtype
 			else if (numberPossibleStations == 1)return possibleStations.get(0); //only one station with the requested stationtype
 			else{
 				Station stationWithShortestInQueue = possibleStations.get(0);
 				for (Station station: possibleStations) {
-					//choose station with shortest inQueue
+					//choose the station with the shortest InQueue
 					if (station.numberOfInQueueCustomers() < stationWithShortestInQueue.numberOfInQueueCustomers()) {
 						stationWithShortestInQueue = station;
 					}

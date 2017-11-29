@@ -29,7 +29,7 @@ public class MensaStation extends Station {
 	Measurement measurement = new Measurement();
 
 	/** the operating costs of the MensaStation per clockbeat*/
-	private double operatingCostsPerClockbeat;
+	protected double operatingCostsPerClockbeat;
 
 	/** the opening time of the MensaStation*/
 	private long openingTime;

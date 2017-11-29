@@ -153,7 +153,7 @@ public class DataCollection {
      * @return the total weigth sold at Kasse
      */
     private static int totalAmountAtKasse(){
-        return Kasse.getTotalWeigthPaid();
+        return Kasse.getTotalWeightPaid();
     }
 
     private static int totalAmountAtEndStation(){

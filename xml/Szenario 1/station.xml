@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <settings>
-	<type_limit>
+	<type_limits>
 		<type>Hauptspeise</type>
 		<limit>10</limit>
-	</type_limit>
+	</type_limits>
+	<type_limits>
+		<type>Kasse</type>
+		<limit>7</limit>
+	</type_limits>
 	<station>
 		<label>Vorspeise</label>
 		<type>vorspeise</type>
@@ -70,6 +74,21 @@
 		<troughput>2</troughput>
 		<x_position>600</x_position>
 		<y_position>200</y_position>
+		<operating_costs>0.1</operating_costs>
+		<view>
+			<image>station.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</station>
+	<station>
+		<label>Kasse2</label>
+		<type>additional</type>
+		<troughput>2</troughput>
+		<x_position>600</x_position>
+		<y_position>100</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>

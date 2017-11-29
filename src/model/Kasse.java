@@ -1,5 +1,8 @@
 package model;
 
+import controller.Simulation;
+import io.DataCollection;
+
 import java.util.*;
 
 /**
@@ -9,7 +12,7 @@ import java.util.*;
  */
 public class Kasse extends MensaStation {
 
-    private static int totalWeigthPaid;
+    private static int totalWeightPaid;
 
     /**
      * Constructor, creates a new Kasse
@@ -47,10 +50,10 @@ public class Kasse extends MensaStation {
 
     /**
      * Getter method for the total amount of food
-     * @return totalWeigthPaid
+     * @return totalWeightPaid
      */
-    public static int getTotalWeigthPaid() {
-        return totalWeigthPaid;
+    public static int getTotalWeightPaid() {
+        return totalWeightPaid;
     }
 
     /**
@@ -62,8 +65,30 @@ public class Kasse extends MensaStation {
         super.handleCustomer(customer);
         // get all amounts of food the cusotmer buys
         Collection<Integer> amountFoodToPay = customer.getCustomerFoodAmountAtStationsWanted().values();
-        for(int i: amountFoodToPay){
-            totalWeigthPaid += i;
+        for(int amountFood: amountFoodToPay){
+            totalWeightPaid += amountFood;
+        }
+    }
+
+    @Override
+    protected int numberOfInQueueCustomers(){
+        int numberOfInQueueCustomers = this.inComingQueue.size();
+        if (numberOfInQueueCustomers>this.stationType.getInQueueLimit()){
+            startAdditionalKasse();
+        }
+        return numberOfInQueueCustomers;
+    }
+
+    private void startAdditionalKasse(){
+        for (Station station: Station.getAllStations()){
+            if (station.getStationType() == StationType.ADDITIONAL &&
+                    station.getLabel().toUpperCase().contains(stationType.toString())) {
+                station.stationType = stationType;
+                ((MensaStation)station).setOpeningTime();
+                DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
+                //open only one station
+                break;
+            }
         }
     }
 }

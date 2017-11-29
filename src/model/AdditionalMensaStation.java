@@ -6,6 +6,9 @@ import io.DataCollection;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ *
+ */
 public class AdditionalMensaStation extends MensaStation implements Observer{
 
     /**
