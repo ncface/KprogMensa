@@ -341,6 +341,14 @@ public class MensaStation extends Station {
 		return outGoingQueue;
 	}
 
+	/**
+	 * Returns the number of incoming queue customers
+	 * @return the number of inqueue customers
+	 */
+	public int getNumberOfInQueueCustomers(){
+		return this.inComingQueue.size();
+	}
+
 	@Override
 	protected void handleCustomers(Collection<Customer> customers) {
 				
