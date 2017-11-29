@@ -1,6 +1,7 @@
 package controller;
 
 import io.DataCollection;
+import io.FactoryJSON;
 import view.SimulationView;
 import io.Factory;
 import io.Statistics;

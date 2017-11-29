@@ -1,0 +1,14 @@
+{
+   "end_station": {
+      "label": "End_Station",
+      "x_position": "700",
+      "y_position": "350",
+      "view": {
+         "image": "endstation.png"
+      },
+      "spacing": {
+         "left": "40",
+         "right": "80"
+      }
+   }
+}

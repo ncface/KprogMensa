@@ -1,0 +1,68 @@
+{
+   "type_limit": {
+      "type": "Hauptspeise",
+      "limit": "5"
+   },
+   "station": [
+      {
+         "label": "Vorspeise",
+         "type": "vorspeise",
+         "troughput": "2",
+         "x_position": "200",
+         "y_position": "200",
+         "operating_costs": "0.1",
+         "view": {
+            "image": "station.png"
+         },
+         "spacing": {
+            "left": "40",
+            "right": "80"
+         }
+      },
+      {
+         "label": "Hauptspeise",
+         "type": "hauptspeise",
+         "troughput": "6",
+         "x_position": "400",
+         "y_position": "200",
+         "operating_costs": "0.4",
+         "view": {
+            "image": "station.png"
+         },
+         "spacing": {
+            "left": "40",
+            "right": "80"
+         }
+      },
+      {
+         "label": "Nachspeise",
+         "type": "Nachspeise",
+         "troughput": "2",
+         "x_position": "200",
+         "y_position": "100",
+         "operating_costs": "0.2",
+         "view": {
+            "image": "station.png"
+         },
+         "spacing": {
+            "left": "40",
+            "right": "80"
+         }
+      },
+      {
+         "label": "Kasse",
+         "type": "kasse",
+         "troughput": "2",
+         "x_position": "600",
+         "y_position": "200",
+         "operating_costs": "0.1",
+         "view": {
+            "image": "station.png"
+         },
+         "spacing": {
+            "left": "40",
+            "right": "80"
+         }
+      }
+   ]
+}
