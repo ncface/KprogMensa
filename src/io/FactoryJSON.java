@@ -70,7 +70,6 @@ public class FactoryJSON implements FactoryInterface {
         createMensaStation();
         createEndStation();
         addObserverToObservable();
-        System.out.println("w");
         createDataCollection();
 
     }
@@ -158,7 +157,7 @@ public class FactoryJSON implements FactoryInterface {
     private static void createStartStation() {
         try {
         //read the information from the JSON file into the jsonObject
-        jsonObject = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
+        JSONObject jsonObject2 = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
 
         //read the information from the XML file into a JDOM Document
         // Document theXMLDoc = new SAXBuilder().build(theStartStationDataFile);
@@ -170,19 +169,19 @@ public class FactoryJSON implements FactoryInterface {
         //Element startStation = root.getChild("start_station");
 
         //get the label
-        String label = jsonObject.getString("label");
+        String label = jsonObject2.getString("label");
 
         //get the position
-        XPOS_STARTSTATION = Integer.parseInt(jsonObject.getString("x_position"));
-        YPOS_STARTSTATION = Integer.parseInt(jsonObject.getString("y_position"));
+        XPOS_STARTSTATION = jsonObject2.getInt("x_position");
+        YPOS_STARTSTATION = jsonObject2.getInt("y_position");
 
         //the <view> ... </view> node
-        JSONObject viewJO = jsonObject.getJSONObject("view");
+        JSONObject viewJO = jsonObject2.getJSONObject("view");
         String image = viewJO.getString("image"); //"startstation.png"
                                                System.out.println( image + " test");
 
         //the <spacing> ... </spacing> node
-        JSONObject spacingJO = jsonObject.getJSONObject("spacing");
+        JSONObject spacingJO = jsonObject2.getJSONObject("spacing");
         SPACING_LEFT = spacingJO.getInt("left");
                                                 System.out.println(SPACING_LEFT + " test2");
         SPACING_RIGHT = spacingJO.getInt("right");
@@ -224,7 +223,8 @@ public class FactoryJSON implements FactoryInterface {
         try {
 
             //read the information from the JSON file into the jsonObject
-            jsonObject = loadJSONObject(theObjectDataFile);
+            JSONObject jsonObject2 = loadJSONObject(theObjectDataFile);
+            System.out.println(jsonObject2 + " test3");
 
             //read the information from the XML file into a JDOM Document
             //Document theXMLDoc = new SAXBuilder().build(theObjectDataFile);
@@ -233,14 +233,14 @@ public class FactoryJSON implements FactoryInterface {
             //Element root = theXMLDoc.getRootElement();
 
             //get anzalhDurchlaeufe
-            int anzahlDurchlaeufe = jsonObject.getInt("stdDeviance");
+            int anzahlDurchlaeufe = jsonObject2.getInt("anzahl_durchlaeufe");
                     System.out.println(anzahlDurchlaeufe);
 
             //get all the JSONobjects into a ArrayList object
             List <JSONObject> allObjects = new ArrayList<>();
 
             //iterate through the JSONArray to load single JSON objects into a list
-            JSONArray objects = jsonObject.getJSONArray("object");
+            JSONArray objects = jsonObject2.getJSONArray("object");
             for(Object objectIterator : objects)
             {
                 JSONObject jo = (JSONObject) objectIterator;
