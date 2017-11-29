@@ -1,6 +1,7 @@
 package io;
 import model.*;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 import view.*;
 import java.io.IOException;
@@ -14,8 +15,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Random;
 
-import org.json.JSONObject;
-
 /**
  * This is an abstract factory that creates instances
  * of actor types like objects, stations and their queues by using JSON
@@ -26,7 +25,7 @@ import org.json.JSONObject;
 public class FactoryJSON implements FactoryInterface {
     private static final String FORMAT_DIRECTORY = "json/";
 
-    private static String SCENARIO_DIRECTORY = "Scenario 1/";
+    private static String SCENARIO_DIRECTORY = "Szenario 1/";
     /** the objects JSON data file */
     private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
 
@@ -40,7 +39,7 @@ public class FactoryJSON implements FactoryInterface {
     private static String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.json";
 
     /** the end station XML data file */
-    private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
+    private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.json";
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
     private static JSONObject jsonObject;
@@ -93,15 +92,15 @@ public class FactoryJSON implements FactoryInterface {
 
     /**
      * Singleton for a jsonObject.
-     * If jsonObject is not initialized
+     *      //If jsonObject is not initialized
      * 	- load json file
      * 	- create new instance of JSON Object
      *
-     * @param theJSONEbayDataFile , json File the information is written in
+     * @param theJSONEbayDataFile , json File in which the information is written in
      * @return the JSONObject
      */
     public static JSONObject loadJSONObject(String theJSONEbayDataFile){
-        if(jsonObject==null){
+        //if(jsonObject==null){
             try {
                 // load the JSON-File into a String
                 FileReader fr = new FileReader(theJSONEbayDataFile);
@@ -117,7 +116,7 @@ public class FactoryJSON implements FactoryInterface {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        }
+        //}
         return jsonObject;
     }
 
@@ -127,7 +126,7 @@ public class FactoryJSON implements FactoryInterface {
     private static void createDataCollection() {
         try {
             //read the information from the JSON file into the jsonObject
-            jsonObject = loadJSONObject(theStatisticsDataFile);
+            jsonObject = loadJSONObject(theStatisticsDataFile).getJSONObject("values");
 
             //the <settings> ... </settings> node
             //Element root = theXMLDoc.getRootElement();
@@ -174,7 +173,7 @@ public class FactoryJSON implements FactoryInterface {
     private static void createStartStation() {
         try {
         //read the information from the JSON file into the jsonObject
-        JSONObject jsonObject2 = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
+        jsonObject = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
 
         //read the information from the XML file into a JDOM Document
         // Document theXMLDoc = new SAXBuilder().build(theStartStationDataFile);
@@ -186,21 +185,19 @@ public class FactoryJSON implements FactoryInterface {
         //Element startStation = root.getChild("start_station");
 
         //get the label
-        String label = jsonObject2.getString("label");
+        String label = jsonObject.getString("label");
 
         //get the position
-        XPOS_STARTSTATION = jsonObject2.getInt("x_position");
-        YPOS_STARTSTATION = jsonObject2.getInt("y_position");
+        XPOS_STARTSTATION = jsonObject.getInt("x_position");
+        YPOS_STARTSTATION = jsonObject.getInt("y_position");
 
         //the <view> ... </view> node
-        JSONObject viewJO = jsonObject2.getJSONObject("view");
-        String image = viewJO.getString("image"); //"startstation.png"
-                                               System.out.println( image + " test");
+        JSONObject viewJO = jsonObject.getJSONObject("view");
+        String image = viewJO.getString("image");
 
         //the <spacing> ... </spacing> node
-        JSONObject spacingJO = jsonObject2.getJSONObject("spacing");
+        JSONObject spacingJO = jsonObject.getJSONObject("spacing");
         SPACING_LEFT = spacingJO.getInt("left");
-                                                System.out.println(SPACING_LEFT + " test2");
         SPACING_RIGHT = spacingJO.getInt("right");
 
         //CREATE THE INQUEUE
@@ -211,18 +208,16 @@ public class FactoryJSON implements FactoryInterface {
         //create the inqueue
         SynchronizedQueue theInQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosInQueue, yPosInQueue);
 
-            //CREATE THE OUTQUEUE
-            // the positions
-            int xPosOutQueue = XPOS_STARTSTATION + SPACING_RIGHT;
-            int yPosOutQueue = YPOS_STARTSTATION;
+        //CREATE THE OUTQUEUE
+        // the positions
+        int xPosOutQueue = XPOS_STARTSTATION + SPACING_RIGHT;
+        int yPosOutQueue = YPOS_STARTSTATION;
 
-            //create the outqueue
-            SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
+        //create the outqueue
+        SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
-            //creating a new StartStation object
-            StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-
-
+        //creating a new StartStation object
+        StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -240,36 +235,24 @@ public class FactoryJSON implements FactoryInterface {
         try {
 
             //read the information from the JSON file into the jsonObject
-            JSONObject jsonObject2 = loadJSONObject(theObjectDataFile);
-            System.out.println(jsonObject2 + " test3");
-
-            //read the information from the XML file into a JDOM Document
-            //Document theXMLDoc = new SAXBuilder().build(theObjectDataFile);
-
-            //the <settings> ... </settings> node, this is the files root Element
-            //Element root = theXMLDoc.getRootElement();
+            jsonObject = loadJSONObject(theObjectDataFile);
 
             //get anzalhDurchlaeufe
-            int anzahlDurchlaeufe = jsonObject2.getInt("anzahl_durchlaeufe");
-                    System.out.println(anzahlDurchlaeufe);
-
-            //get all the JSONobjects into a ArrayList object
-            List <JSONObject> allObjects = new ArrayList<>();
+            int anzahlDurchlaeufe = jsonObject.getInt("anzahl_durchlaeufe");
 
             //iterate through the JSONArray to load single JSON objects into a list
-            JSONArray objects = jsonObject2.getJSONArray("object");
-            for(Object objectIterator : objects)
-            {
-                JSONObject jo = (JSONObject) objectIterator;
-                allObjects.add(jo);
-            }
+            JSONArray objects = jsonObject.getJSONArray("object");
 
             //the counter for created Customer
             int counterCustomer = 0;
 
             for(int durchlaeufe = 0 ; durchlaeufe < anzahlDurchlaeufe ; durchlaeufe++) {
-                //separate every JDOM "object" Element from the list and create Java Customer objects
-                for (JSONObject customer : allObjects) {
+
+                for (Object customerJOA : objects) {
+                    //das einzelne JSONObject aus dem JSONArray ziehen
+
+                    JSONObject customer = (JSONObject) customerJOA;
+
 
                     // data variables:
                     String label = null;
@@ -281,28 +264,14 @@ public class FactoryJSON implements FactoryInterface {
                     label = customer.getString("label");
                     label += ("_"+counterCustomer); //add an unique identifier to the label of the customer
                     counterCustomer++;
-                    processtime = Integer.parseInt(customer.getString("processtime"));
-                    speed = Integer.parseInt(customer.getString("speed"));
+                    processtime = customer.getInt("processtime");
+                    speed = customer.getInt("speed");
 
                     //the <view> ... </view> node
-                    //Element viewGroup = customer.getChild("view");
-                    // read data
-                    image = customer.getString("image");
+                    JSONObject viewJO = customer.getJSONObject("view");
+                    image = viewJO.getString("image");
 
-                    //get all the stations, where the object wants to go to
-                    //the <sequence> ... </sequence> node
-                    //Element sequenceGroup = customer.getChild("sequence");
-
-                    //get all the JSONobjects into a ArrayList object
-                    List <JSONObject> allStations = new ArrayList<>();
-                    //List<Element> allStations = sequenceGroup.getChildren("station");
-                    //iterate through the JSONArray to load single JSON objects into a list
-                    JSONArray stations = jsonObject.getJSONArray("sequence");
-                    for(Object objectIterator : stations)
-                    {
-                        JSONObject jo = (JSONObject) objectIterator;
-                        allStations.add(jo);
-                    }
+                    JSONArray stations = customer.getJSONArray("sequence");
 
                     //get the elements into a list
                     ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
@@ -311,10 +280,12 @@ public class FactoryJSON implements FactoryInterface {
                     stationsToGo.add(StationType.START);
 
                     HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
-                    for (JSONObject theStation : allStations) {
+                    for (Object theStationJOA : stations) {
+                        JSONObject theStation = (JSONObject) theStationJOA;
+
                         StationType theStationType = StationType.parseStationType(theStation.getString("name")); //.getText()); weg da schon string erhalten?
-                        int theStationMinWeight = Integer.valueOf(theStation.getString("min")); //.getText());
-                        int theStationMaxWeight = Integer.valueOf(theStation.getString("max")); //.getText());
+                        int theStationMinWeight = theStation.getInt("min"); //.getText());
+                        int theStationMaxWeight = theStation.getInt("max"); //.getText());
                         stationsToGo.add(theStationType);
                         weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
                     }
@@ -323,7 +294,8 @@ public class FactoryJSON implements FactoryInterface {
                     stationsToGo.add(StationType.ENDE);
 
                     //get the gaussian standard deviance (deviation)
-                    double stdDeviance = Integer.parseInt(jsonObject.getString("stdDeviance"));
+                    double stdDeviance = jsonObject.getInt("stdDeviance");
+
                     Random rand = new Random();
 
                     //limit gets calculated
@@ -336,16 +308,6 @@ public class FactoryJSON implements FactoryInterface {
                     //creating a new Customer object
                     Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
 
-
-        		/*
-        		 * TIP: Make copies of the object like this (e.g. 5)
-
-        		for (int i = 0; i < 5; i++) {
-
-        			Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
-
-        		}
-        		*/
                 }
             }
 
@@ -367,37 +329,32 @@ public class FactoryJSON implements FactoryInterface {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theStationDataFile);
 
-            //the <settings> ... </settings> node
-           // Element root = theXMLDoc.getRootElement();
+            //load all JSONObjects from "station" into a JSONArray
+            JSONArray limits = jsonObject.getJSONArray("type_limits");
+
 
             //add the inQueueLimits to the types
-            //following block replaces: List<Element> allLimits = root.getChildren("type_limit");
-            List <JSONObject> allLimits = new ArrayList<>();
-            JSONArray limits = jsonObject.getJSONArray("station");
-            for(Object objectIterator : limits)
-            {
-                JSONObject jo = (JSONObject) objectIterator;
-                allLimits.add(jo);
-            }
+            for(Object stationJOA : limits){
+                JSONObject station = (JSONObject) stationJOA;
 
-            for(JSONObject jo :allLimits){
-                StationType type = StationType.parseStationType(jo.getString("type"));
-                int limit = Integer.parseInt(jo.getString("limit"));
+                StationType type = StationType.parseStationType(station.getString("type"));
+                int limit = station.getInt("limit");
                 type.setInQueueLimit(limit);
             }
 
-            List <JSONObject> allStations = new ArrayList<>();
+            //List <JSONObject> allStations = new ArrayList<>();
 
-            JSONArray stations = jsonObject.getJSONArray("station");
-            for(Object objectIterator : stations)
+            JSONArray allStations = jsonObject.getJSONArray("station");
+            /**for(Object objectIterator : stations)
             {
                 JSONObject jo = (JSONObject) objectIterator;
                 allStations.add(jo);
-            }
+            }*/
 
             //separate every JDOM "station" Element from the list and create Java Station objects
-            for (JSONObject mensaStation : allStations) {
+            for (Object mensaStationJOA : allStations) {
 
+                JSONObject mensaStation = (JSONObject) mensaStationJOA;
                 // data variables:
                 String label;
                 StationType type;
@@ -410,22 +367,25 @@ public class FactoryJSON implements FactoryInterface {
                 // read data
                 label = mensaStation.getString("label");
                 type = StationType.parseStationType(mensaStation.getString("type"));
-                troughPut = Double.parseDouble(mensaStation.getString("troughput"));
-                xPos = Integer.parseInt(mensaStation.getString("x_position"));
-                yPos = Integer.parseInt(mensaStation.getString("y_position"));
-                operatingCostsPerClockbeat = Double.parseDouble(mensaStation.getString("operating_costs"));
+                troughPut = mensaStation.getDouble("troughput");
+                xPos = mensaStation.getInt("x_position");
+                yPos = mensaStation.getInt("y_position");
+                operatingCostsPerClockbeat = mensaStation.getDouble("operating_costs");
 
                 //the <view> ... </view> node
-                //Element viewGroup = mensaStation.getString("view");
+                JSONObject viewJO = mensaStation.getJSONObject("view");
                 // read data
-                image = mensaStation.getString("image");
+                image = viewJO.getString("image");
 
                 //reads spacing and gets later the left and right side spacing from it
                 //Element spacing = mensaStation.getChild("spacing");
 
+                //the <spacing> ... </spacing> node
+                JSONObject spacingJO = mensaStation.getJSONObject("spacing");
+
                 //CREATE THE INQUEUE
                 //get the inqueue into a List object
-                int xPosInQueue = xPos - Integer.parseInt(mensaStation.getString("left"));
+                int xPosInQueue = xPos - spacingJO.getInt("left");
                 int yPosInQueue = yPos;
 
                 //create a Synchronized Queue for the station inqueue
@@ -433,7 +393,7 @@ public class FactoryJSON implements FactoryInterface {
 
                 //CREATE THE OUTQUEUE
                 //get the outqueue into a List object
-                int xPosOutQueue = xPos + Integer.parseInt(mensaStation.getString("right"));
+                int xPosOutQueue = xPos + spacingJO.getInt("right");
                 int yPosOutQueue = yPos;
 
                 //create a Synchronized Queue for the station inqueue
@@ -465,13 +425,7 @@ public class FactoryJSON implements FactoryInterface {
         try {
 
             //read the information from the JSON file into the jsonObject
-            jsonObject = loadJSONObject(theEndStationDataFile);
-
-            //the <settings> ... </settings> node
-            //Element root = theXMLDoc.getRootElement();
-
-            //get the end_station into a List object
-           // Element endStation = root.getChild("end_station");
+            jsonObject = loadJSONObject(theEndStationDataFile).getJSONObject("end_station");
 
             //get label
             String label = jsonObject.getString("label");
@@ -481,14 +435,16 @@ public class FactoryJSON implements FactoryInterface {
             int yPos = Integer.parseInt(jsonObject.getString("y_position"));
 
             //the <view> ... </view> node
-            //Element viewGroup = endStation.getChild("view");
+            JSONObject viewJO = jsonObject.getJSONObject("view");
             // the image
-            String image = jsonObject.getString("image");
+            String image = viewJO.getString("image");
 
             //reads spacing and gets later the left and right side spacing from it
-            //Element spacingGroup = endStation.getChild("spacing");
-            SPACING_LEFT = Integer.parseInt(jsonObject.getString("left"));
-            SPACING_RIGHT = Integer.parseInt(jsonObject.getString("right"));
+            //the <view> ... </view> node
+            JSONObject spacingJO = jsonObject.getJSONObject("spacing");
+
+            SPACING_LEFT = spacingJO.getInt("left");
+            SPACING_RIGHT = spacingJO.getInt("right");
 
             //CREATE THE INQUEUE
             // the positions
