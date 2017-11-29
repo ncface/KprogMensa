@@ -76,9 +76,7 @@ public class Factory implements FactoryInterface{
 	 * @param scenario the name of the scenarioFolder
 	 */
 	public static void setScenario(String scenario){
-		if(SCENARIO_DIRECTORY == "") {
 			SCENARIO_DIRECTORY = scenario;
-		}
 	};
 
 	/**
