@@ -7,7 +7,7 @@
          "processtime": "10",
          "speed": "5",
          "view": {
-            "image": "object.png"
+            "image": "customer.png"
          },
          "sequence": [
             {
@@ -32,7 +32,7 @@
          "processtime": "8",
          "speed": "5",
          "view": {
-            "image": "object.png"
+            "image": "customer.png"
          },
          "sequence": [
             {
@@ -52,7 +52,7 @@
          "processtime": "4",
          "speed": "5",
          "view": {
-            "image": "object.png"
+            "image": "customer.png"
          },
          "sequence": [
             {
@@ -67,7 +67,7 @@
          "processtime": "2",
          "speed": "5",
          "view": {
-            "image": "object.png"
+            "image": "customer.png"
          },
          "sequence": [
             {
