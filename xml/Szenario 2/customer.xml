@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <settings>
-	<anzahl_durchlaeufe>100</anzahl_durchlaeufe>
+	<anzahl_durchlaeufe>25</anzahl_durchlaeufe>
 	<stdDeviance>4</stdDeviance>
 	<object>
 		<label>Customer_Typ_1</label>
