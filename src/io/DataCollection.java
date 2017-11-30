@@ -124,12 +124,12 @@ public class DataCollection {
      */
     public static void calculateLoss(){
         int totalAmountAtKasse = totalAmountAtKasse();
-        double moneyEarnedAtKasse = totalAmountAtKasse * price;
+        int moneyEarnedAtKasse = (int) Math.round(totalAmountAtKasse * price);
 
         int totalAmountAtEndStation = totalAmountAtEndStation();
-        double totalAmountPossibleMoney = totalAmountAtEndStation * price;
+        int totalAmountPossibleMoney = (int) Math.round(totalAmountAtEndStation * price);
 
-        double loss = totalAmountPossibleMoney - moneyEarnedAtKasse;
+        int loss = totalAmountPossibleMoney - moneyEarnedAtKasse;
 
         try {
             File outPutFile = new File(filePathMoneyLoss);
@@ -153,7 +153,7 @@ public class DataCollection {
             for (Station station: stations){
                 if (station instanceof MensaStation){
                     MensaStation mensaStation = (MensaStation) station;
-                    printWriter.println(mensaStation.getLabel()+","+mensaStation.calculateOperatingCosts());
+                    printWriter.println(mensaStation.getLabel()+","+Math.round(mensaStation.calculateOperatingCosts()));
                 }
             }
             printWriter.close();
@@ -205,10 +205,10 @@ public class DataCollection {
 
     /**
      * Setter for the price per gram
-     * @param price price per kilo
+     * @param price price per kilogram
      */
     public static void setPrice(double price){
-        DataCollection.price = price / 100;
+        DataCollection.price = price / 1000.0;
     }
 
 }
