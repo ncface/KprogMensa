@@ -23,7 +23,7 @@ public class SimulationView extends JFrame {
 	private final static int HEIGHT = 600;
 	
 	/** main window title */
-	private final static String TITLE = "Prototyp: allgemeine Customer/Queue/Station Simulation";
+	private final static String TITLE = "Mensa-Simulation";
 			
 	/** a panel where the views of our actors can run */
 	private static SimulationPanel simulationPanel = new SimulationPanel();

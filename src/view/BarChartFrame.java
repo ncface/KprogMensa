@@ -1,14 +1,23 @@
 package view;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class BarChartView extends JFrame{
+/**
+ * a class that shows bar charts
+ * @author
+ * @version
+ */
+public class BarChartFrame extends JFrame{
+    // the JTextArea that shows the data
     private JTextArea jTextTextArea;
-    public BarChartView(){
+
+    /**
+     * Constructor for a BarChartFrame
+     * @param title the title of the frame
+     */
+    public BarChartFrame(String title){
+        // set up the frame
         jTextTextArea = new JTextArea();
         jTextTextArea.setLineWrap(false);
         jTextTextArea.setEditable(false);
@@ -16,12 +25,15 @@ public class BarChartView extends JFrame{
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.add(jScrollPane);
-        this.setTitle("Bar Chart for the loss");
+        this.setTitle(title);
         this.setSize(300,300);
         this.setVisible(true);
     }
 
-    private void showMoneyLoss(){
+    /**
+     * this method reads data from the file DataMoneyLoss.csv and shows them in the frame
+     */
+    public void showMoneyLoss(){
         try {
             String theData = "";
 
@@ -36,7 +48,7 @@ public class BarChartView extends JFrame{
             money = bufferedReader.readLine().split(",");
 
             for (int i=0; i<money.length; i++) {
-                int number = Integer.parseInt(money[i]);
+                int number = (int) Double.parseDouble(money[i]);
                 theData += headLines[i] +"\n";
                 for (int j = 0; j<number; j+=10) {
                     theData += "|";
@@ -51,10 +63,5 @@ public class BarChartView extends JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        BarChartView barChartView = new BarChartView();
-        barChartView.showMoneyLoss();
     }
 }

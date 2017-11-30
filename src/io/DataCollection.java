@@ -140,17 +140,17 @@ public class DataCollection {
      */
     public static void calculateLoss(){
         int totalAmountAtKasse = totalAmountAtKasse();
-        int moneyEarnedAtKasse = (int) Math.round(totalAmountAtKasse * price);
+        double moneyEarnedAtKasse = totalAmountAtKasse * price;
 
         int totalAmountAtEndStation = totalAmountAtEndStation();
-        int totalAmountPossibleMoney = (int) Math.round(totalAmountAtEndStation * price);
+        double totalAmountPossibleMoney = totalAmountAtEndStation * price;
 
-        int loss = totalAmountPossibleMoney - moneyEarnedAtKasse;
+        double loss = totalAmountPossibleMoney - moneyEarnedAtKasse;
 
         try {
             File outPutFile = new File(filePathMoneyLoss);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
-            printWriter.println(""+moneyEarnedAtKasse+","+totalAmountPossibleMoney+","+loss);
+            printWriter.println(""+Math.round(moneyEarnedAtKasse)+","+Math.round(totalAmountPossibleMoney)+","+loss);
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

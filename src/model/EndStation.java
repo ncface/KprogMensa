@@ -5,6 +5,7 @@ import java.util.Collection;
 import controller.Simulation;
 import io.DataCollection;
 import io.Statistics;
+import view.BarChartFrame;
 
 /**
  * Class for the end station. This is the last station where all customers are collected
@@ -52,7 +53,7 @@ public class EndStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
 		if(counterEndStation<TOTALNUMBERENDSTATIONOBJECTS) {
 			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterEndStation++;
@@ -119,6 +120,10 @@ public class EndStation extends SimpleStation {
 			// calculate data collection
 			DataCollection.calculateLoss();
 			DataCollection.processOperatingCosts();
+
+			//show a bar chart of the money loss
+			BarChartFrame barChartFrame = new BarChartFrame("Bar Chart Money Loss");
+			barChartFrame.showMoneyLoss();
 
 			Statistics.show("\n--- Simulation beendet ----");
 

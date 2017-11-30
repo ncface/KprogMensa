@@ -108,17 +108,17 @@ import controller.Simulation;
 		 *
 		 * @param label of the customer
 		 * @param stationsToGo the stations to go
-		 * @param processtime the processing time of the customer, affects treatment by a station
+		 * @param processTime the processing time of the customer, affects treatment by a station
 		 * @param speed the moving speed of the customer
 		 * @param xPos x position of the customer
 		 * @param yPos y position of the customer
 		 * @param image image of the customer
 		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo, int processtime, int speed , int xPos, int yPos,
+		public static void create(String label, ArrayList<StationType> stationsToGo, int processTime, int speed , int xPos, int yPos,
 								  String image, Map<StationType,Integer> foodAmountAtStation, int frustrationLimit){
 				
-			new Customer(label, stationsToGo, processtime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
+			new Customer(label, stationsToGo, processTime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
 				
 		}
 
@@ -131,7 +131,6 @@ import controller.Simulation;
 		}
 
 		/** Choose the next station with the shortest inQueue to go to
-		 * 
 		 * @return the next station or null if no station was found
 		 */
 		private Station getNextStation(){
@@ -145,7 +144,7 @@ import controller.Simulation;
 			//a list of possible stations with with a certain stationtype
 			List<Station> possibleStations = new ArrayList<>();
 
-			//looking for the matching station and return it
+			//looking for the matching station and add it to the possible stations
 			for (Station station : Station.getAllStations()){
 				if(stationType == station.getStationType()) possibleStations.add(station);
 			}

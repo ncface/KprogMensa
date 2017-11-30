@@ -50,7 +50,7 @@ public class StartStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
+	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
 							  String image)throws Exception{
 		if (counterStartStation<TOTALNUMBERSTARTSTATIONOBJECTS) {
 			theStartStation = new StartStation(label, inQueue, outQueue, xPos, yPos, image);
