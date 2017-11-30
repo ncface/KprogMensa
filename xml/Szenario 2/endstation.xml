@@ -3,7 +3,7 @@
 	<end_station>
 		<label>End_Station</label>
 		<x_position>800</x_position>
-		<y_position>150</y_position>
+		<y_position>250</y_position>
 		<view>
 			<image>endstation.png</image>
 		</view>
