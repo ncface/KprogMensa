@@ -10,7 +10,7 @@ public interface FactoryInterface {
 	static void createStartScenario() {};
 
 	/**
-	 * Setter for the scenario
+	 * Setter for the scenariopath
 	 * @param scenario the scenario
 	 */
 	static void setScenario(String scenario){};

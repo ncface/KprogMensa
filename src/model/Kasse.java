@@ -96,7 +96,6 @@ public class Kasse extends MensaStation {
             if (station.getStationType() == StationType.ADDITIONAL &&
                     station.getLabel().toUpperCase().contains(stationType.toString())) {
                 station.stationType = stationType;
-
                 //set opening time for calculation of the operation costs
                 ((MensaStation)station).setOpeningTime();
                 DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());

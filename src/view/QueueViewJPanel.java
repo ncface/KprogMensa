@@ -63,7 +63,7 @@ public class QueueViewJPanel extends JPanel implements QueueView{
 		theBar.setOrientation(SwingConstants.VERTICAL);
 		theBar.setSize(WIDTH, HEIGHT - theLabel.getHeight());
 		theBar.setMinimum(0);
-		theBar.setMaximum(4);
+		theBar.setMaximum(20);
 		theBar.setForeground(Color.GREEN);
 		theBar.setToolTipText(String.valueOf(size));
 		theBar.setLocation(0, theLabel.getHeight());
