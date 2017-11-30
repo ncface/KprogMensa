@@ -2,14 +2,18 @@
 <settings>
 	<type_limits>
 		<type>Hauptspeise</type>
-		<limit>20</limit>
+		<limit>10</limit>
+	</type_limits>
+	<type_limits>
+		<type>Kasse</type>
+		<limit>7</limit>
 	</type_limits>
 	<station>
 		<label>Vorspeise</label>
 		<type>vorspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
-		<y_position>200</y_position>
+		<y_position>100</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -23,8 +27,8 @@
 		<label>Hauptspeise</label>
 		<type>hauptspeise</type>
 		<troughput>6</troughput>
-		<x_position>400</x_position>
-		<y_position>200</y_position>
+		<x_position>200</x_position>
+		<y_position>250</y_position>
 		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -36,10 +40,10 @@
 	</station>
 	<station>
 		<label>Hauptspeise2</label>
-		<type>hauptspeise</type>
+		<type>additional</type>
 		<troughput>6</troughput>
 		<x_position>400</x_position>
-		<y_position>80</y_position>
+		<y_position>250</y_position>
 		<operating_costs>0.4</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -54,7 +58,7 @@
 		<type>Nachspeise</type>
 		<troughput>2</troughput>
 		<x_position>200</x_position>
-		<y_position>100</y_position>
+		<y_position>400</y_position>
 		<operating_costs>0.2</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -69,7 +73,7 @@
 		<type>kasse</type>
 		<troughput>2</troughput>
 		<x_position>600</x_position>
-		<y_position>200</y_position>
+		<y_position>325</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>
@@ -81,10 +85,10 @@
 	</station>
 	<station>
 		<label>Kasse2</label>
-		<type>kasse</type>
+		<type>additional</type>
 		<troughput>2</troughput>
 		<x_position>600</x_position>
-		<y_position>100</y_position>
+		<y_position>175</y_position>
 		<operating_costs>0.1</operating_costs>
 		<view>
 			<image>station.png</image>

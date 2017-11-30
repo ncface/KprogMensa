@@ -7,7 +7,7 @@
 		<processtime>10</processtime>
 		<speed>5</speed>
 		<view>
-			<image>object.png</image>
+			<image>customer.png</image>
 		</view>
 		<sequence>
 			<station>
@@ -23,7 +23,7 @@
 			<station>
 				<name>Nachspeise</name>
 				<min>50</min>
-				<max>100</max>	
+				<max>150</max>	
 			</station>
 		</sequence>
 	</object>
@@ -32,7 +32,7 @@
 		<processtime>8</processtime>
 		<speed>5</speed>
 		<view>
-			<image>object.png</image>
+			<image>customer.png</image>
 		</view>
 		<sequence>
 			<station>
@@ -43,7 +43,7 @@
 			<station>
 				<name>Nachspeise</name>
 				<min>50</min>
-				<max>100</max>	
+				<max>150</max>	
 			</station>
 		</sequence>
 	</object>
@@ -52,7 +52,7 @@
 		<processtime>4</processtime>
 		<speed>5</speed>
 		<view>
-			<image>object.png</image>
+			<image>customer.png</image>
 		</view>
 		<sequence>
 			<station>
@@ -67,7 +67,7 @@
 		<processtime>2</processtime>
 		<speed>5</speed>
 		<view>
-			<image>object.png</image>
+			<image>customer.png</image>
 		</view>
 		<sequence>
 			<station>
