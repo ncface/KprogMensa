@@ -71,12 +71,12 @@
 		</view>
 		<sequence>
 			<station>
-				<name>Vorspeise</name>
+				<name>Hauptspeise</name>
 				<min>150</min>
 				<max>300</max>	
 			</station>
 			<station>
-				<name>Nachspeise</name>
+				<name>Vorspeise</name>
 				<min>100</min>
 				<max>150</max>	
 			</station>
