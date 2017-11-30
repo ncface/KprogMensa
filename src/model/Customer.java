@@ -114,10 +114,13 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo, int processTime, int speed , int xPos, int yPos,
-								  String image, Map<StationType,Integer> foodAmountAtStation, int frustrationLimit){
+		public static void create(String label, ArrayList<StationType> stationsToGo,
+								  int processTime, int speed , int xPos, int yPos,
+								  String image, Map<StationType,Integer> foodAmountAtStation,
+								  int frustrationLimit){
 				
-			new Customer(label, stationsToGo, processTime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
+			new Customer(label, stationsToGo, processTime, speed, xPos, yPos, image,
+					foodAmountAtStation, frustrationLimit);
 				
 		}
 
@@ -128,6 +131,7 @@ import controller.Simulation;
 		public Map<StationType, Integer> getCustomerFoodAmountAtStationsWanted() {
 			return customerFoodAmountAtStationsWanted;
 		}
+
 
 		/** Choose the next station with the shortest inQueue to go to
 		 * @return the next station or null if no station was found

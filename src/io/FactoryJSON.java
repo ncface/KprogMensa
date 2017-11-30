@@ -59,8 +59,8 @@ public class FactoryJSON implements FactoryInterface {
 
     /**
      * create the actors for the starting scenario
-     *
      */
+    @SuppressWarnings("Duplicates")
     public static void createStartScenario(){
 		
 		/*NOTE: The start station must be created first,
@@ -313,6 +313,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * create some process stations out of the JSON file
      */
+    @SuppressWarnings("Duplicates")
     private static void createMensaStation() {
         try {
 
