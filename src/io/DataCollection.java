@@ -3,6 +3,7 @@ package io;
 import controller.Simulation;
 import model.*;
 import view.GraphPlotter;
+import view.GraphPlotterArray;
 
 import java.io.*;
 import java.util.HashMap;
@@ -16,9 +17,9 @@ public class DataCollection {
     private static final String outFolderPath = "DataOutput/";
     private static PrintWriter printWriter;
     private static double price;
-    private static GraphPlotter plotter = new GraphPlotter(1000,40,"Queue length","time");
+    private static GraphPlotterArray plotterArray = new GraphPlotterArray();
     private static int numberCalled = 0;
-    private static int plotWhenReached = 10;
+    private static int plotWhenReached = 4;
     private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
@@ -36,6 +37,19 @@ public class DataCollection {
     public static void prepareDataCollection(){
         deleteFiles();
         prepareFiles();
+        preparePlotters();
+    }
+
+    /**
+     * prepares the plotters for live data
+     */
+    private static void preparePlotters() {
+        for(Station station:Station.getAllStations()){
+            if(station instanceof MensaStation){
+                plotterArray.addStationPlotter(station);
+            }
+        }
+        plotterArray.positionPlotterWindows();
     }
 
     /**
@@ -164,6 +178,7 @@ public class DataCollection {
 
     /**
      * collects the numbers of incoming queue customers of every mensa station
+     * displays the waiting queue length for every station in a separate window
      */
     public static void updateNumberCustomersInQueue(){
         try {
@@ -176,7 +191,7 @@ public class DataCollection {
                     if (station instanceof MensaStation) {
                         MensaStation mensaStation = (MensaStation) station;
                         if(numberCalled % plotWhenReached == 0) {
-                            plotter.add(mensaStation.getNumberOfInQueueCustomers(), mensaStation);
+                            plotterArray.addPoint(mensaStation,mensaStation.getNumberOfInQueueCustomers());
                         }
                         info += "," + mensaStation.getNumberOfInQueueCustomers();
                     }

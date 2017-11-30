@@ -1,14 +1,12 @@
 package view;
 
-import controller.Simulation;
-import model.MensaStation;
-import model.Station;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,17 +24,17 @@ public class GraphPlotter extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	/** Default frame size X for frame in pixels */
-	private final int DEFAULT_FRAME_SIZE_X = 400;
+	private final int DEFAULT_FRAME_SIZE_X = 300;
 	/** Default frame size Y for frame in pixels */
-	private final int DEFAULT_FRAME_SIZE_Y = 400;
+	private final int DEFAULT_FRAME_SIZE_Y = 300;
 	/** Padding to Frame */
 	private final int PAD = 30;
 	/** Radius of dot */
-	private final int DOT_RADIUS = 1;
+	private final int DOT_RADIUS = 2;
 	/** Padding of label */
 	private final int LABEL_PAD = 10;
 	/** Height of label */
-	private final int LABEL_HEIGHT = 10;
+	private final int LABEL_HEIGHT = 50;
 	/** Width of label */
 	private final int LABEL_WIDTH = 100;
 	
@@ -48,10 +46,8 @@ public class GraphPlotter extends JPanel {
 	private String labelForX = "time";
 	/** Label for the y axis */
 	private String labelForY;
-
-	private Map<MensaStation, Color> stationColor = new HashMap<>();
-
-	private Color color;
+	/** Frame for the plotter */
+	private JFrame f;
 
 	/**
 	 * List with points to draw. It holds the y coordinates of points. x
@@ -69,23 +65,19 @@ public class GraphPlotter extends JPanel {
 	 *            the highest value for y
 	 * 
 	 */
-
 	public GraphPlotter(int maxValueForX, int maxValueForY, String labelForY) {
 		this.maxValueForX = maxValueForX;
 		this.maxValueForY = maxValueForY;
 		this.labelForY = labelForY;
 		
-		JFrame f = new JFrame();
+		f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().add(this);
 		f.setSize(this.DEFAULT_FRAME_SIZE_X + PAD, this.DEFAULT_FRAME_SIZE_Y + PAD);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
-		initialise();
 	}
-
-
-
+	
 	/**
 	 * 
 	 * Constructor of this class
@@ -102,35 +94,12 @@ public class GraphPlotter extends JPanel {
 		this.labelForY = labelForY;
 		this.labelForX = labelForX;
 		
-		JFrame f = new JFrame();
+		f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().add(this);
 		f.setSize(this.DEFAULT_FRAME_SIZE_X + PAD, this.DEFAULT_FRAME_SIZE_Y + PAD);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
-		initialise();
-	}
-
-	private void initialise() {
-		int r = 0, g = 0, b = 0;
-		for(Station station : Station.getAllStations()){
-			if(station instanceof MensaStation) {
-				b += 64;
-				if (b > 255) {
-					b = 0;
-					g += 64;
-					if (g > 255) {
-						g = 0;
-						r += 64;
-						if (r > 255) {
-							r = 0;
-						}
-					}
-				}
-				stationColor.put((MensaStation)station, new Color(r,g,b));
-			}
-
-		}
 	}
 
 	/** method that draws the points and lines between the points */
@@ -167,7 +136,7 @@ public class GraphPlotter extends JPanel {
 		int y0 = h - PAD;
 
 		// draw the points as little circles
-		g2.setPaint(color);
+		g2.setPaint(Color.blue);
 		for (int i = 0; i < dataPoints.size(); i++) {
 			int x = x0 + (int) (xScale * (i + 1));
 			int y = y0 - (int) (yScale * dataPoints.get(i));
@@ -196,14 +165,35 @@ public class GraphPlotter extends JPanel {
 	 * 
 	 * @param p point to draw (y-coord)
 	 */
-	public void add(int p, MensaStation station) {
+	public void add(int p) {
 		if (getSizeOfDataPoints() > this.maxValueForX) {
 			deleteLastDataPoint();
 		}
 		setDataPoint(p);
-		color = stationColor.get(station);
 		this.repaint();
 	}
 
+	/**
+	 * returns the related frame of the plotter
+	 * @return the frame of the plotter
+	 */
+	public JFrame getFrame() {
+		return f;
+	}
 
+	/**
+	 * getter for the default frame size x
+	 * @return the default frame size x
+	 */
+	public int getDEFAULT_FRAME_SIZE_X() {
+		return DEFAULT_FRAME_SIZE_X;
+	}
+
+	/**
+	 * getter for the default frame size y
+	 * @return the default frame size y
+	 */
+	public int getDEFAULT_FRAME_SIZE_Y() {
+		return DEFAULT_FRAME_SIZE_Y;
+	}
 }
