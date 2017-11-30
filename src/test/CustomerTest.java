@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;

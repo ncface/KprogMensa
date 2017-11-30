@@ -52,9 +52,12 @@ public class GraphPlotterArray {
         for(GraphPlotter plotter : GraphPlotterArray.values()){
             plotter.getFrame().setLocation(x,y);
             x += plotter.getDEFAULT_FRAME_SIZE_X() + SPACING;
-            if(x > Toolkit.getDefaultToolkit().getScreenSize().width){
+            if(x > Toolkit.getDefaultToolkit().getScreenSize().width - plotter.getDEFAULT_FRAME_SIZE_X()){
                 x = 0;
                 y += plotter.getDEFAULT_FRAME_SIZE_Y() + SPACING;
+                if(y > Toolkit.getDefaultToolkit().getScreenSize().height - plotter.getDEFAULT_FRAME_SIZE_Y()){
+                    y = 0;
+                }
             }
         }
     }
