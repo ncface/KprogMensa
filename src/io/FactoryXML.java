@@ -373,7 +373,7 @@ public class FactoryXML implements FactoryInterface{
 				SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
 				//creating a new Kasse, AdditionalMensaStation or MensaStation Object depending on the station type
-                if (type == StationType.KASSE) {
+                if (label.toUpperCase().contains(StationType.KASSE.toString())) {
                     Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else if(type == StationType.ADDITIONAL){

@@ -112,9 +112,9 @@ public class GraphPlotter extends JPanel {
 	}
 
 	private void initialise() {
+		int r = 0, g = 0, b = 0;
 		for(Station station : Station.getAllStations()){
 			if(station instanceof MensaStation) {
-				int r = 0, g = 0, b = 0;
 				b += 64;
 				if (b > 255) {
 					b = 0;
