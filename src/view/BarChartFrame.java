@@ -73,20 +73,17 @@ public class BarChartFrame extends JFrame{
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+            String line;
+
             String [] headLine = bufferedReader.readLine().split(",");
 
             String [] stationOperatingCosts;
 
-            while((line))
-            for (int i=0; i<money.length; i++) {
-                int number = (int) Double.parseDouble(money[i]);
-                theData += headLines[i] +"\n";
-                for (int j = 0; j<number; j+=10) {
-                    theData += "|";
-                }
-                theData += " " + money[i];
-                theData += "\n\n\n";
+            while((line = bufferedReader.readLine()) != null){
+                stationOperatingCosts = line.split(",");
+                String stationName = stationOperatingCosts[0];
             }
+
             jTextTextArea.setText(theData);
 
             System.out.println(theData);
