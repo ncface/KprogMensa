@@ -122,8 +122,12 @@ public class EndStation extends SimpleStation {
 			DataCollection.processOperatingCosts();
 
 			//show a bar chart of the money loss
-			BarChartFrame barChartFrame = new BarChartFrame("Bar Chart Money Loss");
-			barChartFrame.showMoneyLoss();
+			BarChartFrame barChartFrameMoneyLoss = new BarChartFrame("Bar Chart Money Loss");
+			barChartFrameMoneyLoss.showMoneyLoss();
+
+			//show a bar chart of the operating costs
+			BarChartFrame barChartFrameOperatingCosts = new BarChartFrame("Operating Costs");
+			barChartFrameOperatingCosts.showOperatingCosts();
 
 			Statistics.show("\n--- Simulation beendet ----");
 

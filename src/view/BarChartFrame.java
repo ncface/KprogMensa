@@ -26,7 +26,7 @@ public class BarChartFrame extends JFrame{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.add(jScrollPane);
         this.setTitle(title);
-        this.setSize(300,300);
+        this.setSize(400,400);
         this.setVisible(true);
     }
 
@@ -73,23 +73,35 @@ public class BarChartFrame extends JFrame{
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            String line;
+            String line = "";
 
             String [] headLine = bufferedReader.readLine().split(",");
 
-            String [] stationOperatingCosts;
+            theData += headLine[0] + headLine [1] + "\n\n";
 
-            while((line = bufferedReader.readLine()) != null){
-                stationOperatingCosts = line.split(",");
-                String stationName = stationOperatingCosts[0];
+            String [] stationNameOperatingCosts;
+
+            while(((line = bufferedReader.readLine()) != null) && !(line.isEmpty())){
+                stationNameOperatingCosts = line.split(",");
+                String stationName = stationNameOperatingCosts[0];
+                int operatingCost = Integer.parseInt(stationNameOperatingCosts[1]);
+                theData += stationName;
+                theData += "\n";
+                for (int i=0; i<operatingCost; i+=5){
+                    theData += "|";
+                }
+                theData += operatingCost;
+                theData += "\n\n";
             }
 
             jTextTextArea.setText(theData);
-
-            System.out.println(theData);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        BarChartFrame a = new BarChartFrame("HJK");
+        a.showOperatingCosts();
     }
 }
