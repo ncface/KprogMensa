@@ -19,6 +19,7 @@ public class DataCollection {
     private static double price;
     private static GraphPlotterArray plotterArray = new GraphPlotterArray();
     private static int numberCalled = 0;
+    //plot when this number is reached so only every 4th point will get visualized
     private static int plotWhenReached = 4;
     private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
