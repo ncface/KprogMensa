@@ -25,7 +25,7 @@ public class DataCollection {
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
     private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
     private static final String filePathNumberCustomers = outFolderPath+"DataNumberCustomers.csv";
-
+    
     /**
      * no instance should be created
      */
@@ -225,5 +225,23 @@ public class DataCollection {
     public static void setPrice(double price){
         DataCollection.price = price / 100;
     }
-
+    
+    public static String getOutFolderPath(){
+    	return outFolderPath;
+    }
+    public static String getFilePathLeftEarly(){
+    	return filePathLeftEarly;
+    }
+    public static String getFilePathAdditionalStation(){
+    	return filePathAdditionalStation;
+    }
+    public static String getFilePathMoneyLoss(){
+    	return filePathMoneyLoss;
+    }
+    public static String getFilePathOperatingCosts(){
+    	return filePathOperatingCosts;
+    }
+    public static String getFilePathNumberCustomers(){
+    	return filePathNumberCustomers;
+    }
 }
