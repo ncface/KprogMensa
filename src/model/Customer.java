@@ -15,7 +15,6 @@ import controller.Simulation;
  * @author Jaeger, Schmidt
  * @version 2016-07-08
  */
-	
 	public class Customer extends Actor {
 							
 		/** the view of the customer */
@@ -36,8 +35,8 @@ import controller.Simulation;
 		/** the frustration limit of the costumer (value between 1 and 10)*/
 		private final int frustrationLimit;
 
-		/** the waiting time of the costumer*/
-		private int waitingTime;
+		/** the global time the customer enters an inQueue*/
+		private long enterInQueueTime;
 				
 		/** all the station (stationtype) where the customer have to go to*/
 		private ArrayList<StationType> stationsToGo = new ArrayList<>();
@@ -81,7 +80,7 @@ import controller.Simulation;
 		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
 			super(label, xPos, yPos);
 			
-			waitingTime = 0;
+			enterInQueueTime = 0;
 
 			//create the view
 			this.theView = CustomerView.create(label, image, xPos, yPos);
@@ -229,7 +228,7 @@ import controller.Simulation;
 		@Override
 		protected boolean work(){
 			//the customer doesnt wait anymore
-			waitingTime = 0;
+			enterInQueueTime = Simulation.getGlobalTime();
 
 			//the customer is leaving the station -> set actual station to null
 			this.actualStation = null;
@@ -304,7 +303,7 @@ import controller.Simulation;
 		 * @return true if he leaves early, else false
 		 */
 		public boolean leavesEarly(int personsInFrontOfThis){
-			waitingTime++;
+			long waitingTime = Simulation.getGlobalTime() - enterInQueueTime;
 
 			int frustration = (int)(calculateFrustrationByWaitingTime(waitingTime)*
 					calculateFrustrationByPersonsInFrontOfThis(personsInFrontOfThis));
@@ -325,7 +324,7 @@ import controller.Simulation;
 		 * @param waitingTime the waiting time of the customer
 		 * @return a frustration value between 0 and 5
 		 */
-		private double calculateFrustrationByWaitingTime(int waitingTime){
+		private double calculateFrustrationByWaitingTime(long waitingTime){
 			double frustration = 0;
 			//normiert den frustrationswert auf maximal 5
 			final double NORMIERUNG = UPPERLIMITWAITINGTIME/5;

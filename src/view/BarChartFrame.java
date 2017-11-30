@@ -69,7 +69,7 @@ public class BarChartFrame extends JFrame{
         try {
             String theData = "";
 
-            File file = new File("DataOutput/DataOperatingCosts.csv");
+            File file = new File("DataOutput/DataOperatingCost.csv");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 

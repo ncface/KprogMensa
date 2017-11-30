@@ -2,7 +2,6 @@ package io;
 
 import controller.Simulation;
 import model.*;
-import view.GraphPlotter;
 import view.GraphPlotterArray;
 
 import java.io.*;
