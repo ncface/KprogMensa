@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.deploy.uitoolkit.Window;
 import model.Customer;
 import model.Station;
 
