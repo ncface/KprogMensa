@@ -210,7 +210,7 @@ public class FactoryXML implements FactoryInterface{
     		//the <settings> ... </settings> node, this is the files root Element
     		Element root = theXMLDoc.getRootElement();
 
-    		//get anzalhDurchlaeufe
+    		//get anzahl_durchlaeufe
 			int amountOfToGeneratingCustomersPerType = Integer.parseInt(root.getChildText("anzahl_durchlaeufe"));
 
     		//get all the objects into a List object

@@ -67,7 +67,7 @@ public class FactoryJSON implements FactoryInterface {
 		* because the objects constructor puts the objects into the start stations outgoing queue
 		*/
         createStartStation();
-        createObjects();
+        createCustomers();
         createMensaStation();
         createEndStation();
         addObserverToObservable();
@@ -219,7 +219,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * create some objects out of the JSON file
      */
-    private static void createObjects() {
+    private static void createCustomers() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -237,7 +237,7 @@ public class FactoryJSON implements FactoryInterface {
             for(int iterations = 0 ; iterations < amountOfToGeneratingCustomersPerType ; iterations++) {
             	//iterate over all CustomerTypes
                 for (Object customerType : objects) {
-                    //cast array to object
+                    //cast Object (customerType) to JSONObject(customer)
                     JSONObject customer = (JSONObject) customerType;
 
                     //variables for customer generating
@@ -268,7 +268,7 @@ public class FactoryJSON implements FactoryInterface {
 
                     HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
                     for (Object station : allStations) {
-                    	//cast array to object
+                        //cast Object (station) to JSONObject(theStation)
                         JSONObject theStation = (JSONObject) station;
 
                         StationType theStationType = StationType.parseStationType(theStation.getString("name"));
@@ -325,6 +325,7 @@ public class FactoryJSON implements FactoryInterface {
 
             //add the inQueueLimits to the types
             for(Object typeLimit : typeLimits){
+                //cast Object (typeLimit) to JSONObject(station)
                 JSONObject station = (JSONObject) typeLimit;
 
                 //set the limit to of maximum queue size
@@ -337,7 +338,7 @@ public class FactoryJSON implements FactoryInterface {
 
             //separate every JDOM "station" Element from the list and create Java Station objects
             for (Object station : allStations) {
-            	//cast array to station
+            	//cast Object (station) to JSONObject(mensaStation)
                 JSONObject mensaStation = (JSONObject) station;
 
                 //variables for station generating
@@ -385,7 +386,7 @@ public class FactoryJSON implements FactoryInterface {
                 SynchronizedQueue theOutqueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
                 //creating a new Kasse, AdditionalMensaStation or MensaStation Object depending on the station type
-                if (type == StationType.KASSE)  {
+                if (label.toUpperCase().contains(StationType.KASSE.toString()))  {
                     Kasse.create(label, theInqueue, theOutqueue, troughPut, xPos, yPos, image, type, operatingCostsPerClockbeat);
                 }
                 else if(type == StationType.ADDITIONAL){
