@@ -57,6 +57,37 @@ public class BarChartFrame extends JFrame{
                 theData += "\n\n\n";
             }
             jTextTextArea.setText(theData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * this method reads data from the file DataOperatingCosts.csv and shows them in the frame
+     */
+    public void showOperatingCosts(){
+        try {
+            String theData = "";
+
+            File file = new File("DataOutput/DataOperatingCosts.csv");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String [] headLine = bufferedReader.readLine().split(",");
+
+            String [] stationOperatingCosts;
+
+            while((line))
+            for (int i=0; i<money.length; i++) {
+                int number = (int) Double.parseDouble(money[i]);
+                theData += headLines[i] +"\n";
+                for (int j = 0; j<number; j+=10) {
+                    theData += "|";
+                }
+                theData += " " + money[i];
+                theData += "\n\n\n";
+            }
+            jTextTextArea.setText(theData);
 
             System.out.println(theData);
 
