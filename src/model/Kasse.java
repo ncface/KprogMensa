@@ -65,8 +65,10 @@ public class Kasse extends MensaStation {
         super.handleCustomer(customer);
         // get all amounts of food the cusotmer buys
         Collection<Integer> amountFoodToPay = customer.getCustomerFoodAmountAtStationsWanted().values();
-        for(int amountFood: amountFoodToPay){
-            totalWeightPaid += amountFood;
+        synchronized (this) {
+            for (int amountFood : amountFoodToPay) {
+                totalWeightPaid += amountFood;
+            }
         }
     }
 
