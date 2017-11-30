@@ -303,7 +303,7 @@ import controller.Simulation;
 		public boolean leavesEarly(int personsInFrontOfThis){
 			waitingTime++;
 
-			int frustration = (int)(calculateFrustrationByWaitingTime(waitingTime)/
+			int frustration = (int)(calculateFrustrationByWaitingTime(waitingTime)*
 					calculateFrustrationByPersonsInFrontOfThis(personsInFrontOfThis));
 
 			if (frustration>frustrationLimit){
