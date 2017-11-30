@@ -3,7 +3,7 @@
 	<start_station>
 		<label>Start_Station</label>
 		<x_position>40</x_position>
-		<y_position>350</y_position>
+		<y_position>250</y_position>
 		<view>
 			<image>startstation.png</image>
 		</view>

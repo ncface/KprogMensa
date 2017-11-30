@@ -1,0 +1,86 @@
+{
+   "anzahl_durchlaeufe": "25",
+   "stdDeviance": "4",
+   "object": [
+      {
+         "label": "Customer_Typ_1",
+         "processtime": "10",
+         "speed": "5",
+         "view": {
+            "image": "customer.png"
+         },
+         "sequence": [
+            {
+               "name": "Vorspeise",
+               "min": "50",
+               "max": "200"
+            },
+            {
+               "name": "Hauptspeise",
+               "min": "200",
+               "max": "500"
+            },
+            {
+               "name": "Nachspeise",
+               "min": "50",
+               "max": "150"
+            }
+         ]
+      },
+      {
+         "label": "Customer_Typ_2",
+         "processtime": "8",
+         "speed": "5",
+         "view": {
+            "image": "customer.png"
+         },
+         "sequence": [
+            {
+               "name": "Hauptspeise",
+               "min": "250",
+               "max": "600"
+            },
+            {
+               "name": "Nachspeise",
+               "min": "50",
+               "max": "150"
+            }
+         ]
+      },
+      {
+         "label": "Customer_Typ_3",
+         "processtime": "4",
+         "speed": "5",
+         "view": {
+            "image": "customer.png"
+         },
+         "sequence": [
+            {
+               "name": "Hauptspeise",
+               "min": "300",
+               "max": "600"
+            }
+         ]
+      },
+      {
+         "label": "Customer_Typ_4",
+         "processtime": "2",
+         "speed": "5",
+         "view": {
+            "image": "customer.png"
+         },
+         "sequence": [
+            {
+               "name": "Vorspeise",
+               "min": "150",
+               "max": "300"
+            },
+            {
+               "name": "Nachspeise",
+               "min": "100",
+               "max": "150"
+            }
+         ]
+      }
+   ]
+}
