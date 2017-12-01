@@ -35,6 +35,7 @@ public class BarChartFrame extends JFrame{
      */
     public void showMoneyLoss(){
         try {
+            //collects data about earnings, possible earnings and loss
             String theData = "";
 
             File file = new File("DataOutput/DataMoneyLoss.csv");
@@ -44,18 +45,26 @@ public class BarChartFrame extends JFrame{
             String [] headLines;
             String[] money;
 
+            //get the headlines
             headLines = bufferedReader.readLine().split(",");
+            //get the values
             money = bufferedReader.readLine().split(",");
 
             for (int i=0; i<money.length; i++) {
                 int number = (int) Double.parseDouble(money[i]);
+                //add a description
                 theData += headLines[i] +"\n";
+                //add a bar
+                //the length of the bar depends on the money
                 for (int j = 0; j<number; j+=10) {
                     theData += "|";
                 }
+                //add the value of money
                 theData += " " + money[i];
                 theData += "\n\n\n";
             }
+
+            //set the data in the jTextArea
             jTextTextArea.setText(theData);
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,6 +76,7 @@ public class BarChartFrame extends JFrame{
      */
     public void showOperatingCosts(){
         try {
+            //collects data about the operating costs
             String theData = "";
 
             File file = new File("DataOutput/DataOperatingCosts.csv");
@@ -77,7 +87,8 @@ public class BarChartFrame extends JFrame{
 
             String [] headLine = bufferedReader.readLine().split(",");
 
-            theData += headLine[0] + headLine [1] + "\n\n";
+            //add a description for the bar chart
+            theData += headLine[0] + headLine[1] + "\n\n";
 
             String [] stationNameOperatingCosts;
 
@@ -87,9 +98,12 @@ public class BarChartFrame extends JFrame{
                 int operatingCost = Integer.parseInt(stationNameOperatingCosts[1]);
                 theData += stationName;
                 theData += "\n";
+                //add a bar
+                //the length of the bar depends on the money
                 for (int i=0; i<operatingCost; i+=5){
                     theData += "|";
                 }
+                //add the operating cost
                 theData += operatingCost;
                 theData += "\n\n";
             }

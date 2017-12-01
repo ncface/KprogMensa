@@ -63,7 +63,7 @@ public class DataCollection {
                 for (File file : files) {
                     file.delete();//delete the files
                 }
-            }else{
+            } else{
                 outPutFolder.mkdir();//create folder if not existing
             }
     }
@@ -131,7 +131,6 @@ public class DataCollection {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -215,6 +214,9 @@ public class DataCollection {
         return Kasse.getTotalWeightPaid();
     }
 
+    /**
+     * @return the total amount at the end station
+     */
     private static int totalAmountAtEndStation(){
         return EndStation.getTotalAmountWantedFood();
     }
@@ -226,22 +228,51 @@ public class DataCollection {
     public static void setPrice(double price){
         DataCollection.price = price / 1000.0;
     }
-    
+
+    /**
+     * getter for the out folder path
+     * @return the outFolderPath
+     */
     public static String getOutFolderPath(){
     	return outFolderPath;
     }
+
+    /**
+     * getter for the file path for left early
+     * @return the filePathAdditionalStation
+     */
     public static String getFilePathLeftEarly(){
     	return filePathLeftEarly;
     }
+
+    /**
+     * getter for the file path for additional station
+     * @return the filePathAdditionalStation
+     */
     public static String getFilePathAdditionalStation(){
     	return filePathAdditionalStation;
     }
+
+    /**
+     * getter for the file path for money loss
+     * @return the filePathMoneyLoss
+     */
     public static String getFilePathMoneyLoss(){
     	return filePathMoneyLoss;
     }
+
+    /**
+     * getter for the file path for operating costs
+     * @return the filePathOperatingCosts
+     */
     public static String getFilePathOperatingCosts(){
     	return filePathOperatingCosts;
     }
+
+    /**
+     * getter for the file path for numberCustomer
+     * @return the filePathNumberCustomers
+     */
     public static String getFilePathNumberCustomers(){
     	return filePathNumberCustomers;
     }
