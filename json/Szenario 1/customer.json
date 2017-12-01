@@ -1,7 +1,18 @@
 {
-   "anzahl_durchlaeufe": "100",
+   "anzahl_durchlaeufe": "25",
    "stdDeviance": "4",
-   "object": [
+   "generalStationsBefore": {
+      "names": [
+         "Start"
+      ]
+   },
+   "generalStationsAfter": {
+      "names": [
+         "Kasse",
+         "Ende"
+      ]
+   },
+   "customer": [
       {
          "label": "Customer_Typ_1",
          "processtime": "10",

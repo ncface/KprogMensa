@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  * This is an abstract factory that creates instances
- * of actor types like objects, stations and their queues by using JSON
+ * of actor types like customers, stations and their queues by using JSON
  *
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
@@ -26,8 +26,8 @@ public class FactoryJSON implements FactoryInterface {
     private static final String FORMAT_DIRECTORY = "json/";
 
     private static String SCENARIO_DIRECTORY = "Szenario 1/";
-    /** the objects JSON data file */
-    private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
+    /** the customers JSON data file */
+    private static String theCustomersDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
 
     /** the stations JSON data file */
     private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.json";
@@ -83,7 +83,7 @@ public class FactoryJSON implements FactoryInterface {
     public static void setScenario(String scenario){
         SCENARIO_DIRECTORY = scenario;
         String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-        theObjectDataFile = path + "customer.json";
+        theCustomersDataFile = path + "customer.json";
         theStationDataFile = path + "station.json";
         theStatisticsDataFile = path + "statistics.json";
         theStartStationDataFile = path + "startstation.json";
@@ -217,19 +217,31 @@ public class FactoryJSON implements FactoryInterface {
     }
 
     /**
-     * create some objects out of the JSON file
+     * create some customers out of the JSON file
      */
     private static void createCustomers() {
         try {
 
             //read the information from the JSON file into the jsonObject
-            jsonObject = loadJSONObject(theObjectDataFile);
+            jsonObject = loadJSONObject(theCustomersDataFile);
 
             //get amountOfToGeneratingCustomersPerType from Json
             int amountOfToGeneratingCustomersPerType = jsonObject.getInt("anzahl_durchlaeufe");
 
+            //get generalStationsBefore from Json
+            JSONObject generalStationsBefore = jsonObject.getJSONObject("generalStationsBefore");
+
+            //get the JsonArray with the names of the stations before the customer-specific stations
+            JSONArray generalStationsBeforeNames = generalStationsBefore.getJSONArray("names");
+
+            //get generalStationsAfter from Json
+            JSONObject generalStationsAfter = jsonObject.getJSONObject("generalStationsAfter");
+
+            //get the JsonArray with the names of the stations after the customer-specific stations
+            JSONArray generalStationsAfterNames = generalStationsAfter.getJSONArray("names");
+
             //iterate through the JSONArray to load single JSON objects into a list
-            JSONArray objects = jsonObject.getJSONArray("object");
+            JSONArray objects = jsonObject.getJSONArray("customer");
 
             //the counter for created Customer
             int counterCustomer = 0;
@@ -263,8 +275,10 @@ public class FactoryJSON implements FactoryInterface {
                     //get the elements into a list
                     ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
 
-                    //add always StartStation as first Station (every customer goes through startStation first)
-                    stationsToGo.add(StationType.START);
+                    //add the stations every customers goes before going to the customer-specific stations
+                    for (Object stationName: generalStationsBeforeNames){
+                        stationsToGo.add(StationType.parseStationType(stationName.toString()));
+                    }
 
                     HashMap<StationType, Integer> weights= new HashMap<StationType, Integer>();
                     for (Object station : allStations) {
@@ -279,9 +293,10 @@ public class FactoryJSON implements FactoryInterface {
                         //add the weight of the food, the customer should take in the stations
                         weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
                     }
-                    //add always EndStation and Kasse as last Station (every customer goes through EndStation last)
-                    stationsToGo.add(StationType.KASSE);
-                    stationsToGo.add(StationType.ENDE);
+                    //add the stations every customers goes after going to the customer-specific stations
+                    for (Object stationName: generalStationsAfterNames){
+                        stationsToGo.add(StationType.parseStationType(stationName.toString()));
+                    }
 
                     //get the gaussian standard deviance (deviation)
                     double stdDeviance = jsonObject.getInt("stdDeviance");

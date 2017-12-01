@@ -2,7 +2,14 @@
 <settings>
 	<anzahl_durchlaeufe>25</anzahl_durchlaeufe>
 	<stdDeviance>4</stdDeviance>
-	<object>
+	<generalStationsBefore>
+		<name>Start</name>
+	</generalStationsBefore>
+	<generalStationsAfter>
+		<name>Kasse</name>
+		<name>Ende</name>
+	</generalStationsAfter>
+	<customer>
 		<label>Customer_Typ_1</label>
 		<processtime>10</processtime>
 		<speed>5</speed>
@@ -26,8 +33,8 @@
 				<max>100</max>	
 			</station>
 		</sequence>
-	</object>
-	<object>
+	</customer>
+	<customer>
 		<label>Customer_Typ_2</label>
 		<processtime>8</processtime>
 		<speed>5</speed>
@@ -46,8 +53,8 @@
 				<max>100</max>	
 			</station>
 		</sequence>
-	</object>
-	<object>
+	</customer>
+	<customer>
 		<label>Customer_Typ_3</label>
 		<processtime>4</processtime>
 		<speed>5</speed>
@@ -61,8 +68,8 @@
 				<max>600</max>	
 			</station>
 		</sequence>
-	</object>
-	<object>
+	</customer>
+	<customer>
 		<label>Customer_Typ_4</label>
 		<processtime>2</processtime>
 		<speed>5</speed>
@@ -81,5 +88,5 @@
 				<max>150</max>	
 			</station>
 		</sequence>
-	</object>
+	</customer>
 </settings>

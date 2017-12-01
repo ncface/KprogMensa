@@ -25,8 +25,8 @@ public class FactoryXML implements FactoryInterface{
 
 	private static String SCENARIO_DIRECTORY = "Szenario 1/";
 
-	/** the objects XML data file */
-	private static String theObjectDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
+	/** the customers XML data file */
+	private static String theCustomerDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
 	
 	/** the stations XML data file */
 	private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.xml";
@@ -78,7 +78,7 @@ public class FactoryXML implements FactoryInterface{
 	public static void setScenario(String scenario){
 			SCENARIO_DIRECTORY = scenario;
 			String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-			theObjectDataFile = path + "customer.xml";
+			theCustomerDataFile = path + "customer.xml";
 			theStationDataFile = path + "station.xml";
 			theStatisticsDataFile = path + "statistics.xml";
 			theStartStationDataFile = path + "startstation.xml";
@@ -205,7 +205,7 @@ public class FactoryXML implements FactoryInterface{
     	try {
 		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(theObjectDataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theCustomerDataFile);
     		
     		//the <settings> ... </settings> node, this is the files root Element
     		Element root = theXMLDoc.getRootElement();
@@ -213,15 +213,27 @@ public class FactoryXML implements FactoryInterface{
     		//get anzahl_durchlaeufe
 			int amountOfToGeneratingCustomersPerType = Integer.parseInt(root.getChildText("anzahl_durchlaeufe"));
 
-    		//get all the objects into a List object
-    		List <Element> allObjects = root.getChildren("object");
+			//get the <generalStationsBefore> ... </generalStationsBefore> node
+			Element generalStationsBefore = root.getChild("generalStationsBefore");
+
+			//get every name element of the generalStationsBefore
+			List<Element> generalStationsBeforeNames = generalStationsBefore.getChildren("name");
+
+			//get the <generalStationsAfter> ... </generalStationsAfter> node
+			Element generalStationsAfter = root.getChild("generalStationsAfter");
+
+			//get every name element of the generalStationsAfter
+			List<Element> generalStationsAfterNames = generalStationsAfter.getChildren("name");
+
+			//get all the customers into a List customer
+    		List <Element> allCustomers = root.getChildren("customer");
 
     		//the counter for created Customer
 			int counterCustomer = 0;
 
     		for(int iterations = 0 ; iterations < amountOfToGeneratingCustomersPerType ; iterations++) {
 				//separate every JDOM "object" Element from the list and create Java Customer objects
-				for (Element customer : allObjects) {
+				for (Element customer : allCustomers) {
 
 					//variables for customer generating
 					String label = null;
@@ -251,8 +263,10 @@ public class FactoryXML implements FactoryInterface{
 					//get the elements into a list
 					ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
 
-					//add always StartStation as first Station (every customer goes through startStation first)
-					stationsToGo.add(StationType.START);
+					//add the stations every customers goes before going to the customer-specific stations
+					for (Element element: generalStationsBeforeNames){
+						stationsToGo.add(StationType.parseStationType(element.getText()));
+					}
 
 					//adds all stations where the customer wants to go and
 					// reads the <name>,<min>,<max> for the wanted food of the customer
@@ -266,10 +280,11 @@ public class FactoryXML implements FactoryInterface{
 						//add the weight of the food, the customer should take in the stations
 						weights.put(theStationType,newRandom(theStationMinWeight,theStationMaxWeight));
 					}
-					//add always EndStation and Kasse as last Station (every customer goes through EndStation last)
-					stationsToGo.add(StationType.KASSE);
-					stationsToGo.add(StationType.ENDE);
-					
+					//add the stations every customer goes after going to the customer-specific stations
+					for (Element element: generalStationsAfterNames){
+						stationsToGo.add(StationType.parseStationType(element.getText()));
+					}
+
 					//get the gaussian standard deviance (deviation)
 					double stdDeviance = Integer.parseInt(root.getChildText("stdDeviance"));
 					Random rand = new Random();
