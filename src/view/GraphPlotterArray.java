@@ -13,7 +13,7 @@ import java.util.Map;
  * @version 30.11.17
  */
 public class GraphPlotterArray {
-    Map<Station, GraphPlotter> GraphPlotterArray;
+    private Map<Station, GraphPlotter> GraphPlotterArray;
 
     /**
      * construtor for class GraphPlotterArray

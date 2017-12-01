@@ -19,7 +19,7 @@ public final class SelectionDialog extends JDialog {
     private final String JSONPath = "json/";
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
-    ButtonGroup formatSelection;
+    private ButtonGroup formatSelection;
     private String selectedSzenario;
     private String selectedFormat;
 
@@ -150,12 +150,14 @@ public final class SelectionDialog extends JDialog {
         File szenarioFolders = new File(path);
         File[] allSzenarios = szenarioFolders.listFiles();
 
-        for (File file : allSzenarios) {
-            String name = file.getName();
-            JRadioButton szenarioButton = new JRadioButton(name);
-            szenarioButton.setActionCommand(file.getName() + "/");
-            szenarioSelection.add(szenarioButton);
-            szenarioSelectionPanel.add(szenarioButton);
+        if (allSzenarios != null) {
+            for (File file : allSzenarios) {
+                String name = file.getName();
+                JRadioButton szenarioButton = new JRadioButton(name);
+                szenarioButton.setActionCommand(file.getName() + "/");
+                szenarioSelection.add(szenarioButton);
+                szenarioSelectionPanel.add(szenarioButton);
+            }
         }
     }
 
@@ -171,6 +173,7 @@ public final class SelectionDialog extends JDialog {
             try {
                 this.wait();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         String[] selected = {selectedFormat, selectedSzenario};

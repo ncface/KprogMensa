@@ -57,7 +57,7 @@ public class Kasse extends MensaStation {
     }
 
     /**
-     * @Override handleCustomer of the super class (MensaStation)
+     * handleCustomer of the super class (MensaStation)
      * calculates the total weight of food of the customer
      */
     @Override

@@ -3,7 +3,7 @@ package model;
 import io.Statistics;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 
 import controller.Simulation;
@@ -300,10 +300,10 @@ public class MensaStation extends Station {
 	 * 
 	 * @return the allMensaStations
 	 */
-	public static ArrayList<MensaStation> getAllProcessStations() {
+	public static List<MensaStation> getAllProcessStations() {
 		
 		// all the process station objects
-		ArrayList<MensaStation> allMensaStations = new ArrayList<MensaStation>();
+		List<MensaStation> allMensaStations = new ArrayList<>();
 		
 		//filter the process stations out of the station list
 		for (Station station : Station.getAllStations()) {
