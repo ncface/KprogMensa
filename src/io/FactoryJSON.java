@@ -19,28 +19,28 @@ import java.io.FileReader;
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryJSON implements FactoryInterface {
+public final class FactoryJSON implements Factory {
     /**the one and only FactoryJSON Object*/
-    private static FactoryJSON factoryJSON = new FactoryJSON();
+    private static FactoryJSON factoryJSON;
 
     private final String FORMAT_DIRECTORY = "json/";
 
-    private String SCENARIO_DIRECTORY = "Szenario 1/";
+    private String SCENARIO_DIRECTORY;
 
     /** the customers JSON data file */
-    private String theCustomersDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
+    private String theCustomersDataFile;
 
     /** the stations JSON data file */
-    private String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.json";
+    private String theStationDataFile;
 
     /** the start station JSON data file */
-    private String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.json";
+    private String theStartStationDataFile;
 
     /** the end station JSON data file */
-    private String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.json";
+    private String theEndStationDataFile;
 
     /** the end station XML data file */
-    private String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.json";
+    private String theStatisticsDataFile;
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
     private JSONObject jsonObject;
@@ -60,14 +60,25 @@ public final class FactoryJSON implements FactoryInterface {
     /**
      * private Constructor for FactoryJSON
      * only one FactoryJSON Object should be created
+     * @param scenario the selected scenario
      */
-    private FactoryJSON(){};
+    private FactoryJSON(String scenario){
+        this.SCENARIO_DIRECTORY = scenario;
+        String prePath = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
+        theCustomersDataFile = prePath + "customer.json";
+        theStationDataFile = prePath + "station.json";
+        theStartStationDataFile = prePath + "startstation.json";
+        theEndStationDataFile = prePath + "endstation.json";
+        theStatisticsDataFile = prePath + "statistics.json";
+
+    }
 
     /**
      * method that returns a reference for the only FactoryJSON Object
      * @return the FactoryJSON Object
      */
-    public static FactoryJSON createFactoryJSON(){
+    public static Factory createFactory(String scenarioPath){
+        factoryJSON = new FactoryJSON(scenarioPath);
         return factoryJSON;
     }
 
@@ -89,20 +100,6 @@ public final class FactoryJSON implements FactoryInterface {
 
     }
 
-    /**
-     * Setter for the scenarioFolder.
-     * updates the filepaths
-     * @param scenario the name of the scenarioFolder
-     */
-    public void setScenario(String scenario){
-        SCENARIO_DIRECTORY = scenario;
-        String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-        theCustomersDataFile = path + "customer.json";
-        theStationDataFile = path + "station.json";
-        theStatisticsDataFile = path + "statistics.json";
-        theStartStationDataFile = path + "startstation.json";
-        theEndStationDataFile = path + "endstation.json";
-    }
 
     /**
      * Singleton for a jsonObject.

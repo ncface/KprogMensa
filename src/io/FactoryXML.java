@@ -17,28 +17,28 @@ import org.jdom2.input.SAXBuilder;
  * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryXML implements FactoryInterface{
+public final class FactoryXML implements Factory {
 	/**the one and only FactoryXML Object*/
-	private static FactoryXML factoryXML = new FactoryXML();
+	private static FactoryXML factoryXML;
 
 	private final String FORMAT_DIRECTORY = "xml/";
 
-	private String SCENARIO_DIRECTORY = "Szenario 1/";
+	private String SCENARIO_DIRECTORY;
 
 	/** the customers XML data file */
-	private String theCustomerDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
+	private String theCustomersDataFile;
 	
 	/** the stations XML data file */
-	private String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.xml";
+	private String theStationDataFile;
 	
 	/** the start station XML data file */
-	private String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.xml";
+	private String theStartStationDataFile;
 	
 	/** the end station XML data file */
-	private String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.xml";
+	private String theEndStationDataFile;
 	
 	/** the end station XML data file */
-	private String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
+	private String theStatisticsDataFile;
 
 	/** the x position of the starting station, also position for all starting objects */
 	private int XPOS_STARTSTATION;
@@ -55,14 +55,26 @@ public final class FactoryXML implements FactoryInterface{
 	/**
 	 * private Constructor for FactoryXML
 	 * only one FactoryXML Object should be created
+	 * @param scenario the selected scenario
 	 */
-	private FactoryXML(){};
+	private FactoryXML(String scenario){
+		this.SCENARIO_DIRECTORY = scenario;
+		this.SCENARIO_DIRECTORY = scenario;
+		String prePath = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
+		theCustomersDataFile = prePath + "customer.xml";
+		theStationDataFile = prePath + "station.xml";
+		theStartStationDataFile = prePath + "startstation.xml";
+		theEndStationDataFile = prePath + "endstation.xml";
+		theStatisticsDataFile = prePath + "statistics.xml";
+	}
 
 	/**
 	 * method that returns a reference for the only FactoryXML Object
+	 * @param scenarioDirectory the selected scenario directory
 	 * @return the FactoryXML Object
 	 */
-	public static FactoryXML createFactoryXML(){
+	public static Factory createFactory(String scenarioDirectory){
+		factoryXML = new FactoryXML(scenarioDirectory);
 		return factoryXML;
 	}
 
@@ -81,21 +93,6 @@ public final class FactoryXML implements FactoryInterface{
 		createEndStation();
 		addObserverToObservable();
 		createDataCollection();
-	}
-
-	/**
-	 * Setter for the scenarioFolder.
-	 * updates the filepaths
-	 * @param scenario the name of the scenarioFolder
-	 */
-	public void setScenario(String scenario){
-			SCENARIO_DIRECTORY = scenario;
-			String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-			theCustomerDataFile = path + "customer.xml";
-			theStationDataFile = path + "station.xml";
-			theStatisticsDataFile = path + "statistics.xml";
-			theStartStationDataFile = path + "startstation.xml";
-			theEndStationDataFile = path + "endstation.xml";
 	}
 
 	/**
@@ -218,7 +215,7 @@ public final class FactoryXML implements FactoryInterface{
     	try {
 		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(theCustomerDataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theCustomersDataFile);
     		
     		//the <settings> ... </settings> node, this is the files root Element
     		Element root = theXMLDoc.getRootElement();

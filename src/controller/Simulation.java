@@ -26,7 +26,7 @@ public class Simulation {
 	public static final int CLOCKBEAT = 250 * SPEEDFACTOR;
 
 	/**The Factory that creates the customers and stations */
-	public static FactoryInterface factory;
+	public static Factory factory;
 	
 	/**the global clock */
 	//the clock must be thread safe -> AtomicLong. The primitive type long isn't, even if synchronized
@@ -50,17 +50,15 @@ public class Simulation {
 	private void init(){
 		SelectionDialog selectionDialog = SelectionDialog.create();
 		String[] selectedFormatAndScenario = selectionDialog.getSelected();
+		String inputFormat = selectedFormatAndScenario[0];
+		String scenario = selectedFormatAndScenario[1];
 		//create all stations and customers for the starting scenario out of XML or JSON
-		if(selectedFormatAndScenario[0].contains("xml")){
-			factory = FactoryXML.createFactoryXML();
+		if(inputFormat.contains("xml")){
+			factory = FactoryXML.createFactory(scenario);
 		}
-		else if(selectedFormatAndScenario[0].contains("json")){
-			factory = FactoryJSON.createFactoryJSON();
+		else if(inputFormat.contains("json")){
+			factory = FactoryJSON.createFactory(scenario);
 		}
-
-		//set the scenario for the simulation
-		factory.setScenario(selectedFormatAndScenario[1]);
-
 		//create the start-scenario
 		factory.createStartScenario();
 
