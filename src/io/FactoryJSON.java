@@ -22,46 +22,63 @@ import java.util.Random;
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public class FactoryJSON implements FactoryInterface {
-    private static final String FORMAT_DIRECTORY = "json/";
+public final class FactoryJSON implements FactoryInterface {
+    /**the one and only FactoryJSON Object*/
+    private static FactoryJSON factoryJSON = new FactoryJSON();
 
-    private static String SCENARIO_DIRECTORY = "Szenario 1/";
+    private final String FORMAT_DIRECTORY = "json/";
+
+    private String SCENARIO_DIRECTORY = "Szenario 1/";
+
     /** the customers JSON data file */
-    private static String theCustomersDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
+    private String theCustomersDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.json";
 
     /** the stations JSON data file */
-    private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.json";
+    private String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.json";
 
     /** the start station JSON data file */
-    private static String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.json";
+    private String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.json";
 
     /** the end station JSON data file */
-    private static String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.json";
+    private String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.json";
 
     /** the end station XML data file */
-    private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.json";
+    private String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.json";
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
-    private static JSONObject jsonObject;
+    private JSONObject jsonObject;
 
     /** the x position of the starting station, also position for all starting objects */
-    private static int XPOS_STARTSTATION;
+    private int XPOS_STARTSTATION;
 
     /** the y position of the starting station, also position for all starting objects */
-    private static int YPOS_STARTSTATION;
+    private int YPOS_STARTSTATION;
 
     /** the spacing between Inqueue and Station (left side)*/
-    private static int SPACING_LEFT;
+    private int SPACING_LEFT;
 
     /** the spacing between Outqueue and Station (right side)*/
-    private static int SPACING_RIGHT;
+    private int SPACING_RIGHT;
 
+    /**
+     * private Constructor for FactoryJSON
+     * only one FactoryJSON Object should be created
+     */
+    private FactoryJSON(){};
+
+    /**
+     * method that returns a reference for the only FactoryJSON Object
+     * @return the FactoryJSON Object
+     */
+    public static FactoryJSON createFactoryJSON(){
+        return factoryJSON;
+    }
 
     /**
      * create the actors for the starting scenario
      */
     @SuppressWarnings("Duplicates")
-    public static void createStartScenario(){
+    public void createStartScenario(){
 		
 		/*NOTE: The start station must be created first,
 		* because the objects constructor puts the objects into the start stations outgoing queue
@@ -80,7 +97,7 @@ public class FactoryJSON implements FactoryInterface {
      * updates the filepaths
      * @param scenario the name of the scenarioFolder
      */
-    public static void setScenario(String scenario){
+    public void setScenario(String scenario){
         SCENARIO_DIRECTORY = scenario;
         String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
         theCustomersDataFile = path + "customer.json";
@@ -98,7 +115,7 @@ public class FactoryJSON implements FactoryInterface {
      * @param theJSONDataFile , json File in which the information is written in
      * @return the JSONObject
      */
-    public static JSONObject loadJSONObject(String theJSONDataFile){
+    public JSONObject loadJSONObject(String theJSONDataFile){
         try {
             // load the JSON-File into a String
             FileReader fr = new FileReader(theJSONDataFile);
@@ -120,7 +137,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * reads the values for the DataCollection
      */
-    private static void createDataCollection() {
+    private void createDataCollection() {
         try {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theStatisticsDataFile).getJSONObject("values");
@@ -146,7 +163,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
      */
-    private static void addObserverToObservable() {
+    private void addObserverToObservable() {
         //make list and add all additionalMensaStations
         List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
         for(Station station: Station.getAllStations()){
@@ -167,7 +184,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * create the start station of the JSON file
      */
-    private static void createStartStation() {
+    private void createStartStation() {
         try {
         //read the information from the JSON file into the jsonObject
         jsonObject = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
@@ -219,7 +236,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * create some customers out of the JSON file
      */
-    private static void createCustomers() {
+    private void createCustomers() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -321,7 +338,7 @@ public class FactoryJSON implements FactoryInterface {
         }
     }
 
-    private static Integer newRandom(int min, int max) {
+    private Integer newRandom(int min, int max) {
         return (int)(Math.random() * (max - min) + min);
     }
 
@@ -329,7 +346,7 @@ public class FactoryJSON implements FactoryInterface {
      * create some process stations out of the JSON file
      */
     @SuppressWarnings("Duplicates")
-    private static void createMensaStation() {
+    private void createMensaStation() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -423,7 +440,7 @@ public class FactoryJSON implements FactoryInterface {
     /**
      * create the end station
      */
-    private static void createEndStation() {
+    private void createEndStation() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -476,5 +493,4 @@ public class FactoryJSON implements FactoryInterface {
             e.printStackTrace();
         }
     }
-
 }

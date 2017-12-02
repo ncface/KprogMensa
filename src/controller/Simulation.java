@@ -1,11 +1,9 @@
 package controller;
 
-import io.DataCollection;
+import io.*;
 import view.SelectionDialog;
-import io.FactoryJSON;
 import view.SimulationView;
-import io.FactoryXML;
-import io.Statistics;
+
 import java.util.concurrent.atomic.AtomicLong;
 import model.Actor;
 
@@ -26,12 +24,14 @@ public class Simulation {
 	
 	/**the beat or speed of the clock, e.g. 300 means one beat every 300 milli seconds*/
 	public static final int CLOCKBEAT = 250 * SPEEDFACTOR;
+
+	/**The Factory that creates the customers and stations */
+	public static FactoryInterface factory;
 	
 	/**the global clock */
 	//the clock must be thread safe -> AtomicLong. The primitive type long isn't, even if synchronized
 	private static AtomicLong clock = new AtomicLong(0); 
-	
-	
+
 	/**
 	 * Die Main-Methode der Anwendung.
 	 */
@@ -52,13 +52,17 @@ public class Simulation {
 		String[] selectedFormatAndScenario = selectionDialog.getSelected();
 		//create all stations and customers for the starting scenario out of XML or JSON
 		if(selectedFormatAndScenario[0].contains("xml")){
-			FactoryXML.setScenario(selectedFormatAndScenario[1]);
-			FactoryXML.createStartScenario();
+			factory = FactoryXML.createFactoryXML();
 		}
 		else if(selectedFormatAndScenario[0].contains("json")){
-			FactoryJSON.setScenario(selectedFormatAndScenario[1]);
-			FactoryJSON.createStartScenario();
+			factory = FactoryJSON.createFactoryJSON();
 		}
+
+		//set the scenario for the simulation
+		factory.setScenario(selectedFormatAndScenario[1]);
+
+		//create the start-scenario
+		factory.createStartScenario();
 
 		//reset all data files in DataOutput
 		DataCollection.prepareDataCollection();

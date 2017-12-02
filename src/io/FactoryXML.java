@@ -20,44 +20,60 @@ import org.jdom2.input.SAXBuilder;
  * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public class FactoryXML implements FactoryInterface{
-	private static final String FORMAT_DIRECTORY = "xml/";
+public final class FactoryXML implements FactoryInterface{
+	/**the one and only FactoryXML Object*/
+	private static FactoryXML factoryXML = new FactoryXML();
 
-	private static String SCENARIO_DIRECTORY = "Szenario 1/";
+	private final String FORMAT_DIRECTORY = "xml/";
+
+	private String SCENARIO_DIRECTORY = "Szenario 1/";
 
 	/** the customers XML data file */
-	private static String theCustomerDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
+	private String theCustomerDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "customer.xml";
 	
 	/** the stations XML data file */
-	private static String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.xml";
+	private String theStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "station.xml";
 	
 	/** the start station XML data file */
-	private static String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.xml";
+	private String theStartStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "startstation.xml";
 	
 	/** the end station XML data file */
-	private static String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.xml";
+	private String theEndStationDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "endstation.xml";
 	
 	/** the end station XML data file */
-	private static String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
+	private String theStatisticsDataFile = FORMAT_DIRECTORY + SCENARIO_DIRECTORY + "statistics.xml";
 
 	/** the x position of the starting station, also position for all starting objects */
-	private static int XPOS_STARTSTATION;
+	private int XPOS_STARTSTATION;
 	
 	/** the y position of the starting station, also position for all starting objects */
-	private static int YPOS_STARTSTATION;
+	private int YPOS_STARTSTATION;
 
 	/** the spacing between Inqueue and Station (left side)*/
-	private static int SPACING_LEFT;
+	private int SPACING_LEFT;
 
 	/** the spacing between Outqueue and Station (right side)*/
-	private static int SPACING_RIGHT;
-		
-	
+	private int SPACING_RIGHT;
+
+	/**
+	 * private Constructor for FactoryXML
+	 * only one FactoryXML Object should be created
+	 */
+	private FactoryXML(){};
+
+	/**
+	 * method that returns a reference for the only FactoryXML Object
+	 * @return the FactoryXML Object
+	 */
+	public static FactoryXML createFactoryXML(){
+		return factoryXML;
+	}
+
 	/**
      * create the actors for the starting scenario
      */
 	@SuppressWarnings("Duplicates")
-	public static void createStartScenario(){
+	public void createStartScenario(){
 		
 		/*NOTE: The start station must be created first,
 		* because the objects constructor puts the objects into the start stations outgoing queue
@@ -75,7 +91,7 @@ public class FactoryXML implements FactoryInterface{
 	 * updates the filepaths
 	 * @param scenario the name of the scenarioFolder
 	 */
-	public static void setScenario(String scenario){
+	public void setScenario(String scenario){
 			SCENARIO_DIRECTORY = scenario;
 			String path = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
 			theCustomerDataFile = path + "customer.xml";
@@ -88,7 +104,7 @@ public class FactoryXML implements FactoryInterface{
 	/**
 	 * reads the values for the DataCollection
 	 */
-	private static void createDataCollection() {
+	private void createDataCollection() {
 		try {
     		
     		//read the information from the XML file into a JDOM Document
@@ -117,7 +133,7 @@ public class FactoryXML implements FactoryInterface{
 	/**
 	 * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
 	 */
-	private static void addObserverToObservable() {
+	private void addObserverToObservable() {
 		//make list and add all additionalMensaStations
 		List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
 		for(Station station: Station.getAllStations()){
@@ -138,7 +154,7 @@ public class FactoryXML implements FactoryInterface{
 	/**
      * create the start station
      */
-     private static void createStartStation(){
+     private void createStartStation(){
     	
     	try {
     		
@@ -200,7 +216,7 @@ public class FactoryXML implements FactoryInterface{
 	/**
      * create some customers out of the XML file
      */
-     private static void createCustomers(){
+     private void createCustomers(){
     	
     	try {
 		
@@ -315,7 +331,7 @@ public class FactoryXML implements FactoryInterface{
 	 * @param max the maximum value for the random Generator
 	 * @return the random integer
 	 */
-	private static Integer newRandom(int min, int max) {
+	private Integer newRandom(int min, int max) {
 		return (int)(Math.random() * (max - min) + min);
 	}
 
@@ -323,7 +339,7 @@ public class FactoryXML implements FactoryInterface{
      * create some mensa stations out of the XML file
      */
 	@SuppressWarnings("Duplicates")
-     private static void createMensaStation(){
+     private void createMensaStation(){
     	
     	try {
 
@@ -410,7 +426,7 @@ public class FactoryXML implements FactoryInterface{
      /**
      * create the end station
      */
-     private static void createEndStation(){
+     private void createEndStation(){
     	
     	try {
     		
@@ -468,5 +484,4 @@ public class FactoryXML implements FactoryInterface{
     		e.printStackTrace();
 		}
      }
-        
 }

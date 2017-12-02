@@ -10,7 +10,7 @@ import controller.Simulation;
  * @author Jaeger, Schmidt
  * @version 2017-10-29
  */
-public class StartStation extends SimpleStation {
+public final class StartStation extends SimpleStation {
 						
 	/** instance of the start station */
 	private static StartStation theStartStation;
@@ -42,7 +42,7 @@ public class StartStation extends SimpleStation {
 	
 	
 	/** creates a new start station
-	 *
+	 *	only one instance of StartStation can be created
 	 * @param label of the station 
 	 * @param inQueue the incoming queue
 	 * @param outQueue the outgoing queue

@@ -7,11 +7,11 @@ public interface FactoryInterface {
 	/**
 	 * creates the startscenario
 	 */
-	static void createStartScenario() {};
+	public void createStartScenario();
 
 	/**
 	 * Setter for the scenariopath
 	 * @param scenario the scenario
 	 */
-	static void setScenario(String scenario){};
+	public void setScenario(String scenario);
 }

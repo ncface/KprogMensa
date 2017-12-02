@@ -13,7 +13,7 @@ import view.BarChartFrame;
  * @author Jaeger, Schmidt
  * @version 2017-10-26
  */
-public class EndStation extends SimpleStation {
+public final class EndStation extends SimpleStation {
 	
 	/** instance of the start station */
 	@SuppressWarnings("unused")
@@ -45,7 +45,7 @@ public class EndStation extends SimpleStation {
 	}
 	
 	/** creates a new end station
-	 *
+	 *	only one instance of EndStation can be created
 	 * @param label of the station 
 	 * @param inQueue the incoming queue
 	 * @param outQueue the outgoing queue
