@@ -39,13 +39,10 @@ import controller.Simulation;
 		private long enterInQueueTime;
 				
 		/** all the station (stationtype) where the customer have to go to*/
-		private ArrayList<StationType> stationsToGo = new ArrayList<>();
-		
-		/** a pointer to the actual position of the stationsToGo list, start position is 0*/ 
-		private int stationListPointer = 0;
+		private Queue<StationType> stationsToGo = new LinkedList<>();
 		 				
 		/** list of all customers */
-		private static ArrayList<Customer> allCustomers = new ArrayList<Customer>();
+		private static List<Customer> allCustomers = new ArrayList<>();
 		
 		/** the actual station where this customer is in, null if it's not in a station or a stations queue */
 		private Station actualStation = null;
@@ -77,7 +74,7 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param customerFoodAmountAtStationsWanted the amount of food at the different mensastations
 		 */
-		private Customer(String label, ArrayList<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
+		private Customer(String label, Queue<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
 			super(label, xPos, yPos);
 			
 			enterInQueueTime = 0;
@@ -114,7 +111,7 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param foodAmountAtStation the amount of food at the different mensastations
 		 */
-		public static void create(String label, ArrayList<StationType> stationsToGo,
+		public static void create(String label, Queue<StationType> stationsToGo,
 								  int processTime, int speed , int xPos, int yPos,
 								  String image, Map<StationType,Integer> foodAmountAtStation,
 								  int frustrationLimit){
@@ -138,11 +135,10 @@ import controller.Simulation;
 		 */
 		private Station getNextStation(){
 			//we are at the end of the list
-			if(this.stationsToGo.size() < stationListPointer) return null;
+			if(this.stationsToGo.isEmpty()) return null;
 
-			//get the mensastationtype of the next station from the list and increase the list pointer
-			StationType stationType = this.stationsToGo.get(stationListPointer);
-			stationListPointer++;
+			//get the mensastationtype of the next station from the list
+			StationType stationType = this.stationsToGo.poll();
 
 			//a list of possible stations with with a certain stationtype
 			List<Station> possibleStations = new ArrayList<>();
@@ -252,7 +248,7 @@ import controller.Simulation;
 	 			if(station.getYPos() < this.yPos) this.yPos--;	
 	 			
 	 			//set our view to the new position
-				((Component) theView).setLocation(this.xPos, this.yPos);	
+				theView.setLocation(this.xPos, this.yPos);
 				
 				//let the thread sleep for the sequence time
 				try {
@@ -310,7 +306,8 @@ import controller.Simulation;
 
 			if (frustration>frustrationLimit){
 				//set the next station as endstation
-				stationsToGo.set(stationListPointer, StationType.ENDE);
+				stationsToGo.clear();
+				stationsToGo.add(StationType.ENDE);
 				//write in data collection
 				DataCollection.customerLeftEarly(this, Simulation.getGlobalTime());
 				return true;
@@ -366,7 +363,7 @@ import controller.Simulation;
 		 * 
 		 * @return a list of all customers
 		 */
-		public static ArrayList<Customer> getAllCustomers() {
+		public static List<Customer> getAllCustomers() {
 			return allCustomers;
 		}
 		

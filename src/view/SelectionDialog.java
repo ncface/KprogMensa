@@ -7,27 +7,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This class displays a selection dialog to select a n input format and a scenario
  * @author Hanselmann, Rietzler, Clauss, Herzog
  * @version 29.11.17
  */
-public final class SelectionDialog extends JDialog implements Runnable{
+public final class SelectionDialog extends JDialog {
     private static SelectionDialog selectionDialog = new SelectionDialog();
     private final String XMLPath = "xml/";
     private final String JSONPath = "json/";
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
-    ButtonGroup formatSelection;
+    private ButtonGroup formatSelection;
     private String selectedSzenario;
     private String selectedFormat;
-    private Lock lock = new ReentrantLock();
 
     /**
      * return the only selectiondialog object
+     *
      * @return the only SelectionDialog object
      */
     public static SelectionDialog create() {
@@ -37,7 +35,7 @@ public final class SelectionDialog extends JDialog implements Runnable{
     /**
      * private construtor for a scenario object
      */
-    private SelectionDialog(){
+    private SelectionDialog() {
         super();
         setUpDialog();
     }
@@ -50,7 +48,7 @@ public final class SelectionDialog extends JDialog implements Runnable{
         JPanel main = new JPanel();
         contentPane.add(main);
 
-        main.setLayout(new GridLayout(3,2));
+        main.setLayout(new GridLayout(3, 2));
 
         JLabel eingabeFormat = new JLabel("Eingabeformat:");
         JLabel szenario = new JLabel("Szenario:");
@@ -122,14 +120,15 @@ public final class SelectionDialog extends JDialog implements Runnable{
     public void okClicked() {
         selectedFormat = formatSelection.getSelection().getActionCommand();
         selectedSzenario = szenarioSelection.getSelection().getActionCommand();
-        synchronized (lock){
-            lock.notify();
+        synchronized (this) {
+            this.notify();
         }
         this.dispose();
     }
 
     /**
      * updates the szenarioSelection RadioButtons to the corresponding Szenario directories of the selected format directory
+     *
      * @param path the path of the selected format directory
      */
     public void updateSzenarioSelection(String path) {
@@ -144,18 +143,21 @@ public final class SelectionDialog extends JDialog implements Runnable{
 
     /**
      * creates a set of scenario radioButtons according to the directories in the specified format folder
+     *
      * @param path the format folder
      */
-    private void createRadioButtons(String path){
+    private void createRadioButtons(String path) {
         File szenarioFolders = new File(path);
         File[] allSzenarios = szenarioFolders.listFiles();
 
-        for(File file : allSzenarios){
-            String name = file.getName();
-            JRadioButton szenarioButton = new JRadioButton(name);
-            szenarioButton.setActionCommand(file.getName() + "/");
-            szenarioSelection.add(szenarioButton);
-            szenarioSelectionPanel.add(szenarioButton);
+        if (allSzenarios != null) {
+            for (File file : allSzenarios) {
+                String name = file.getName();
+                JRadioButton szenarioButton = new JRadioButton(name);
+                szenarioButton.setActionCommand(file.getName() + "/");
+                szenarioSelection.add(szenarioButton);
+                szenarioSelectionPanel.add(szenarioButton);
+            }
         }
     }
 
@@ -163,25 +165,18 @@ public final class SelectionDialog extends JDialog implements Runnable{
      * returns the selected input format(xml or json) and the selected scenario folder
      * the controll flow is blocked until the OK-button is clicked
      * after that the values are returned
+     *
      * @return an String array that contains the selected format at position 0 and the selected scenario at position 1
      */
-    public String[] getSelected(){
-        Thread thread = new Thread(this,"thread1");
-        thread.start();
-        synchronized (lock) {
+    public String[] getSelected() {
+        synchronized (this) {
             try {
-                lock.wait();
+                this.wait();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        String[] selected = {selectedFormat,selectedSzenario};
+        String[] selected = {selectedFormat, selectedSzenario};
         return selected;
     }
-
-    /**
-     * a dummy for the run method
-     */
-    public void run(){}
-
-
 }

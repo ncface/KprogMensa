@@ -2,10 +2,7 @@ package io;
 import model.*;
 import view.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import model.MensaStation;
 import org.jdom2.Document;
@@ -277,7 +274,7 @@ public final class FactoryXML implements FactoryInterface{
 					List<Element> allStations = sequenceGroup.getChildren("station");
 
 					//get the elements into a list
-					ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
+					Queue<StationType> stationsToGo = new LinkedList<StationType>();
 
 					//add the stations every customers goes before going to the customer-specific stations
 					for (Element element: generalStationsBeforeNames){

@@ -121,8 +121,6 @@ public class DataCollection {
      * @param openingTimeStation the time when station was opened
      */
     public static void additionalStationOpened(Station stationOpened, long openingTimeStation){
-        Station station = stationOpened;
-        long openingTime = openingTimeStation;
         try {
             File outPutFile = new File(filePathAdditionalStation);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));

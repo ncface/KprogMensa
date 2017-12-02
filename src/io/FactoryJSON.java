@@ -5,15 +5,12 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import view.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import model.MensaStation;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Random;
 
 /**
  * This is an abstract factory that creates instances
@@ -290,7 +287,7 @@ public final class FactoryJSON implements FactoryInterface {
                     JSONArray allStations = customer.getJSONArray("sequence");
 
                     //get the elements into a list
-                    ArrayList<StationType> stationsToGo = new ArrayList<StationType>();
+                    Queue<StationType> stationsToGo = new LinkedList<>();
 
                     //add the stations every customers goes before going to the customer-specific stations
                     for (Object stationName: generalStationsBeforeNames){
