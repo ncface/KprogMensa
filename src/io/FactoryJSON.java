@@ -21,7 +21,7 @@ import java.io.FileReader;
  */
 public final class FactoryJSON extends AbstractFactory {
     /**the one and only FactoryJSON Object*/
-    private static FactoryJSON factoryJSON;
+    private static Factory factoryJSON;
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
     private JSONObject jsonObject;
