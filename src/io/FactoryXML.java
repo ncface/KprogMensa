@@ -17,40 +17,15 @@ import org.jdom2.input.SAXBuilder;
  * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryXML implements Factory {
+public final class FactoryXML extends AbstractFactory {
 	/**the one and only FactoryXML Object*/
-	private static FactoryXML factoryXML;
+	private static Factory factoryXML;
 
-	private final String FORMAT_DIRECTORY = "xml/";
+	/** The directory with all xml scenarios */
+	public static final String FORMAT_DIRECTORY = "xml/";
 
-	private String SCENARIO_DIRECTORY;
-
-	/** the customers XML data file */
-	private String theCustomersDataFile;
-	
-	/** the stations XML data file */
-	private String theStationDataFile;
-	
-	/** the start station XML data file */
-	private String theStartStationDataFile;
-	
-	/** the end station XML data file */
-	private String theEndStationDataFile;
-	
-	/** the end station XML data file */
-	private String theStatisticsDataFile;
-
-	/** the x position of the starting station, also position for all starting objects */
-	private int XPOS_STARTSTATION;
-	
-	/** the y position of the starting station, also position for all starting objects */
-	private int YPOS_STARTSTATION;
-
-	/** the spacing between Inqueue and Station (left side)*/
-	private int SPACING_LEFT;
-
-	/** the spacing between Outqueue and Station (right side)*/
-	private int SPACING_RIGHT;
+	/** The ending of all xml files */
+	private static final String FILE_ENDING = ".xml";
 
 	/**
 	 * private Constructor for FactoryXML
@@ -58,14 +33,7 @@ public final class FactoryXML implements Factory {
 	 * @param scenario the selected scenario
 	 */
 	private FactoryXML(String scenario){
-		this.SCENARIO_DIRECTORY = scenario;
-		this.SCENARIO_DIRECTORY = scenario;
-		String prePath = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-		theCustomersDataFile = prePath + "customer.xml";
-		theStationDataFile = prePath + "station.xml";
-		theStartStationDataFile = prePath + "startstation.xml";
-		theEndStationDataFile = prePath + "endstation.xml";
-		theStatisticsDataFile = prePath + "statistics.xml";
+		super(FORMAT_DIRECTORY, scenario, FILE_ENDING);
 	}
 
 	/**
@@ -79,26 +47,9 @@ public final class FactoryXML implements Factory {
 	}
 
 	/**
-     * create the actors for the starting scenario
-     */
-	@SuppressWarnings("Duplicates")
-	public void createStartScenario(){
-		
-		/*NOTE: The start station must be created first,
-		* because the objects constructor puts the objects into the start stations outgoing queue
-		*/ 
-		createStartStation(); 
-		createCustomers();
-		createMensaStation();
-		createEndStation();
-		addObserverToObservable();
-		createDataCollection();
-	}
-
-	/**
 	 * reads the values for the DataCollection
 	 */
-	private void createDataCollection() {
+	protected void createDataCollection() {
 		try {
     		
     		//read the information from the XML file into a JDOM Document
@@ -127,7 +78,7 @@ public final class FactoryXML implements Factory {
 	/**
 	 * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
 	 */
-	private void addObserverToObservable() {
+	protected void addObserverToObservable() {
 		//make list and add all additionalMensaStations
 		List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
 		for(Station station: Station.getAllStations()){
@@ -148,7 +99,7 @@ public final class FactoryXML implements Factory {
 	/**
      * create the start station
      */
-     private void createStartStation(){
+     protected void createStartStation(){
     	
     	try {
     		
@@ -210,7 +161,7 @@ public final class FactoryXML implements Factory {
 	/**
      * create some customers out of the XML file
      */
-     private void createCustomers(){
+     protected void createCustomers(){
     	
     	try {
 		
@@ -333,7 +284,7 @@ public final class FactoryXML implements Factory {
      * create some mensa stations out of the XML file
      */
 	@SuppressWarnings("Duplicates")
-     private void createMensaStation(){
+     protected void createMensaStation(){
     	
     	try {
 
@@ -420,7 +371,7 @@ public final class FactoryXML implements Factory {
      /**
      * create the end station
      */
-     private void createEndStation(){
+     protected void createEndStation(){
     	
     	try {
     		

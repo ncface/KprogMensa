@@ -19,43 +19,19 @@ import java.io.FileReader;
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryJSON implements Factory {
+public final class FactoryJSON extends AbstractFactory {
     /**the one and only FactoryJSON Object*/
     private static FactoryJSON factoryJSON;
-
-    private final String FORMAT_DIRECTORY = "json/";
-
-    private String SCENARIO_DIRECTORY;
-
-    /** the customers JSON data file */
-    private String theCustomersDataFile;
-
-    /** the stations JSON data file */
-    private String theStationDataFile;
-
-    /** the start station JSON data file */
-    private String theStartStationDataFile;
-
-    /** the end station JSON data file */
-    private String theEndStationDataFile;
-
-    /** the end station XML data file */
-    private String theStatisticsDataFile;
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
     private JSONObject jsonObject;
 
-    /** the x position of the starting station, also position for all starting objects */
-    private int XPOS_STARTSTATION;
+    /** The directory with all json scenarios */
+    public static final String FORMAT_DIRECTORY = "json/";
 
-    /** the y position of the starting station, also position for all starting objects */
-    private int YPOS_STARTSTATION;
+    /** The ending of all json files */
+    private static final String FILE_ENDING = ".json";
 
-    /** the spacing between Inqueue and Station (left side)*/
-    private int SPACING_LEFT;
-
-    /** the spacing between Outqueue and Station (right side)*/
-    private int SPACING_RIGHT;
 
     /**
      * private Constructor for FactoryJSON
@@ -63,14 +39,7 @@ public final class FactoryJSON implements Factory {
      * @param scenario the selected scenario
      */
     private FactoryJSON(String scenario){
-        this.SCENARIO_DIRECTORY = scenario;
-        String prePath = FORMAT_DIRECTORY + SCENARIO_DIRECTORY;
-        theCustomersDataFile = prePath + "customer.json";
-        theStationDataFile = prePath + "station.json";
-        theStartStationDataFile = prePath + "startstation.json";
-        theEndStationDataFile = prePath + "endstation.json";
-        theStatisticsDataFile = prePath + "statistics.json";
-
+        super(FORMAT_DIRECTORY, scenario, FILE_ENDING);
     }
 
     /**
@@ -83,25 +52,6 @@ public final class FactoryJSON implements Factory {
     }
 
     /**
-     * create the actors for the starting scenario
-     */
-    @SuppressWarnings("Duplicates")
-    public void createStartScenario(){
-		
-		/*NOTE: The start station must be created first,
-		* because the objects constructor puts the objects into the start stations outgoing queue
-		*/
-        createStartStation();
-        createCustomers();
-        createMensaStation();
-        createEndStation();
-        addObserverToObservable();
-        createDataCollection();
-
-    }
-
-
-    /**
      * Singleton for a jsonObject.
      * 	- load json file
      * 	- create new instance of JSON Object
@@ -109,7 +59,7 @@ public final class FactoryJSON implements Factory {
      * @param theJSONDataFile , json File in which the information is written in
      * @return the JSONObject
      */
-    public JSONObject loadJSONObject(String theJSONDataFile){
+    private JSONObject loadJSONObject(String theJSONDataFile){
         try {
             // load the JSON-File into a String
             FileReader fr = new FileReader(theJSONDataFile);
@@ -131,7 +81,7 @@ public final class FactoryJSON implements Factory {
     /**
      * reads the values for the DataCollection
      */
-    private void createDataCollection() {
+    protected void createDataCollection() {
         try {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theStatisticsDataFile).getJSONObject("values");
@@ -157,7 +107,7 @@ public final class FactoryJSON implements Factory {
     /**
      * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
      */
-    private void addObserverToObservable() {
+    protected void addObserverToObservable() {
         //make list and add all additionalMensaStations
         List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
         for(Station station: Station.getAllStations()){
@@ -178,7 +128,7 @@ public final class FactoryJSON implements Factory {
     /**
      * create the start station of the JSON file
      */
-    private void createStartStation() {
+    protected void createStartStation() {
         try {
         //read the information from the JSON file into the jsonObject
         jsonObject = loadJSONObject(theStartStationDataFile).getJSONObject("start_station");
@@ -230,7 +180,7 @@ public final class FactoryJSON implements Factory {
     /**
      * create some customers out of the JSON file
      */
-    private void createCustomers() {
+    protected void createCustomers() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -264,10 +214,10 @@ public final class FactoryJSON implements Factory {
                     JSONObject customer = (JSONObject) customerType;
 
                     //variables for customer generating
-                    String label = null;
-                    int processtime = 0;
-                    int speed = 0;
-                    String imagePath = null;
+                    String label;
+                    int processtime;
+                    int speed;
+                    String imagePath;
 
                     // read data
                     label = customer.getString("label");
@@ -340,7 +290,7 @@ public final class FactoryJSON implements Factory {
      * create some process stations out of the JSON file
      */
     @SuppressWarnings("Duplicates")
-    private void createMensaStation() {
+    protected void createMensaStation() {
         try {
 
             //read the information from the JSON file into the jsonObject
@@ -402,7 +352,7 @@ public final class FactoryJSON implements Factory {
                 int yPosInQueue = yPos;
 
                 //create a Synchronized Queue for the station inqueue
-                SynchronizedQueue theInqueue = SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue);;
+                SynchronizedQueue theInqueue = SynchronizedQueue.createQueue(QueueViewJPanel.class, xPosInQueue, yPosInQueue);
 
                 //CREATE THE OUTQUEUE
                 //get the outqueue into a List object
@@ -434,7 +384,7 @@ public final class FactoryJSON implements Factory {
     /**
      * create the end station
      */
-    private void createEndStation() {
+    protected void createEndStation() {
         try {
 
             //read the information from the JSON file into the jsonObject
