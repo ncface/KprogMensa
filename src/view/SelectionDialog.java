@@ -1,5 +1,8 @@
 package view;
 
+import io.FactoryJSON;
+import io.FactoryXML;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +18,8 @@ import java.io.File;
  */
 public final class SelectionDialog extends JDialog {
     private static SelectionDialog selectionDialog = new SelectionDialog();
-    private final String XMLPath = "xml/";
-    private final String JSONPath = "json/";
+    private final String XMLPath = FactoryXML.FORMAT_DIRECTORY;
+    private final String JSONPath = FactoryJSON.FORMAT_DIRECTORY;
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
     private ButtonGroup formatSelection;
@@ -118,12 +121,17 @@ public final class SelectionDialog extends JDialog {
      * notifies the Lock object
      */
     public void okClicked() {
-        selectedFormat = formatSelection.getSelection().getActionCommand();
-        selectedSzenario = szenarioSelection.getSelection().getActionCommand();
-        synchronized (this) {
-            this.notify();
+        try {
+            selectedFormat = formatSelection.getSelection().getActionCommand();
+            selectedSzenario = szenarioSelection.getSelection().getActionCommand();
+            synchronized (this) {
+                this.notify();
+            }
+            this.dispose();
         }
-        this.dispose();
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
