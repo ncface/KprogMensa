@@ -8,30 +8,29 @@ public abstract class AbstractFactory implements Factory {
 	/** the stations data file */
 	protected String theStationDataFile;
 
-	/** the start station XML data file */
+	/** the start station data file */
 	protected String theStartStationDataFile;
 
 	/** the end station data file */
 	protected String theEndStationDataFile;
 
-	/** the end station data file */
+	/** the statistics data file */
 	protected String theStatisticsDataFile;
 
-	/** the x position of the starting station, also position for all starting objects */
-	protected int XPOS_STARTSTATION;
+	/** the x position of the starting station, also position for all starting customers */
+	protected int xPosStartStation;
 
-	/** the y position of the starting station, also position for all starting objects */
-	protected int YPOS_STARTSTATION;
+	/** the y position of the starting station, also position for all starting customers */
+	protected int yPosStartStation;
 
 	/** the spacing between Inqueue and Station (left side)*/
-	protected int SPACING_LEFT;
+	protected int spacingLeft;
 
 	/** the spacing between Outqueue and Station (right side)*/
-	protected int SPACING_RIGHT;
+	protected int spacingRight;
 
 	/**
 	 * private Constructor for the abstractFactory
-	 * only one FactoryXML Object should be created
 	 * @param scenario the selected scenario
 	 */
 	protected AbstractFactory(String format, String scenario, String fileEnding){

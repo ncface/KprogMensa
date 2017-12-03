@@ -13,13 +13,13 @@ import java.util.Map;
  * @version 30.11.17
  */
 public class GraphPlotterArray {
-    private Map<Station, GraphPlotter> GraphPlotterArray;
+    private Map<Station, GraphPlotter> graphPlotterArray;
 
     /**
-     * construtor for class GraphPlotterArray
+     * construtor for class graphPlotterArray
      */
     public GraphPlotterArray() {
-        GraphPlotterArray = new HashMap<>();
+        graphPlotterArray = new HashMap<>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class GraphPlotterArray {
     public void addStationPlotter(Station station){
         GraphPlotter plotter = new GraphPlotter(100000, Customer.getAllCustomers().size()/2, "queue size", "time");
         plotter.getFrame().setTitle(station.getLabel());
-        GraphPlotterArray.put(station,plotter);
+        graphPlotterArray.put(station,plotter);
     }
 
     /**
@@ -38,7 +38,7 @@ public class GraphPlotterArray {
      * @param pointValue the point value
      */
     public void addPoint(Station station, int pointValue){
-        GraphPlotter plotter = GraphPlotterArray.get(station);
+        GraphPlotter plotter = graphPlotterArray.get(station);
         plotter.add(pointValue);
     }
 
@@ -49,7 +49,7 @@ public class GraphPlotterArray {
         int x = 0;
         int y = 0;
         final int SPACING = 40;
-        for(GraphPlotter plotter : GraphPlotterArray.values()){
+        for(GraphPlotter plotter : graphPlotterArray.values()){
             plotter.getFrame().setLocation(x,y);
             x += plotter.getDEFAULT_FRAME_SIZE_X() + SPACING;
             if(x > Toolkit.getDefaultToolkit().getScreenSize().width - plotter.getDEFAULT_FRAME_SIZE_X()){

@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * a class that shows bar charts
- * @author
+ * @author Jeffrey Manuel Rietzler, Patrick Hanselmann, Sebastian Herzog, Nils Clauss
  * @version
  */
 public class BarChartFrame extends JFrame{

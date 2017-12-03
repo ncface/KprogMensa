@@ -63,7 +63,7 @@ public class Kasse extends MensaStation {
     @Override
     protected void handleCustomer(Customer customer) {
         super.handleCustomer(customer);
-        // get all amounts of food the cusotmer buys
+        // get all amounts of food the customer buys
         Collection<Integer> amountFoodToPay = customer.getCustomerFoodAmountAtStationsWanted().values();
         synchronized (this) {
             for (int amountFood : amountFoodToPay) {

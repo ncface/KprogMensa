@@ -19,8 +19,8 @@ import java.io.FileReader;
  * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryJSON extends AbstractFactory {
-    /**the one and only FactoryJSON Object*/
+public class FactoryJSON extends AbstractFactory {
+    /**the FactoryJSON Object*/
     private static Factory factoryJSON;
 
     /** an empty jsonObject to load in the jsonObjects temporarly*/
@@ -35,7 +35,6 @@ public final class FactoryJSON extends AbstractFactory {
 
     /**
      * private Constructor for FactoryJSON
-     * only one FactoryJSON Object should be created
      * @param scenario the selected scenario
      */
     private FactoryJSON(String scenario){
@@ -43,7 +42,7 @@ public final class FactoryJSON extends AbstractFactory {
     }
 
     /**
-     * method that returns a reference for the only FactoryJSON Object
+     * method that returns a reference for the FactoryJSON Object
      * @return the FactoryJSON Object
      */
     public static Factory createFactory(String scenarioPath){
@@ -85,12 +84,6 @@ public final class FactoryJSON extends AbstractFactory {
         try {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theStatisticsDataFile).getJSONObject("values");
-
-            //the <settings> ... </settings> node
-            //Element root = theXMLDoc.getRootElement();
-
-            //get the start_station into a List object
-            // Element startStation = root.getChild("values");
 
             //get the label
             Double pricePerKilo = jsonObject.getDouble("pricePerKilo");
@@ -137,8 +130,8 @@ public final class FactoryJSON extends AbstractFactory {
         String label = jsonObject.getString("label");
 
         //get the position
-        XPOS_STARTSTATION = jsonObject.getInt("x_position");
-        YPOS_STARTSTATION = jsonObject.getInt("y_position");
+        xPosStartStation = jsonObject.getInt("x_position");
+        yPosStartStation = jsonObject.getInt("y_position");
 
         //the <view> ... </view> node
         JSONObject viewJO = jsonObject.getJSONObject("view");
@@ -146,27 +139,27 @@ public final class FactoryJSON extends AbstractFactory {
 
         //the <spacing> ... </spacing> node
         JSONObject spacingJO = jsonObject.getJSONObject("spacing");
-        SPACING_LEFT = spacingJO.getInt("left");
-        SPACING_RIGHT = spacingJO.getInt("right");
+        spacingLeft = spacingJO.getInt("left");
+        spacingRight = spacingJO.getInt("right");
 
         //CREATE THE INQUEUE
         // the positions-
-        int xPosInQueue = XPOS_STARTSTATION - SPACING_LEFT;
-        int yPosInQueue = YPOS_STARTSTATION;
+        int xPosInQueue = xPosStartStation - spacingLeft;
+        int yPosInQueue = yPosStartStation;
 
         //create the inqueue
         SynchronizedQueue theInQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosInQueue, yPosInQueue);
 
         //CREATE THE OUTQUEUE
         // the positions
-        int xPosOutQueue = XPOS_STARTSTATION + SPACING_RIGHT;
-        int yPosOutQueue = YPOS_STARTSTATION;
+        int xPosOutQueue = xPosStartStation + spacingRight;
+        int yPosOutQueue = yPosStartStation;
 
         //create the outqueue
         SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
         //creating a new StartStation object
-        StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+        StartStation.create(label, theInQueue, theOutQueue, xPosStartStation, yPosStartStation, image);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -202,14 +195,14 @@ public final class FactoryJSON extends AbstractFactory {
             JSONArray generalStationsAfterNames = generalStationsAfter.getJSONArray("names");
 
             //iterate through the JSONArray to load single JSON objects into a list
-            JSONArray objects = jsonObject.getJSONArray("customer");
+            JSONArray allCustomers = jsonObject.getJSONArray("customer");
 
             //the counter for created Customer
             int counterCustomer = 0;
 
             for(int iterations = 0 ; iterations < amountOfToGeneratingCustomersPerType ; iterations++) {
             	//iterate over all CustomerTypes
-                for (Object customerType : objects) {
+                for (Object customerType : allCustomers) {
                     //cast Object (customerType) to JSONObject(customer)
                     JSONObject customer = (JSONObject) customerType;
 
@@ -272,7 +265,7 @@ public final class FactoryJSON extends AbstractFactory {
                     }while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
                     //creating a new Customer object
-                    Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, imagePath, weights, frustrationLimit);
+                    Customer.create(label, stationsToGo, processtime, speed, xPosStartStation, yPosStartStation, imagePath, weights, frustrationLimit);
 
                 }
             }
@@ -306,9 +299,9 @@ public final class FactoryJSON extends AbstractFactory {
                 JSONObject station = (JSONObject) typeLimit;
 
                 //set the limit to of maximum queue size
-                StationType statioType = StationType.parseStationType(station.getString("type"));
+                StationType stationType = StationType.parseStationType(station.getString("type"));
                 int limit = station.getInt("limit");
-                statioType.setInQueueLimit(limit);
+                stationType.setInQueueLimit(limit);
             }
 
             JSONArray allStations = jsonObject.getJSONArray("station");
@@ -406,12 +399,12 @@ public final class FactoryJSON extends AbstractFactory {
             //the <view> ... </view> node
             JSONObject spacingJO = jsonObject.getJSONObject("spacing");
 
-            SPACING_LEFT = spacingJO.getInt("left");
-            SPACING_RIGHT = spacingJO.getInt("right");
+            spacingLeft = spacingJO.getInt("left");
+            spacingRight = spacingJO.getInt("right");
 
             //CREATE THE INQUEUE
             // the positions
-            int xPosInQueue = xPos - SPACING_LEFT;
+            int xPosInQueue = xPos - spacingLeft;
             int yPosInQueue = yPos;
 
             //create the inqueue
@@ -419,7 +412,7 @@ public final class FactoryJSON extends AbstractFactory {
 
             //CREATE THE OUTQUEUE
             // the positions
-            int xPosOutQueue = xPos + SPACING_RIGHT;
+            int xPosOutQueue = xPos + spacingRight;
             int yPosOutQueue = yPos;
 
             //create the outqueue

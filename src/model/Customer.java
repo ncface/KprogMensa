@@ -74,7 +74,8 @@ import controller.Simulation;
 		 * @param image image of the customer
 		 * @param customerFoodAmountAtStationsWanted the amount of food at the different mensastations
 		 */
-		private Customer(String label, Queue<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos, String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
+		private Customer(String label, Queue<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos,
+						 String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
 			super(label, xPos, yPos);
 			
 			enterInQueueTime = 0;
@@ -137,7 +138,7 @@ import controller.Simulation;
 			//we are at the end of the list
 			if(this.stationsToGo.isEmpty()) return null;
 
-			//get the mensastationtype of the next station from the list
+			//get the stationtype of the next station from the list
 			StationType stationType = this.stationsToGo.poll();
 
 			//a list of possible stations with with a certain stationtype

@@ -52,6 +52,7 @@ public class Simulation {
 		String[] selectedFormatAndScenario = selectionDialog.getSelected();
 		String inputFormat = selectedFormatAndScenario[0];
 		String scenario = selectedFormatAndScenario[1];
+
 		//create all stations and customers for the starting scenario out of XML or JSON
 		if(inputFormat.contains("xml")){
 			factory = FactoryXML.createFactory(scenario);

@@ -18,8 +18,8 @@ import java.io.File;
  */
 public final class SelectionDialog extends JDialog {
     private static SelectionDialog selectionDialog = new SelectionDialog();
-    private final String XMLPath = FactoryXML.FORMAT_DIRECTORY;
-    private final String JSONPath = FactoryJSON.FORMAT_DIRECTORY;
+    private final String XMLPATH = FactoryXML.FORMAT_DIRECTORY;
+    private final String JSONPATH = FactoryJSON.FORMAT_DIRECTORY;
     private ButtonGroup szenarioSelection;
     private JPanel szenarioSelectionPanel;
     private ButtonGroup formatSelection;
@@ -62,29 +62,29 @@ public final class SelectionDialog extends JDialog {
         JPanel formatSelectionPanel = new JPanel();
         szenarioSelectionPanel = new JPanel();
 
-        JRadioButton JSONButton = new JRadioButton("JSON");
-        JSONButton.setActionCommand(JSONPath);
-        JSONButton.addActionListener(new ActionListener() {
+        JRadioButton jsonButton = new JRadioButton("JSON");
+        jsonButton.setActionCommand(JSONPATH);
+        jsonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateSzenarioSelection(JSONPath);
+                updateSzenarioSelection(JSONPATH);
             }
         });
-        formatSelection.add(JSONButton);
-        formatSelectionPanel.add(JSONButton);
+        formatSelection.add(jsonButton);
+        formatSelectionPanel.add(jsonButton);
 
-        JRadioButton XMLButton = new JRadioButton("XML");
-        XMLButton.setActionCommand(XMLPath);
-        XMLButton.addActionListener(new ActionListener() {
+        JRadioButton xmlButton = new JRadioButton("XML");
+        xmlButton.setActionCommand(XMLPATH);
+        xmlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateSzenarioSelection(XMLPath);
+                updateSzenarioSelection(XMLPATH);
             }
         });
-        formatSelection.add(XMLButton);
-        formatSelectionPanel.add(XMLButton);
+        formatSelection.add(xmlButton);
+        formatSelectionPanel.add(xmlButton);
 
-        createRadioButtons(XMLPath);
+        createRadioButtons(XMLPATH);
 
         JPanel buttonPanel = new JPanel();
 

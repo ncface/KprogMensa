@@ -11,14 +11,14 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
- * This is an abstract factory that creates instances
- * of actor types like objects, stations and their queues 
+ * This is an XMLFactory that creates instances
+ * of actor types like customers, stations and their queues
  * 
  * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
  * @version 2017-11-28
  */
-public final class FactoryXML extends AbstractFactory {
-	/**the one and only FactoryXML Object*/
+public class FactoryXML extends AbstractFactory {
+	/**the FactoryXML Object*/
 	private static Factory factoryXML;
 
 	/** The directory with all xml scenarios */
@@ -37,7 +37,7 @@ public final class FactoryXML extends AbstractFactory {
 	}
 
 	/**
-	 * method that returns a reference for the only FactoryXML Object
+	 * method that returns a reference for the FactoryXML Object
 	 * @param scenarioDirectory the selected scenario directory
 	 * @return the FactoryXML Object
 	 */
@@ -102,8 +102,8 @@ public final class FactoryXML extends AbstractFactory {
      protected void createStartStation(){
     	
     	try {
-    		
-    		//read the information from the XML file into a JDOM Document
+
+			//read the information from the XML file into a JDOM Document
     		Document theXMLDoc = new SAXBuilder().build(theStartStationDataFile);
     		
     		//the <settings> ... </settings> node
@@ -116,8 +116,8 @@ public final class FactoryXML extends AbstractFactory {
     		String label = startStation.getChildText("label");
     		    		    		
     		//get the position
-    		XPOS_STARTSTATION = Integer.parseInt(startStation.getChildText("x_position"));
-    		YPOS_STARTSTATION = Integer.parseInt(startStation.getChildText("y_position"));
+    		xPosStartStation = Integer.parseInt(startStation.getChildText("x_position"));
+    		yPosStartStation = Integer.parseInt(startStation.getChildText("y_position"));
     		
     		//the <view> ... </view> node
     		Element viewGroup = startStation.getChild("view");
@@ -126,27 +126,27 @@ public final class FactoryXML extends AbstractFactory {
 
 			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = startStation.getChild("spacing");
-			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
-			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
+			spacingLeft = Integer.parseInt(spacingGroup.getChildText("left"));
+			spacingRight = Integer.parseInt(spacingGroup.getChildText("right"));
 
     		//CREATE THE INQUEUE
     		// the positions-
-    		int xPosInQueue = XPOS_STARTSTATION - SPACING_LEFT;
-    		int yPosInQueue = YPOS_STARTSTATION;
+    		int xPosInQueue = xPosStartStation - spacingLeft;
+    		int yPosInQueue = yPosStartStation;
     		
     		//create the inqueue
     		SynchronizedQueue theInQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosInQueue, yPosInQueue);
     		
     		//CREATE THE OUTQUEUE
     		// the positions
-    		int xPosOutQueue = XPOS_STARTSTATION + SPACING_RIGHT;
-    		int yPosOutQueue = YPOS_STARTSTATION;
+    		int xPosOutQueue = xPosStartStation + spacingRight;
+    		int yPosOutQueue = yPosStartStation;
     		
     		//create the outqueue
     		SynchronizedQueue theOutQueue = SynchronizedQueue.createQueue(QueueViewText.class, xPosOutQueue, yPosOutQueue);
 
     		//creating a new StartStation object
-    		StartStation.create(label, theInQueue, theOutQueue, XPOS_STARTSTATION, YPOS_STARTSTATION, image);
+    		StartStation.create(label, theInQueue, theOutQueue, xPosStartStation, yPosStartStation, image);
 
 
     	} catch (JDOMException e) {
@@ -259,7 +259,7 @@ public final class FactoryXML extends AbstractFactory {
 					}while(frustrationLimit <= 1 || frustrationLimit >= Customer.MAXFRUSTRATIONLIMIT);
 
 					//creating a new Customer object
-					Customer.create(label, stationsToGo, processtime, speed, XPOS_STARTSTATION, YPOS_STARTSTATION, image, weights, frustrationLimit);
+					Customer.create(label, stationsToGo, processtime, speed, xPosStartStation, yPosStartStation, image, weights, frustrationLimit);
 				}
 			}
     	
@@ -398,12 +398,12 @@ public final class FactoryXML extends AbstractFactory {
 
 			//reads spacing and gets later the left and right side spacing from it
 			Element spacingGroup = endStation.getChild("spacing");
-			SPACING_LEFT = Integer.parseInt(spacingGroup.getChildText("left"));
-			SPACING_RIGHT = Integer.parseInt(spacingGroup.getChildText("right"));
+			spacingLeft = Integer.parseInt(spacingGroup.getChildText("left"));
+			spacingRight = Integer.parseInt(spacingGroup.getChildText("right"));
 
     		//CREATE THE INQUEUE
     		// the positions
-			int xPosInQueue = xPos - SPACING_LEFT;
+			int xPosInQueue = xPos - spacingLeft;
 			int yPosInQueue = yPos;
     		
     		//create the inqueue
@@ -411,7 +411,7 @@ public final class FactoryXML extends AbstractFactory {
     		
     		//CREATE THE OUTQUEUE
     		// the positions
-    		int xPosOutQueue = xPos + SPACING_RIGHT;
+    		int xPosOutQueue = xPos + spacingRight;
     		int yPosOutQueue = yPos;
     		
     		//create the outqueue

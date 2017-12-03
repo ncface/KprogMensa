@@ -53,7 +53,8 @@ public final class EndStation extends SimpleStation {
 	 * @param yPos y position of the station 
 	 * @param image image of the station  
 	 */
-	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos, String image) throws Exception{
+	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
+										   String image) throws Exception{
 		if(counterEndStation<TOTALNUMBERENDSTATIONOBJECTS) {
 			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterEndStation++;
@@ -93,13 +94,13 @@ public final class EndStation extends SimpleStation {
 			// the object chooses the outgoing queue and enter it
 			customer.enterOutQueue(this);
 			
-			//  this is a just for fun action, the object gets invisible
+			//  this is a just for fun action, the customer gets invisible
 			customer.theView.setVisible(false);
 
 			// add the amount of wanted food of the customer to the total, global amount of wanted food
 			Collection<Integer> amountFood = customer.getCustomerFoodAmountAtStationsWanted().values();
-			for(int i: amountFood){
-				totalAmountWantedFood += i;
+			for(int amount: amountFood){
+				totalAmountWantedFood += amount;
 			}
 
 			//End the simulation if the condition is met

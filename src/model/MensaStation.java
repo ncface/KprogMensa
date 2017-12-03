@@ -73,7 +73,7 @@ public class MensaStation extends Station {
 		this.mensaStation = this;
 	}
 	
-	/** create a new process station and add it to the station list
+	/** create a new mensa station and add it to the station list
 	 *
 	 * @param label of the station 
 	 * @param inQueue a list of all incoming queues

@@ -146,7 +146,7 @@ public class DataCollection {
         try {
             File outPutFile = new File(filePathMoneyLoss);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
-            printWriter.println(""+Math.round(moneyEarnedAtKasse)+","+Math.round(totalAmountPossibleMoney)+","+Math.round(loss));
+            printWriter.println(Math.round(moneyEarnedAtKasse)+","+Math.round(totalAmountPossibleMoney)+","+Math.round(loss));
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
