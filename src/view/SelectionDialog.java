@@ -25,6 +25,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
     private ButtonGroup formatSelection;
     private String selectedSzenario;
     private String selectedFormat;
+    private JLabel errorLabel;
 
     /**
      * return the only selectiondialog object
@@ -97,11 +98,14 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
         });
         buttonPanel.add(okButton);
 
+        errorLabel = new JLabel();
+
         main.add(eingabeFormat);
         main.add(szenario);
         main.add(formatSelectionPanel);
         main.add(szenarioSelectionPanel);
         main.add(buttonPanel);
+        main.add(errorLabel);
 
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -112,6 +116,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
 
         this.setModal(true);
         this.pack();
+        this.setAlwaysOnTop(true);
         this.setVisible(true);
 
     }
@@ -130,7 +135,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
             this.dispose();
         }
         catch(Exception e){
-            e.printStackTrace();
+            errorLabel.setText("Kein Eingabeformat oder Scenario ausgewählt!");
         }
     }
 
