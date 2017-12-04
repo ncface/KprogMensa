@@ -50,7 +50,7 @@ public class Simulation {
 	 */
 	private void init(){
 		FormatAndScenarioSelection selectionDialog = SelectionDialog.create();
-		String[] selectedFormatAndScenario = selectionDialog.getSelectedFormatAndScenarion();
+		String[] selectedFormatAndScenario = selectionDialog.getSelectedFormatAndScenario();
 		String inputFormat = selectedFormatAndScenario[0];
 		String scenario = selectedFormatAndScenario[1];
 

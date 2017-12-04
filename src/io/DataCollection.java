@@ -3,7 +3,6 @@ package io;
 import controller.Simulation;
 import model.*;
 import view.GraphPlotterArray;
-import view.LiveDataView;
 
 import java.io.*;
 import java.util.*;
@@ -15,11 +14,6 @@ public class DataCollection{
     private static final String outFolderPath = "DataOutput/";
     private static PrintWriter printWriter;
     private static double price;
-    private static LiveDataView plotterArray;
-    //Counts the method aktivations of method updateNumderCustomersInQueue
-    private static int numberCalled = 0;
-    //when numberCalled reaches this value a point in the plotter is plotted
-    private static int plotWhenReached = 4;
     private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
     private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
@@ -38,7 +32,7 @@ public class DataCollection{
     public static void prepareDataCollection(){
         deleteFiles();
         prepareFiles();
-        preparePlotters();
+        prepareLiveDataProcessing();
     }
 
     /**
@@ -52,14 +46,9 @@ public class DataCollection{
     /**
      * prepares the plotters for live data
      */
-    private static void preparePlotters() {
-        List<Station> possibleStations = new ArrayList<>();
-        for(Station station : Station.getAllStations()){
-            if(station instanceof MensaStation){
-                possibleStations.add(station);
-            }
-        }
-        DataCollection.plotterArray = new GraphPlotterArray(possibleStations);
+    private static void prepareLiveDataProcessing() {
+        LiveDataProcessing.setUp();
+        LiveDataProcessing.setTimeInterval(4);
     }
 
     /**
@@ -198,13 +187,10 @@ public class DataCollection{
                 for (Station station : stations) {
                     if (station instanceof MensaStation) {
                         MensaStation mensaStation = (MensaStation) station;
-                        if(numberCalled % plotWhenReached == 0) {
-                            plotterArray.addPointToDiagramm(mensaStation, 0,mensaStation.getNumberOfInQueueCustomers());
-                        }
                         info += "," + mensaStation.getNumberOfInQueueCustomers();
                     }
                 }
-                numberCalled++;
+                LiveDataProcessing.plotWaitingQueueLength();
                 printWriter.println(info);
                 printWriter.close();
             }

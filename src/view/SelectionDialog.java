@@ -182,7 +182,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
      * @return a String array that contains the selected format at position 0 and the selected scenario at position 1
      */
     @Override
-    public String[] getSelectedFormatAndScenarion() {
+    public String[] getSelectedFormatAndScenario() {
         synchronized (this) {
             try {
                 this.wait();
