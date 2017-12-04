@@ -33,7 +33,7 @@ public class BarChartFrame extends JFrame{
     /**
      * this method reads data from the file DataMoneyLoss.csv and shows them in the frame
      */
-    public void showMoneyLoss(){
+    public void showMoneyloss(){
         try {
             //collects data about earnings, possible earnings and loss
             String theData = "";
@@ -74,7 +74,7 @@ public class BarChartFrame extends JFrame{
     /**
      * this method reads data from the file DataOperatingCosts.csv and shows them in the frame
      */
-    public void showOperatingCosts(){
+    public void showOperatingcosts(){
         try {
             //collects data about the operating costs
             String theData = "";
