@@ -1,6 +1,7 @@
 package controller;
 
 import io.*;
+import view.FormatAndScenarioSelection;
 import view.SelectionDialog;
 import view.SimulationView;
 
@@ -48,8 +49,8 @@ public class Simulation {
 	 * 
 	 */
 	private void init(){
-		SelectionDialog selectionDialog = SelectionDialog.create();
-		String[] selectedFormatAndScenario = selectionDialog.getSelected();
+		FormatAndScenarioSelection selectionDialog = SelectionDialog.create();
+		String[] selectedFormatAndScenario = selectionDialog.getSelectedFormatAndScenarion();
 		String inputFormat = selectedFormatAndScenario[0];
 		String scenario = selectedFormatAndScenario[1];
 

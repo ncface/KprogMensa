@@ -1,8 +1,10 @@
 package test;
 
+
 import io.DataCollection;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class CustomerTest {
 		DataCollection.prepareDataCollection();
 		assertEquals(!filesExist,checkFilesExist());
 	}
-	
+
 	@Test
 	public void testFilesExistBefore() {
 		boolean filesExist = checkFilesExist();

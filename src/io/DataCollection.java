@@ -3,9 +3,13 @@ package io;
 import controller.Simulation;
 import model.*;
 import view.GraphPlotterArray;
+import view.LiveDataView;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A class to collect and save data from the simulation to files
@@ -14,7 +18,7 @@ public class DataCollection{
     private static final String outFolderPath = "DataOutput/";
     private static PrintWriter printWriter;
     private static double price;
-    private static GraphPlotterArray plotterArray = new GraphPlotterArray();
+    private static LiveDataView plotterArray;
     //Counts the method aktivations of method updateNumderCustomersInQueue
     private static int numberCalled = 0;
     //when numberCalled reaches this value a point in the plotter is plotted
@@ -25,7 +29,7 @@ public class DataCollection{
     private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
     private static final String filePathNumberCustomers = outFolderPath+"DataNumberCustomers.csv";
     private static DataCollectionObserver dataCollectionObserver = new DataCollectionObserver();
-    
+
     /**
      * no instance should be created
      */
@@ -52,12 +56,13 @@ public class DataCollection{
      * prepares the plotters for live data
      */
     private static void preparePlotters() {
-        for(Station station:Station.getAllStations()){
+        List<Station> possibleStations = new ArrayList<>();
+        for(Station station : Station.getAllStations()){
             if(station instanceof MensaStation){
-                plotterArray.addStationPlotter(station);
+                possibleStations.add(station);
             }
         }
-        plotterArray.positionPlotterWindows();
+        DataCollection.plotterArray = new GraphPlotterArray(possibleStations);
     }
 
     /**
@@ -197,7 +202,7 @@ public class DataCollection{
                     if (station instanceof MensaStation) {
                         MensaStation mensaStation = (MensaStation) station;
                         if(numberCalled % plotWhenReached == 0) {
-                            plotterArray.addPoint(mensaStation,mensaStation.getNumberOfInQueueCustomers());
+                            plotterArray.addPointToDiagramm(mensaStation, 0,mensaStation.getNumberOfInQueueCustomers());
                         }
                         info += "," + mensaStation.getNumberOfInQueueCustomers();
                     }

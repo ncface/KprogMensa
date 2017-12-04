@@ -16,7 +16,7 @@ import java.io.File;
  * @author Hanselmann, Rietzler, Clauss, Herzog
  * @version 29.11.17
  */
-public final class SelectionDialog extends JDialog {
+public final class SelectionDialog extends JDialog implements FormatAndScenarioSelection{
     private static SelectionDialog selectionDialog = new SelectionDialog();
     private final String XMLPATH = FactoryXML.FORMAT_DIRECTORY;
     private final String JSONPATH = FactoryJSON.FORMAT_DIRECTORY;
@@ -174,9 +174,10 @@ public final class SelectionDialog extends JDialog {
      * the controll flow is blocked until the OK-button is clicked
      * after that the values are returned
      *
-     * @return an String array that contains the selected format at position 0 and the selected scenario at position 1
+     * @return a String array that contains the selected format at position 0 and the selected scenario at position 1
      */
-    public String[] getSelected() {
+    @Override
+    public String[] getSelectedFormatAndScenarion() {
         synchronized (this) {
             try {
                 this.wait();

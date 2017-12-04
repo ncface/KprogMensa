@@ -4,29 +4,36 @@ import model.Customer;
 import model.Station;
 
 import java.awt.*;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * a wrapper class that handles multiple GraphPlotters
  * @author Hanselmann, Rietzler, Herzog, Clauss
- * @version 30.11.17
+ * @version 4.12.17
  */
-public class GraphPlotterArray {
+public class GraphPlotterArray implements LiveDataView {
     private Map<Station, GraphPlotter> graphPlotterArray;
 
     /**
      * construtor for class graphPlotterArray
+     * @param desiredStations the stations that for which a plot shall be created
      */
-    public GraphPlotterArray() {
+    public GraphPlotterArray(List<Station> desiredStations) {
+
         graphPlotterArray = new HashMap<>();
+        for(Station station : desiredStations){
+            addStationPlotter(station);
+        }
+        positionPlotterWindows();
     }
 
     /**
      * method to add a new plotter for a specific station to the array
      * @param station the selected station
      */
-    public void addStationPlotter(Station station){
+    private void addStationPlotter(Station station){
         GraphPlotter plotter = new GraphPlotter(100000, Customer.getAllCustomers().size()/2, "queue size", "time");
         plotter.getFrame().setTitle(station.getLabel());
         graphPlotterArray.put(station,plotter);
@@ -35,17 +42,19 @@ public class GraphPlotterArray {
     /**
      * add a point to the Graph of the selected station
      * @param station the selected station
-     * @param pointValue the point value
+     * @param x unused
+     * @param y the value of the point
      */
-    public void addPoint(Station station, int pointValue){
+    @Override
+    public void addPointToDiagramm(Station station, int x, int y) {
         GraphPlotter plotter = graphPlotterArray.get(station);
-        plotter.add(pointValue);
+        plotter.add(y);
     }
 
     /**
      * positions the plotter windows on the screen
      */
-    public void positionPlotterWindows(){
+    private void positionPlotterWindows(){
         int x = 0;
         int y = 0;
         final int SPACING = 40;
