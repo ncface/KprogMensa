@@ -10,6 +10,15 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Software Engineering HHN/2. Semester/G3.2 Komplexe Programme/Material/XML, JDOM, JSON und Eclipse/JSON_Reader_EBayExample/JSON Example/json-20150729.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
           <root url="file://$MODULE_DIR$/jdom" />
         </CLASSES>
         <JAVADOC />
@@ -18,15 +27,6 @@
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/jdom" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/jdom" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Software Engineering HHN/2. Semester/G3.2 Komplexe Programme/Material/XML, JDOM, JSON und Eclipse/JSON_Reader_EBayExample/JSON Example/json-20150729.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -39,15 +39,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="testng">
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/jcommander.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="TestNG" level="project" />
   </component>
 </module>
