@@ -42,7 +42,7 @@ public class BarChartView extends JFrame implements ChartView {
 	@Override
 	public void add(String label, int value, int scaling) {
 		chart += label + "\n";
-		if(value <= 0 || scaling <= 0){
+		if(value < 0||scaling <= 0){
 			throw new IllegalArgumentException();
 		}
 		for(int i = 0 ; i < value/scaling ;i++){
@@ -53,7 +53,7 @@ public class BarChartView extends JFrame implements ChartView {
 
 	@Override
 	public void setChartHeading(String title) {
-		this.heading = heading;
+		this.heading = title;
 	}
 
 	@Override
