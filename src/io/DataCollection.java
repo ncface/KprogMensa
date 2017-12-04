@@ -6,15 +6,12 @@ import view.GraphPlotterArray;
 import view.LiveDataView;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A class to collect and save data from the simulation to files
  */
-public class DataCollection {
+public class DataCollection{
     private static final String outFolderPath = "DataOutput/";
     private static PrintWriter printWriter;
     private static double price;
@@ -28,7 +25,8 @@ public class DataCollection {
     private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
     private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
     private static final String filePathNumberCustomers = outFolderPath+"DataNumberCustomers.csv";
-    
+    private static DataCollectionObserver dataCollectionObserver = new DataCollectionObserver();
+
     /**
      * no instance should be created
      */
@@ -41,6 +39,14 @@ public class DataCollection {
         deleteFiles();
         prepareFiles();
         preparePlotters();
+    }
+
+    /**
+     * getter method for the dataCollectionObserver
+     * @return the dataCollectionObserver
+     */
+    public static DataCollectionObserver getDataCollectionObserver(){
+        return dataCollectionObserver;
     }
 
     /**
@@ -59,6 +65,7 @@ public class DataCollection {
     /**
      * deletes all files in the dataoutput folder
      */
+    @SuppressWarnings("Duplicates")
     private static void deleteFiles(){
             File outPutFolder = new File(outFolderPath);
             if (outPutFolder.exists()) {
@@ -276,5 +283,17 @@ public class DataCollection {
      */
     public static String getFilePathNumberCustomers(){
     	return filePathNumberCustomers;
+    }
+
+    /**
+     * an inner class that gets notified when a customer leaves early
+     */
+    private static class DataCollectionObserver implements Observer{
+        @Override
+        public void update(Observable o, Object arg) {
+            Customer.CustomerObservable customerObservable = (Customer.CustomerObservable) o;
+            Customer customer = customerObservable.getOuterObject();
+            DataCollection.customerLeftEarly(customer,(long)arg);
+        }
     }
 }

@@ -5,6 +5,7 @@ import io.DataCollection;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
 
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CustomerTest {
 	public void tearDown() throws Exception {
 		deleteAllFiles();
 	}
-	
+	@SuppressWarnings("Duplicates")
 	private void deleteAllFiles(){
 		//delete all files
 		File outPutFolder = new File(DataCollection.getOutFolderPath() );
