@@ -18,7 +18,7 @@ public class BarChartView extends JFrame implements ChartView {
 	private String heading;
 
 	/**
-	 * Constructor for a BarChartFrame
+	 * Constructor for a BarChartView
 	 * @param title the title of the frame
 	 */
 	public BarChartView(String title){

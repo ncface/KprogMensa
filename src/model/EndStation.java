@@ -6,7 +6,6 @@ import controller.Simulation;
 import io.DataCollection;
 import io.PersistentDataProcessing;
 import io.Statistics;
-import view.BarChartFrame;
 
 /**
  * Class for the end station. This is the last station where all customers are collected
