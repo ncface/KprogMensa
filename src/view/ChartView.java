@@ -19,4 +19,10 @@ public interface ChartView {
      * A method to display the chart on screen
      */
     void showChart();
+
+    /**
+     * A method to set the Heading of a Chart
+     * @param title the new heading
+     */
+    void setChartHeading(String title);
 }
