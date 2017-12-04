@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import controller.Simulation;
 import io.DataCollection;
+import io.PersistentDataProcessing;
 import io.Statistics;
 import view.BarChartFrame;
 
@@ -123,12 +124,9 @@ public final class EndStation extends SimpleStation {
 			DataCollection.processOperatingCosts();
 
 			//show a bar chart of the money loss
-			BarChartFrame barChartFrameMoneyLoss = new BarChartFrame("Bar Chart Money Loss");
-			barChartFrameMoneyLoss.showMoneyLoss();
-
+			PersistentDataProcessing.showMoneyloss();
 			//show a bar chart of the operating costs
-			BarChartFrame barChartFrameOperatingCosts = new BarChartFrame("Operating Costs");
-			barChartFrameOperatingCosts.showOperatingCosts();
+			PersistentDataProcessing.showOperatingCosts();
 
 			Statistics.show("\n--- Simulation beendet ----");
 
