@@ -11,5 +11,5 @@ public interface FormatAndScenarioSelection {
      * this method return the selected input format and the selected scenario in an String array
      * @return at String[0] the selected format and at String[1] the selected scenario
      */
-    String[] getSelectedFormatAndScenarion();
+    String[] getSelectedFormatAndScenario();
 }
