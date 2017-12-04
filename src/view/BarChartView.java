@@ -23,6 +23,8 @@ public class BarChartView extends JFrame implements ChartView {
 	 */
 	public BarChartView(String title){
 		setUp(title);
+		chart = "";
+		heading = "";
 	}
 
 	private void setUp(String title) {
@@ -42,12 +44,14 @@ public class BarChartView extends JFrame implements ChartView {
 	@Override
 	public void add(String label, int value, int scaling) {
 		chart += label + "\n";
+		StringBuilder builder = new StringBuilder(chart);
 		if(value < 0||scaling <= 0){
 			throw new IllegalArgumentException();
 		}
 		for(int i = 0 ; i < value/scaling ;i++){
-			chart += SYMBOL;
+			builder.append(SYMBOL);
 		}
+		chart = builder.toString();
 		chart += " " + value + "\n\n\n";
 	}
 
@@ -60,7 +64,6 @@ public class BarChartView extends JFrame implements ChartView {
 	public void showChart() {
 		this.setVisible(false);
 		jTextTextArea.setText(heading + "\n\n" + chart);
-		this.pack();
 		this.setVisible(true);
 	}
 }
