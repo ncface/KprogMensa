@@ -269,7 +269,10 @@ public class FactoryJSON extends AbstractFactory {
 
                 }
             }
-
+            //add the dataCollectionObservable to every customerObservable
+            for(Customer customer: Customer.getAllCustomers()){
+                customer.getCustomerObservable().addObserver(DataCollection.getDataCollectionObserver());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

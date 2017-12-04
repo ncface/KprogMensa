@@ -18,7 +18,7 @@ import org.jdom2.input.SAXBuilder;
  * @version 2017-11-28
  */
 public class FactoryXML extends AbstractFactory {
-	/**the FactoryXML Object*/
+	/**the one and only FactoryXML Object*/
 	private static Factory factoryXML;
 
 	/** The directory with all xml scenarios */
@@ -37,7 +37,7 @@ public class FactoryXML extends AbstractFactory {
 	}
 
 	/**
-	 * method that returns a reference for the FactoryXML Object
+	 * method that returns a reference for the one and only FactoryXML Object
 	 * @param scenarioDirectory the selected scenario directory
 	 * @return the FactoryXML Object
 	 */
@@ -262,7 +262,10 @@ public class FactoryXML extends AbstractFactory {
 					Customer.create(label, stationsToGo, processtime, speed, xPosStartStation, yPosStartStation, image, weights, frustrationLimit);
 				}
 			}
-    	
+			//add the dataCollectionObservable to every customerObservable
+			for(Customer customer: Customer.getAllCustomers()){
+    			customer.getCustomerObservable().addObserver(DataCollection.getDataCollectionObserver());
+			}
     	} catch (JDOMException e) {
 				e.printStackTrace();
 		} catch (IOException e) {
@@ -296,6 +299,7 @@ public class FactoryXML extends AbstractFactory {
 
 			//add the inQueueLimits to the types
 			List<Element> allLimits = root.getChildren("type_limits");
+
 			for(Element element:allLimits){
 				StationType type = StationType.parseStationType(element.getChildText("type"));
 				int limit = Integer.parseInt(element.getChildText("limit"));

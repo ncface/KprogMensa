@@ -17,6 +17,14 @@ public class BarChartFrame extends JFrame{
      * @param title the title of the frame
      */
     public BarChartFrame(String title){
+        setUpFrame(title);
+    }
+
+    /**
+     * this method sets up the frame
+     * @param title
+     */
+    private void setUpFrame(String title){
         // set up the frame
         jTextTextArea = new JTextArea();
         jTextTextArea.setLineWrap(false);

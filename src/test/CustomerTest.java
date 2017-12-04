@@ -1,16 +1,13 @@
 package test;
 
-import static org.junit.Assert.*;
-import static org.testng.AssertJUnit.assertEquals;
+import io.DataCollection;
+import org.junit.After;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import io.DataCollection;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CustomerTest {
 	@Test
@@ -32,7 +29,7 @@ public class CustomerTest {
 	public void tearDown() throws Exception {
 		deleteAllFiles();
 	}
-	
+	@SuppressWarnings("Duplicates")
 	private void deleteAllFiles(){
 		//delete all files
 		File outPutFolder = new File(DataCollection.getOutFolderPath() );

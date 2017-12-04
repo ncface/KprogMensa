@@ -49,7 +49,13 @@ import controller.Simulation;
 
 		/** the different amount of food for the different stations*/
 		private Map<StationType, Integer> customerFoodAmountAtStationsWanted;
-		
+
+		/** a reference to the customer itself*/
+		private Customer customer;
+
+		/** a customerObservable for the customer*/
+		private CustomerObservable customerObservable;
+
 		/** the instance of our static inner Measurement class*/ 
 		Measurement measurement = new Measurement();
 
@@ -98,7 +104,11 @@ import controller.Simulation;
 			
 			//enter the in queue of the start station
 			this.enterInQueue(station);
-						
+
+			customerObservable = new CustomerObservable();
+
+			//a reference to the customer itself
+			this.customer = this;
 		}
 		
 		/** Create a new customer model
@@ -282,7 +292,25 @@ import controller.Simulation;
 			int myTreatmentTime = 0;
 			
 		}
-		
+
+		/**
+		 * an inner class which allows to observe the customer
+		 */
+		public class CustomerObservable extends Observable{
+			@Override
+			public void notifyObservers(Object arg) {
+				setChanged();
+				super.notifyObservers(arg);
+			}
+			/**
+			 * getter for the customer
+			 * @return the outer object
+			 */
+			public Customer getOuterObject(){
+				return customer;
+			}
+		}
+
 		/**
 		 * Print some statistics
 		 */
@@ -310,7 +338,7 @@ import controller.Simulation;
 				stationsToGo.clear();
 				stationsToGo.add(StationType.ENDE);
 				//write in data collection
-				DataCollection.customerLeftEarly(this, Simulation.getGlobalTime());
+				customerObservable.notifyObservers(Simulation.getGlobalTime());
 				return true;
 			}
 			return false;
@@ -385,6 +413,13 @@ import controller.Simulation;
 		public int getProcessTime() {
 			return processTime;
 		}
-		
+
+	/**
+	 * a getter method for the customerObservable
+	 * @return the customerObservable
+	 */
+	public CustomerObservable getCustomerObservable(){
+			return this.customerObservable;
+		}
 	}
 	
