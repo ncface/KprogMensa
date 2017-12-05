@@ -15,23 +15,39 @@ import java.util.List;
  */
 public class LiveDataProcessing {
 	private static int timeInterval = 1;
-	private static int counterMethodCalls = 0;
-	private static LiveDataView liveDataView;
-	private static List<Station> stations = new ArrayList<>();
+	private static LiveDataProcessing liveDataProcessing;
+	private  int counterMethodCalls;
+	private  LiveDataView liveDataView;
+	private  List<Station> stations;
 
-	private LiveDataProcessing(){}
+	/**
+	 * constructor of class LiveDataProcessing
+	 */
+	private LiveDataProcessing(){
+		stations = new ArrayList<>();
+		setUp();
+		counterMethodCalls = 0;
+	}
+
+	/**
+	 * create method to implement singleton pattern on class LiveDataProcessing
+	 * @return the only LiveDataProcessing object
+	 */
+	public static LiveDataProcessing create(){
+		liveDataProcessing = new LiveDataProcessing();
+		return liveDataProcessing;
+	}
 
 	/**
 	 * brings the LiveDataProcessing into a valid state
-	 * should be called before the other methods are used
 	 */
-	public static void setUp(){
+	private void setUp(){
 		for(Station station : Station.getAllStations()){
 			if(station instanceof MensaStation){
 				stations.add(station);
 			}
 		}
-		LiveDataProcessing.liveDataView = new GraphPlotterArray(stations);
+		liveDataView = new GraphPlotterArray(stations);
 	}
 
 	/**
@@ -47,7 +63,7 @@ public class LiveDataProcessing {
 	/**
 	 * plots the waiting queue length of all MensaStations
 	 */
-	public static void plotWaitingQueueLength(){
+	public void plotWaitingQueueLength(){
 		if(counterMethodCalls % timeInterval == 0) {
 			for (Station station : stations) {
 				liveDataView.addPointToDiagramm(station, 0, station.getInQueue().size());
