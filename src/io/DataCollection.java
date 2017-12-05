@@ -2,7 +2,6 @@ package io;
 
 import controller.Simulation;
 import model.*;
-import view.GraphPlotterArray;
 
 import java.io.*;
 import java.util.*;
@@ -11,15 +10,16 @@ import java.util.*;
  * A class to collect and save data from the simulation to files
  */
 public class DataCollection{
-    private static final String outFolderPath = "DataOutput/";
+    private static final String OUT_FOLDER_PATH = "DataOutput/";
     private static PrintWriter printWriter;
     private static double price;
-    private static final String filePathLeftEarly = outFolderPath+"DataLeftEarly.csv";
-    private static final String filePathAdditionalStation = outFolderPath+"DataAdditionalStation.csv";
-    private static final String filePathMoneyLoss = outFolderPath+"DataMoneyLoss.csv";
-    private static final String filePathOperatingCosts = outFolderPath+"DataOperatingCosts.csv";
-    private static final String filePathNumberCustomers = outFolderPath+"DataNumberCustomers.csv";
+    private static final String FILE_PATH_LEFT_EARLY = OUT_FOLDER_PATH +"DataLeftEarly.csv";
+    private static final String FILE_PATH_ADDITIONAL_STATION = OUT_FOLDER_PATH +"DataAdditionalStation.csv";
+    private static final String FILE_PATH_MONEY_LOSS = OUT_FOLDER_PATH +"DataMoneyLoss.csv";
+    private static final String FILE_PATH_OPERATING_COSTS = OUT_FOLDER_PATH +"DataOperatingCosts.csv";
+    private static final String FILE_PATH_NUMBER_CUSTOMERS = OUT_FOLDER_PATH +"DataNumberCustomers.csv";
     private static DataCollectionObserver dataCollectionObserver = new DataCollectionObserver();
+    private static LiveDataProcessing liveDataProcessing;
 
     /**
      * no instance should be created
@@ -47,7 +47,7 @@ public class DataCollection{
      * prepares the plotters for live data
      */
     private static void prepareLiveDataProcessing() {
-        LiveDataProcessing.setUp();
+        liveDataProcessing = LiveDataProcessing.create();
         LiveDataProcessing.setTimeInterval(4);
     }
 
@@ -56,7 +56,7 @@ public class DataCollection{
      */
     @SuppressWarnings("Duplicates")
     private static void deleteFiles(){
-            File outPutFolder = new File(outFolderPath);
+            File outPutFolder = new File(OUT_FOLDER_PATH);
             if (outPutFolder.exists()) {
                 File[] files = outPutFolder.listFiles();
                 for (File file : files) {
@@ -72,17 +72,17 @@ public class DataCollection{
      */
     private static void prepareFiles(){
         Map<String, String> headers = new HashMap<>();
-        headers.put(filePathLeftEarly, "LeavingTime,Amount");
-        headers.put(filePathAdditionalStation,"OpeningTime,StationType");
-        headers.put(filePathMoneyLoss,"earnings,possibleEarnings,loss");
-        headers.put(filePathOperatingCosts,"Station,OperatingCosts");
+        headers.put(FILE_PATH_LEFT_EARLY, "LeavingTime,Amount");
+        headers.put(FILE_PATH_ADDITIONAL_STATION,"OpeningTime,StationType");
+        headers.put(FILE_PATH_MONEY_LOSS,"earnings,possibleEarnings,loss");
+        headers.put(FILE_PATH_OPERATING_COSTS,"Station,OperatingCosts");
         String headerNumberCustomer = "Time";
         for (Station station: Station.getAllStations()){
             if (station instanceof MensaStation){
                 headerNumberCustomer += "," + station.getLabel();
             }
         }
-        headers.put(filePathNumberCustomers,headerNumberCustomer);
+        headers.put(FILE_PATH_NUMBER_CUSTOMERS,headerNumberCustomer);
         try {
             for (String filePath: headers.keySet()) {
                 File outPutFile = new File(filePath);
@@ -103,7 +103,7 @@ public class DataCollection{
      */
     public static synchronized void customerLeftEarly(Customer customer, long leavingTime){
         try {
-            File outPutFile = new File(filePathLeftEarly);
+            File outPutFile = new File(FILE_PATH_LEFT_EARLY);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
             int amount = customer.getTotalAmountWantedFood();
             String data = leavingTime + ", " + amount;
@@ -121,7 +121,7 @@ public class DataCollection{
      */
     public static void additionalStationOpened(Station stationOpened, long openingTimeStation){
         try {
-            File outPutFile = new File(filePathAdditionalStation);
+            File outPutFile = new File(FILE_PATH_ADDITIONAL_STATION);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
             printWriter.println(openingTimeStation+","+stationOpened.getStationType().toString());
             printWriter.close();
@@ -143,7 +143,7 @@ public class DataCollection{
         double loss = totalAmountPossibleMoney - moneyEarnedAtKasse;
 
         try {
-            File outPutFile = new File(filePathMoneyLoss);
+            File outPutFile = new File(FILE_PATH_MONEY_LOSS);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
             printWriter.println(Math.round(moneyEarnedAtKasse)+","+Math.round(totalAmountPossibleMoney)+","+Math.round(loss));
             printWriter.close();
@@ -158,7 +158,7 @@ public class DataCollection{
      */
     public static void processOperatingCosts(){
         try {
-            File outPutFile = new File(filePathOperatingCosts);
+            File outPutFile = new File(FILE_PATH_OPERATING_COSTS);
             DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
             List<Station> stations = Station.getAllStations();
             for (Station station: stations){
@@ -180,7 +180,7 @@ public class DataCollection{
     public static void updateNumberCustomersInQueue(){
         try {
             if (Simulation.isRunning) {
-                File outPutFile = new File(filePathNumberCustomers);
+                File outPutFile = new File(FILE_PATH_NUMBER_CUSTOMERS);
                 DataCollection.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outPutFile, true)));
                 List<Station> stations = Station.getAllStations();
                 String info = "" + Simulation.getGlobalTime();
@@ -190,7 +190,7 @@ public class DataCollection{
                         info += "," + mensaStation.getNumberOfInQueueCustomers();
                     }
                 }
-                LiveDataProcessing.plotWaitingQueueLength();
+                liveDataProcessing.plotWaitingQueueLength();
                 printWriter.println(info);
                 printWriter.close();
             }
@@ -225,50 +225,50 @@ public class DataCollection{
 
     /**
      * getter for the out folder path
-     * @return the outFolderPath
+     * @return the OUT_FOLDER_PATH
      */
     public static String getOutFolderPath(){
-    	return outFolderPath;
+    	return OUT_FOLDER_PATH;
     }
 
     /**
      * getter for the file path for left early
-     * @return the filePathAdditionalStation
+     * @return the FILE_PATH_ADDITIONAL_STATION
      */
     public static String getFilePathLeftEarly(){
-    	return filePathLeftEarly;
+    	return FILE_PATH_LEFT_EARLY;
     }
 
     /**
      * getter for the file path for additional station
-     * @return the filePathAdditionalStation
+     * @return the FILE_PATH_ADDITIONAL_STATION
      */
     public static String getFilePathAdditionalStation(){
-    	return filePathAdditionalStation;
+    	return FILE_PATH_ADDITIONAL_STATION;
     }
 
     /**
      * getter for the file path for money loss
-     * @return the filePathMoneyLoss
+     * @return the FILE_PATH_MONEY_LOSS
      */
     public static String getFilePathMoneyLoss(){
-    	return filePathMoneyLoss;
+    	return FILE_PATH_MONEY_LOSS;
     }
 
     /**
      * getter for the file path for operating costs
-     * @return the filePathOperatingCosts
+     * @return the FILE_PATH_OPERATING_COSTS
      */
     public static String getFilePathOperatingCosts(){
-    	return filePathOperatingCosts;
+    	return FILE_PATH_OPERATING_COSTS;
     }
 
     /**
      * getter for the file path for numberCustomer
-     * @return the filePathNumberCustomers
+     * @return the FILE_PATH_NUMBER_CUSTOMERS
      */
     public static String getFilePathNumberCustomers(){
-    	return filePathNumberCustomers;
+    	return FILE_PATH_NUMBER_CUSTOMERS;
     }
 
     /**
