@@ -281,35 +281,7 @@ import controller.Simulation;
 			//work is done
 			return false;
 		}
-		
-		/**
-		 * A (static) inner class for measurement jobs. The class records specific values of the customer during the simulation.
-		 * These values can be used for statistic evaluation.
-		 */
-		static class Measurement {
-			
-			/** the treated time by all processing stations, in seconds */
-			int myTreatmentTime = 0;
-			
-		}
 
-		/**
-		 * an inner class which allows to observe the customer
-		 */
-		public class CustomerObservable extends Observable{
-			@Override
-			public void notifyObservers(Object arg) {
-				setChanged();
-				super.notifyObservers(arg);
-			}
-			/**
-			 * getter for the customer
-			 * @return the outer object
-			 */
-			public Customer getOuterObject(){
-				return customer;
-			}
-		}
 
 		/**
 		 * Print some statistics
@@ -421,5 +393,35 @@ import controller.Simulation;
 	public CustomerObservable getCustomerObservable(){
 			return this.customerObservable;
 		}
+
+	/**
+	 * A (static) inner class for measurement jobs. The class records specific values of the customer during the simulation.
+	 * These values can be used for statistic evaluation.
+	 */
+	static class Measurement {
+
+		/** the treated time by all processing stations, in seconds */
+		int myTreatmentTime = 0;
+
 	}
+
+	/**
+	 * an inner class which allows to observe the customer
+	 */
+	public class CustomerObservable extends Observable{
+		@Override
+		public void notifyObservers(Object arg) {
+			setChanged();
+			super.notifyObservers(arg);
+		}
+		/**
+		 * getter for the customer
+		 * @return the outer object
+		 */
+		public Customer getOuterObject(){
+			return customer;
+		}
+	}
+	}
+
 	
