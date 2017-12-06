@@ -1,10 +1,8 @@
 package test;
 
-
 import io.DataCollection;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class DataCollectionTest {
 		DataCollection.prepareDataCollection();
 		assertEquals(!filesExist,checkFilesExist());
 	}
-
+	
 	@Test
 	public void testFilesExistBefore() {
 		boolean filesExist = checkFilesExist();
@@ -31,7 +29,7 @@ public class DataCollectionTest {
 	public void tearDown() throws Exception {
 		deleteAllFiles();
 	}
-	@SuppressWarnings("Duplicates")
+	
 	private void deleteAllFiles(){
 		//delete all files
 		File outPutFolder = new File(DataCollection.getOutFolderPath() );

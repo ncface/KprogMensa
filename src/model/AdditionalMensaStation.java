@@ -7,7 +7,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- *
+ * extends from MensaStation and is for the Stations that get opened additionally (second Hauptspeise)
+ * @author Hanselmann, Herzog, Rietzler, Clauss
+ * @version 2017-12-03
  */
 public class AdditionalMensaStation extends MensaStation implements Observer{
 

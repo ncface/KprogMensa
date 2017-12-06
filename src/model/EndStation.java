@@ -10,8 +10,8 @@ import io.Statistics;
 /**
  * Class for the end station. This is the last station where all customers are collected
  * 
- * @author Jaeger, Schmidt
- * @version 2017-10-26
+ * @author Jaeger, Schmidt, Clauss, Herzog, Hanselmann, Rietzler
+ * @version 2017-12-03
  */
 public final class EndStation extends SimpleStation {
 	
@@ -66,11 +66,40 @@ public final class EndStation extends SimpleStation {
 	}
 
 	/**
-	 * Getter method for the total amount of wanted food
-	 * @return totalAmountWantedFood
+	 * End the simulation if the condition is met
 	 */
-	public static int getTotalAmountWantedFood(){
-		return totalAmountWantedFood;
+	private void endSimulation(){
+		// Are all customers in the stations outgoing queue, then we are finish
+		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
+
+			//Set the static variable isRunning to false
+			Simulation.isRunning = false;
+
+			// calculate data collection
+			DataCollection.calculateLoss();
+			DataCollection.processOperatingCosts();
+
+			//show a bar chart of the money loss
+			PersistentDataProcessing.showMoneyloss();
+			//show a bar chart of the operating costs
+			PersistentDataProcessing.showOperatingCosts();
+
+			Statistics.show("\n--- Simulation beendet ----");
+
+			//show some station statistics
+			for (MensaStation station : MensaStation.getAllProcessStations()) {
+				station.printStatistics();
+			}
+
+			//show some objects statistics
+			for (Object object : this.outGoingQueue){
+				((Customer) object).printStatistics();
+			}
+
+			// end simulation
+			// System.exit(0);
+
+		}
 	}
 
 	@Override
@@ -106,45 +135,7 @@ public final class EndStation extends SimpleStation {
 			//End the simulation if the condition is met
 			endSimulation();
 	}
-	
-	
-	/**
-	 * End the simulation if the condition is met
-	 */
-	private void endSimulation(){
-		// Are all customers in the stations outgoing queue, then we are finish
-		if(Customer.getAllCustomers().size() == numberOfOutQueueCustomers()){
 
-			//Set the static variable isRunning to false
-			Simulation.isRunning = false;
-
-			// calculate data collection
-			DataCollection.calculateLoss();
-			DataCollection.processOperatingCosts();
-
-			//show a bar chart of the money loss
-			PersistentDataProcessing.showMoneyloss();
-			//show a bar chart of the operating costs
-			PersistentDataProcessing.showOperatingCosts();
-
-			Statistics.show("\n--- Simulation beendet ----");
-
-			//show some station statistics
-			for (MensaStation station : MensaStation.getAllMensaStations()) {
-					station.printStatistics();
-			}
-
-			//show some objects statistics
-			for (Object object : this.outGoingQueue){
-				((Customer) object).printStatistics();
-			}
-
-			// end simulation
-			// System.exit(0);
-												
-		}
-	}
-	
 	@Override
 	protected void handleCustomers(Collection<Customer> customers) {
 				
@@ -158,6 +149,14 @@ public final class EndStation extends SimpleStation {
 	@Override
 	protected Collection<Customer> getNextOutQueueCustomers() {
 		return null;
+	}
+
+	/**
+	 * Getter method for the total amount of wanted food
+	 * @return totalAmountWantedFood
+	 */
+	public static int getTotalAmountWantedFood(){
+		return totalAmountWantedFood;
 	}
 
 	

@@ -11,7 +11,7 @@ import controller.Simulation;
 /**
  * Class for a mensa station
  * 
- * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @author Jaeger, Schmidt, Hanselmann, Herzog, Rietzler, Clauss
  * @version 2017-11-28
  */
 public class MensaStation extends Station {
@@ -216,51 +216,20 @@ public class MensaStation extends Station {
 		}
 		
 	}
-	
-	
-	/**
-	 * A (static) inner class for measurement jobs. The class records specific values of the station during the simulation.
-	 * These values can be used for statistic evaluation.
-	 */
-	private static class Measurement {
-		
-		/** the total time the station is in use */
-		private int inUseTime = 0;
-		
-		/** the number of all objects that visited this station*/ 
-		private int numbOfVisitedObjects = 0;
-		
-		
-		/**Get the average time for treatment
-		 * 
-		 * @return the average time for treatment
-		 */
-		private int avgTreatmentTime() {
-			
-			if(numbOfVisitedObjects == 0) return 0; //in case that a station wasn't visited
-			return inUseTime/numbOfVisitedObjects;
-			
-		}
-		
+
+	@Override
+	protected void handleCustomers(Collection<Customer> customers) {
+				
 	}
 
-	/**
-	 * an inner class which allows to observe the mensa station
-	 */
-	protected class MensaStationObservable extends Observable{
-		@Override
-		public void notifyObservers() {
-			setChanged();
-			super.notifyObservers();
-		}
+	@Override
+	protected Collection<Customer> getNextInQueueCustomers() {
+		return null;
+	}
 
-		/**
-		 * getter for the mensaStation
-		 * @return the outer object
-		 */
-		protected MensaStation getOuterObject(){
-			return mensaStation;
-		}
+	@Override
+	protected Collection<Customer> getNextOutQueueCustomers() {
+		return null;
 	}
 
 	/**
@@ -285,33 +254,32 @@ public class MensaStation extends Station {
 	 * get and print some statistics out of the Measurement class
 	 */
 	public void printStatistics() {
-		
+
 		String theString = "\nStation Typ: " + this.label;
 		theString = theString + "\nAnzahl der behandelten Customer: " + measurement.numbOfVisitedObjects;
 		theString = theString + "\nZeit zum Behandeln aller Customer: " + measurement.inUseTime;
 		theString = theString + "\nDurchnittliche Behandlungsdauer: " + measurement.avgTreatmentTime();
-		
+
 		Statistics.show(theString);
-		
+
 	}
-	
-		
+
 	/** Get all mensa stations
-	 * 
+	 *
 	 * @return the allMensaStations
 	 */
-	public static List<MensaStation> getAllMensaStations() {
-		
+	public static List<MensaStation> getAllProcessStations() {
+
 		// all the process station objects
 		List<MensaStation> allMensaStations = new ArrayList<>();
-		
+
 		//filter the process stations out of the station list
 		for (Station station : Station.getAllStations()) {
-			
+
 			if(station instanceof MensaStation) allMensaStations.add((MensaStation) station);
-			
+
 		}
-				
+
 		return allMensaStations;
 	}
 
@@ -349,19 +317,49 @@ public class MensaStation extends Station {
 		return this.inComingQueue.size();
 	}
 
-	@Override
-	protected void handleCustomers(Collection<Customer> customers) {
-				
+	/**
+	 * A (static) inner class for measurement jobs. The class records specific values of the station during the simulation.
+	 * These values can be used for statistic evaluation.
+	 */
+	private static class Measurement {
+
+		/** the total time the station is in use */
+		private int inUseTime = 0;
+
+		/** the number of all objects that visited this station*/
+		private int numbOfVisitedObjects = 0;
+
+
+		/**Get the average time for treatment
+		 *
+		 * @return the average time for treatment
+		 */
+		private int avgTreatmentTime() {
+
+			if(numbOfVisitedObjects == 0) return 0; //in case that a station wasn't visited
+			return inUseTime/numbOfVisitedObjects;
+
+		}
+
 	}
 
-	@Override
-	protected Collection<Customer> getNextInQueueCustomers() {
-		return null;
-	}
+	/**
+	 * an inner class which allows to observe the mensa station
+	 */
+	protected class MensaStationObservable extends Observable{
+		@Override
+		public void notifyObservers() {
+			setChanged();
+			super.notifyObservers();
+		}
 
-	@Override
-	protected Collection<Customer> getNextOutQueueCustomers() {
-		return null;
+		/**
+		 * getter for the mensaStation
+		 * @return the outer object
+		 */
+		protected MensaStation getOuterObject(){
+			return mensaStation;
+		}
 	}
 			
 }
