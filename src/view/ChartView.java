@@ -21,7 +21,7 @@ public interface ChartView {
     void showChart();
 
     /**
-     * A method to set the Heading of a Chart
+     * A method to set the heading of a chart
      * @param title the new heading
      */
     void setChartHeading(String title);

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * a wrapper class that handles multiple GraphPlotters
  * @author Hanselmann, Rietzler, Herzog, Clauss
- * @version 4.12.17
+ * @version 2017-12-04
  */
 public class GraphPlotterArray implements LiveDataView {
     private Map<Station, GraphPlotter> graphPlotterArray;
@@ -39,17 +39,6 @@ public class GraphPlotterArray implements LiveDataView {
         graphPlotterArray.put(station,plotter);
     }
 
-    /**
-     * add a point to the Graph of the selected station
-     * @param station the selected station
-     * @param x unused
-     * @param y the value of the point
-     */
-    @Override
-    public void addPointToDiagramm(Station station, int x, int y) {
-        GraphPlotter plotter = graphPlotterArray.get(station);
-        plotter.add(y);
-    }
 
     /**
      * positions the plotter windows on the screen
@@ -70,4 +59,17 @@ public class GraphPlotterArray implements LiveDataView {
             }
         }
     }
+
+    /**
+     * add a point to the Graph of the selected station
+     * @param station the selected station
+     * @param x currently unused
+     * @param y the value of the point
+     */
+    @Override
+    public void addPointToDiagramm(Station station, int x, int y) {
+        GraphPlotter plotter = graphPlotterArray.get(station);
+        plotter.add(y);
+    }
+
 }

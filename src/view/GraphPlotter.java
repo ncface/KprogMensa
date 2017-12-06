@@ -15,8 +15,8 @@ import javax.swing.SwingConstants;
 /**
  * Class GraphPlotter draws points to panel.
  * 
- * @author Daniel Pawlowicz
- *
+ * @author Daniel Pawlowicz, Clauss, Herzog, Rietzler, Hanselmann
+ * @version 2017-12-03
  */
 public class GraphPlotter extends JPanel {
 	

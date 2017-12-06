@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * This class displays a selection dialog to select a n input format and a scenario
  * @author Hanselmann, Rietzler, Clauss, Herzog
- * @version 29.11.17
+ * @version 2017-11-29
  */
 public final class SelectionDialog extends JDialog implements FormatAndScenarioSelection{
     private static SelectionDialog selectionDialog = new SelectionDialog();
@@ -27,14 +27,6 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
     private String selectedFormat;
     private JLabel errorLabel;
 
-    /**
-     * return the only selectiondialog object
-     *
-     * @return the only SelectionDialog object
-     */
-    public static SelectionDialog create() {
-        return selectionDialog;
-    }
 
     /**
      * private construtor for a scenario object
@@ -42,6 +34,15 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
     private SelectionDialog() {
         super();
         setUpDialog();
+    }
+
+    /**
+     * return the only SelectionDialog object
+     *
+     * @return the only SelectionDialog object
+     */
+    public static SelectionDialog create() {
+        return selectionDialog;
     }
 
     /**
@@ -123,7 +124,6 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
 
     /**
      * method is executed when the OK-Button in the dialog is clicked
-     * notifies the Lock object
      */
     public void okClicked() {
         try {

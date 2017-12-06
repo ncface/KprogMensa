@@ -11,7 +11,25 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerTest {
+/**
+ * Test class for the testing class DataCollection
+ * @author Clauss, Hanselmann, Herzog, Rietzler
+ * @version 2017-11-29
+ */
+
+public class DataCollectionTest {
+
+	/**
+	 * method that gets executed after all test methods have been completed
+	 */
+	@After
+	public void tearDown() {
+		deleteAllFiles();
+	}
+
+	/**
+	 * Test to test if all files in the DataOutput directory are deleted correctly
+	 */
 	@Test
 	public void testNoFilesExistBefore() {
 		deleteAllFiles();
@@ -20,17 +38,16 @@ public class CustomerTest {
 		assertEquals(!filesExist,checkFilesExist());
 	}
 
+	/**
+	 * Test to test if the data files are prepared correctly
+	 */
 	@Test
 	public void testFilesExistBefore() {
 		boolean filesExist = checkFilesExist();
 		DataCollection.prepareDataCollection();
 		assertEquals(filesExist,checkFilesExist());
 	}
-	
-	@After
-	public void tearDown() throws Exception {
-		deleteAllFiles();
-	}
+
 	@SuppressWarnings("Duplicates")
 	private void deleteAllFiles(){
 		//delete all files
@@ -46,7 +63,7 @@ public class CustomerTest {
 	}
 	/**
 	 * checks if all relevant files exist
-	 * @return false if any file doesnt exist
+	 * @return false if any file does`nt exist
 	 */
 	private boolean checkFilesExist() {
 		//check if files exist

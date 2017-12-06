@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * This class represents a BarChart
  * @author Rietzler, Hanselmann, Herzog, Clauss
- * @version 4.12.17
+ * @version 2017-12-04
  */
 public class BarChartView extends JFrame implements ChartView {
 	// the JTextArea that shows the data
@@ -27,6 +27,10 @@ public class BarChartView extends JFrame implements ChartView {
 		heading = "";
 	}
 
+	/**
+	 * prepares the BarChartView
+	 * @param title the title
+	 */
 	private void setUp(String title) {
 		// set up the frame
 		jTextTextArea = new JTextArea();
@@ -41,6 +45,12 @@ public class BarChartView extends JFrame implements ChartView {
 		this.setVisible(true);
 	}
 
+	/**
+	 * adds a bar to the BarChart
+	 * @param label the label for the data
+	 * @param value the exact value
+	 * @param scaling the desired scaling. For example a scaling of 5 means that one unit in the chart represents 5 real units
+	 */
 	@Override
 	public void add(String label, int value, int scaling) {
 		chart += label + "\n";
@@ -55,11 +65,18 @@ public class BarChartView extends JFrame implements ChartView {
 		chart += " " + value + "\n\n\n";
 	}
 
+	/**
+	 * sets the title of the whole chart
+	 * @param title the new heading
+	 */
 	@Override
 	public void setChartHeading(String title) {
 		this.heading = title;
 	}
 
+	/**
+	 * displays the bar chart on screen
+	 */
 	@Override
 	public void showChart() {
 		this.setVisible(false);

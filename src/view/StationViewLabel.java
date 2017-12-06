@@ -4,7 +4,7 @@ package view;
 /**
  * Class for the Label of the view of stations
  *
- * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
+ * @author Hanselmann, Herzog, Rietzler, Clauss
  * @version 2017-11-27
  */
 @SuppressWarnings("serial")

@@ -5,7 +5,7 @@ import model.Station;
 /**
  * An interface that represents a Graph that displays live data while the simulation works
  * @author Hanselmann, Clauss, Rietzler, Herzog
- * @version 4.12.17
+ * @version 2017-12-04
  */
 public interface LiveDataView {
 

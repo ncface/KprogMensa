@@ -3,7 +3,7 @@ package view;
 /**
  * This Interface offers a method to get the desired input format and the selected scenario
  * @author Hanselmann, Rietzler, Clauss, Herzog
- * @version 4.12.17
+ * @version 2017-12-04
  */
 public interface FormatAndScenarioSelection {
 

@@ -13,6 +13,6 @@ public interface QueueView {
 	 * @param size number of elements in the queue
 	 * 
 	 */
-	public void updateValue(int size);
+	void updateValue(int size);
 
 }

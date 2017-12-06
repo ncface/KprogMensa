@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public abstract class LabelView extends JLabel {
 
-    /** Creates a new view with an image (JLabel)
+    /** Creates a new view with an label
      *
      * @param text text of the label
      * @param xPos x position of the view
