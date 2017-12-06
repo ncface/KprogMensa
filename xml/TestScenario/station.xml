@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<settings>
+    <station>
+        <label>Hauptspeise</label>
+        <type>hauptspeise</type>
+        <troughput>6</troughput>
+        <x_position>400</x_position>
+        <y_position>325</y_position>
+        <operating_costs>0.4</operating_costs>
+        <view>
+            <image>station.png</image>
+        </view>
+        <spacing>
+            <left>40</left>
+            <right>80</right>
+        </spacing>
+    </station>
+    <station>
+        <label>Kasse</label>
+        <type>kasse</type>
+        <troughput>8</troughput>
+        <x_position>600</x_position>
+        <y_position>375</y_position>
+        <operating_costs>0.1</operating_costs>
+        <view>
+            <image>station.png</image>
+        </view>
+        <spacing>
+            <left>40</left>
+            <right>80</right>
+        </spacing>
+    </station>
+</settings>

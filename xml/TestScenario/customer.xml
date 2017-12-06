@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<settings>
+    <anzahl_durchlaeufe>1</anzahl_durchlaeufe>
+    <stdDeviance>4</stdDeviance>
+    <generalStationsBefore>
+        <name>Start</name>
+    </generalStationsBefore>
+    <generalStationsAfter>
+        <name>Kasse</name>
+        <name>Ende</name>
+    </generalStationsAfter>
+    <customer>
+        <label>Customer_Typ_1</label>
+        <processtime>10</processtime>
+        <speed>5</speed>
+        <view>
+            <image>customer.png</image>
+        </view>
+        <sequence>
+            <station>
+                <name>Hauptspeise</name>
+                <min>0</min>
+                <max>0</max>
+            </station>
+        </sequence>
+    </customer>
+</settings>

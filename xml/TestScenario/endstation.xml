@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<settings>
+	<end_station>
+		<label>End_Station</label>
+		<x_position>800</x_position>
+		<y_position>250</y_position>
+		<view>
+			<image>endstation.png</image>
+		</view>
+		<spacing>
+			<left>40</left>
+			<right>80</right>
+		</spacing>
+	</end_station>
+</settings>
