@@ -12,8 +12,8 @@ import model.Actor;
 /**
  * The main class, controls the flow of the simulation
  * 
- * @author Jaeger, Schmidt
- * @version 2016-07-07
+ * @author Jaeger, Schmidt, Hanselmann, Rietzler, Herzog, Clauss
+ * @version 2017-12-03
  */
 public class Simulation {
 	
@@ -33,17 +33,6 @@ public class Simulation {
 	//the clock must be thread safe -> AtomicLong. The primitive type long isn't, even if synchronized
 	private static AtomicLong clock = new AtomicLong(0); 
 
-	/**
-	 * Die Main-Methode der Anwendung.
-	 */
-	public static void main(String[] args){
-		
-		//a new simulation
-		Simulation theSimulation = new Simulation();
-		theSimulation.init();
-		
-	}
-	
 	/**
 	 * initialize the simulation
 	 * 
@@ -101,7 +90,14 @@ public class Simulation {
 		*/
 		
 	}
-			
+
+	/** Get the global time
+	 *
+	 * @return the global time
+	 */
+	public static long getGlobalTime() {
+		return clock.get();
+	}
 	
 	/**
 	 * The heartbeat (the pulse) of the simulation, controls the clock.
@@ -132,14 +128,16 @@ public class Simulation {
 			
 		}
 	}
-	
-	
-	/** Get the global time
-	 * 
-	 * @return the global time
+
+	/**
+	 * Die Main-Methode der Anwendung.
 	 */
-	public static long getGlobalTime() {
-		return clock.get();
+	public static void main(String[] args){
+
+		//a new simulation
+		Simulation theSimulation = new Simulation();
+		theSimulation.init();
+
 	}
 	
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerTest {
+public class DataCollectionTest {
 	@Test
 	public void testNoFilesExistBefore() {
 		deleteAllFiles();

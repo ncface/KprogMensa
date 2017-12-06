@@ -1,5 +1,10 @@
 package io;
 
+/**
+ * an abstract class for the factory
+ * @author Rietzler, Hanselmann, Herzog, Clauss
+ * @version 2017-12-03
+ */
 public abstract class AbstractFactory implements Factory {
 
 	/** the customers data file */
@@ -51,6 +56,19 @@ public abstract class AbstractFactory implements Factory {
 		theStatisticsDataFile = prePath + "statistics" + fileEnding;
 	}
 
+	/**
+	 * creates a random value in the given range
+	 * @param min the minimum value for the random Generator
+	 * @param max the maximum value for the random Generator
+	 * @return the random integer
+	 */
+	protected Integer newRandom(int min, int max) {
+		return (int)(Math.random() * (max - min) + min);
+	}
+
+	/**
+	 * creates the start-scenario
+	 */
 	@Override
 	public void createStartScenario(){
 		/*NOTE: The start station must be created first,
@@ -62,7 +80,6 @@ public abstract class AbstractFactory implements Factory {
 		createEndStation();
 		addObserverToObservable();
 		createDataCollection();
-
 	}
 
 	/**

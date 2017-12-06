@@ -14,18 +14,18 @@ import org.jdom2.input.SAXBuilder;
  * This is an XMLFactory that creates instances
  * of actor types like customers, stations and their queues
  * 
- * @author Jaeger, Schmidt; Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
- * @version 2017-11-28
+ * @author Jaeger, Schmidt; Herzog, Clauss, Hanselmann, Rietzler
+ * @version 2017-12-04
  */
 public class FactoryXML extends AbstractFactory {
-	/**the one and only FactoryXML Object*/
-	private static Factory factoryXML;
-
 	/** The directory with all xml scenarios */
 	public static final String FORMAT_DIRECTORY = "xml/";
 
 	/** The ending of all xml files */
 	private static final String FILE_ENDING = ".xml";
+
+	/**the one and only FactoryXML Object*/
+	private static Factory factoryXML;
 
 	/**
 	 * private Constructor for FactoryXML
@@ -262,7 +262,7 @@ public class FactoryXML extends AbstractFactory {
 					Customer.create(label, stationsToGo, processtime, speed, xPosStartStation, yPosStartStation, image, weights, frustrationLimit);
 				}
 			}
-			//add the dataCollectionObservable to every customerObservable
+			//add the dataCollectionObserver to every customerObservable
 			for(Customer customer: Customer.getAllCustomers()){
     			customer.getCustomerObservable().addObserver(DataCollection.getDataCollectionObserver());
 			}
@@ -272,16 +272,6 @@ public class FactoryXML extends AbstractFactory {
 				e.printStackTrace();
 		}
     }
-
-	/**
-	 * creates a random value in the given range
-	 * @param min the minimum value for the random Generator
-	 * @param max the maximum value for the random Generator
-	 * @return the random integer
-	 */
-	private Integer newRandom(int min, int max) {
-		return (int)(Math.random() * (max - min) + min);
-	}
 
 	/**
      * create some mensa stations out of the XML file

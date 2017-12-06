@@ -300,7 +300,7 @@ public class MensaStation extends Station {
 	 * 
 	 * @return the allMensaStations
 	 */
-	public static List<MensaStation> getAllProcessStations() {
+	public static List<MensaStation> getAllMensaStations() {
 		
 		// all the process station objects
 		List<MensaStation> allMensaStations = new ArrayList<>();

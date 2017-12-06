@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * A Class for all live data processing operations
  * @author Rietzler, Hanselmann, Herzog, Clauss
- * @version 4.12.17
+ * @version 2017-12-04
  */
 public class LiveDataProcessing {
 	private static int timeInterval = 1;
 	private static LiveDataProcessing liveDataProcessing;
-	private  int counterMethodCalls;
-	private  LiveDataView liveDataView;
-	private  List<Station> stations;
+	private int counterMethodCalls;
+	private LiveDataView liveDataView;
+	private List<Station> stations;
 
 	/**
 	 * constructor of class LiveDataProcessing
@@ -39,6 +39,16 @@ public class LiveDataProcessing {
 	}
 
 	/**
+	 * setter to specify a time interval for the live data visualisation
+	 * @param timeInterval the desired time interval
+	 */
+	public static void setTimeInterval(int timeInterval){
+		if(timeInterval > 0){
+			LiveDataProcessing.timeInterval = timeInterval;
+		}
+	}
+
+	/**
 	 * brings the LiveDataProcessing into a valid state
 	 */
 	private void setUp(){
@@ -48,16 +58,6 @@ public class LiveDataProcessing {
 			}
 		}
 		liveDataView = new GraphPlotterArray(stations);
-	}
-
-	/**
-	 * setter to specify a time interval for the live data visualisation
-	 * @param timeInterval the desired time interval
-	 */
-	public static void setTimeInterval(int timeInterval){
-		if(timeInterval > 0){
-			LiveDataProcessing.timeInterval = timeInterval;
-		}
 	}
 
 	/**

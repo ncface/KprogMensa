@@ -130,7 +130,7 @@ public final class EndStation extends SimpleStation {
 			Statistics.show("\n--- Simulation beendet ----");
 
 			//show some station statistics
-			for (MensaStation station : MensaStation.getAllProcessStations()) {
+			for (MensaStation station : MensaStation.getAllMensaStations()) {
 					station.printStatistics();
 			}
 
