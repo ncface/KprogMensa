@@ -34,7 +34,11 @@ public class GraphPlotterArray implements LiveDataView {
      * @param station the selected station
      */
     private void addStationPlotter(Station station){
-        GraphPlotter plotter = new GraphPlotter(100000, Customer.getAllCustomers().size()/2, "queue size", "time");
+        int yScaling = Customer.getAllCustomers().size()/2;
+        if(yScaling <= 0){
+            yScaling = 1;
+        }
+        GraphPlotter plotter = new GraphPlotter(100000, yScaling, "queue size", "time");
         plotter.getFrame().setTitle(station.getLabel());
         graphPlotterArray.put(station,plotter);
     }
