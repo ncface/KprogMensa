@@ -12,8 +12,8 @@ import controller.Simulation;
 /**
  * Class for the customers
  * 
- * @author Jaeger, Schmidt
- * @version 2016-07-08
+ * @author Jaeger, Schmidt, Rietzler, Clauss, Herzog, Hanselmann
+ * @version 6.12.17
  */
 	public class Customer extends Actor {
 							
@@ -234,8 +234,6 @@ import controller.Simulation;
 
 		@Override
 		protected boolean work(){
-			//the customer doesnt wait anymore
-			enterInQueueTime = Simulation.getGlobalTime();
 
 			//the customer is leaving the station -> set actual station to null
 			this.actualStation = null;
@@ -274,6 +272,9 @@ import controller.Simulation;
 			
 			//the customer has reached the station, now the customer chooses an incoming queue and enter it
 			this.enterInQueue(station);
+
+			//the customer doesnt wait anymore
+			enterInQueueTime = Simulation.getGlobalTime();
 			
 			//wake up the station
 			station.wakeUp();
@@ -422,6 +423,6 @@ import controller.Simulation;
 			return customer;
 		}
 	}
-	}
+}
 
 	
