@@ -1,9 +1,7 @@
 package model;
 
-import io.DataCollection;
 import io.Statistics;
 
-import java.awt.Component;
 import java.util.*;
 
 import view.CustomerView;
@@ -13,7 +11,7 @@ import controller.Simulation;
  * Class for the customers
  * 
  * @author Jaeger, Schmidt, Rietzler, Clauss, Herzog, Hanselmann
- * @version 6.12.17
+ * @version 2017-12-03
  */
 	public class Customer extends Actor {
 							
@@ -33,7 +31,7 @@ import controller.Simulation;
 		private int mySpeed;
 
 		/** the frustration limit of the costumer (value between 1 and 10)*/
-		private final int frustrationLimit;
+		private final int FRUSTRATIONLIMIT;
 
 		/** the global time the customer enters an inQueue*/
 		private long enterInQueueTime;
@@ -81,7 +79,7 @@ import controller.Simulation;
 		 * @param customerFoodAmountAtStationsWanted the amount of food at the different mensastations
 		 */
 		private Customer(String label, Queue<StationType> stationsToGo, int processtime, int speed, int xPos, int yPos,
-						 String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int frustrationLimit){
+						 String image, Map<StationType,Integer> customerFoodAmountAtStationsWanted, int FRUSTRATIONLIMIT){
 			super(label, xPos, yPos);
 			
 			enterInQueueTime = 0;
@@ -95,7 +93,7 @@ import controller.Simulation;
 			this.processTime = processtime;
 			this.INITIALPROCESSTIME = this.processTime;
 			this.mySpeed = speed;
-			this.frustrationLimit = frustrationLimit;
+			this.FRUSTRATIONLIMIT = FRUSTRATIONLIMIT;
 			
 			this.customerFoodAmountAtStationsWanted = customerFoodAmountAtStationsWanted;
 						
@@ -131,15 +129,6 @@ import controller.Simulation;
 					foodAmountAtStation, frustrationLimit);
 				
 		}
-
-		/**
-		 * a getter method for the customerFoodAmountAtStationsWanted
-		 * @return customerFoodAmountAtStationsWanted
-		 */
-		public Map<StationType, Integer> getCustomerFoodAmountAtStationsWanted() {
-			return customerFoodAmountAtStationsWanted;
-		}
-
 
 		/** Choose the next station with the shortest inQueue to go to
 		 * @return the next station or null if no station was found
@@ -208,6 +197,49 @@ import controller.Simulation;
 			}
 		}
 
+		/**
+		 * Calculates the frustration caused by the waitingTime of the Customer
+		 * the frustration can have values between 0 and 5
+		 * @param waitingTime the waiting time of the customer
+		 * @return a frustration value between 0 and 5
+		 */
+		private double calculateFrustrationByWaitingTime(long waitingTime){
+			double frustration = 0;
+			//normiert den frustrationswert auf maximal 5
+			final double NORMIERUNG = UPPERLIMITWAITINGTIME/5;
+			if(waitingTime <= LOWERLIMITWAITINGTIME){
+				frustration = 0;
+			}
+			else if (waitingTime > LOWERLIMITWAITINGTIME && waitingTime <= UPPERLIMITWAITINGTIME){
+				frustration = (waitingTime - LOWERLIMITWAITINGTIME)/NORMIERUNG;
+			}
+			else if (waitingTime > UPPERLIMITWAITINGTIME){
+				frustration = 5;
+			}
+			return frustration;
+		}
+
+		/**
+		 * calculates a frustration value based on the persons in front of this person in the waiting Queue
+		 * the frustration can have values between 0 and 2
+		 * @param personsInFrontOfThis the number of persons in front of this
+		 * @return a frustration value based on the persons in front of this one between 0 and 2
+		 */
+		private double calculateFrustrationByPersonsInFrontOfThis(int personsInFrontOfThis){
+			double frustration = 0;
+			//normiert den Frustrationswert auf maximal 2
+			final double NORMIERUNG = UPPERLIMITPERSONS / 2;
+			if(personsInFrontOfThis <= LOWERLIMITPERSONS){
+				frustration = 0;
+			}
+			else if(personsInFrontOfThis > LOWERLIMITPERSONS && personsInFrontOfThis <= UPPERLIMITPERSONS){
+				frustration = (personsInFrontOfThis - LOWERLIMITPERSONS)/NORMIERUNG;
+			}
+			else if(personsInFrontOfThis > UPPERLIMITPERSONS){
+				frustration = 2;
+			}
+			return frustration;
+		}
 
 		/**
 		 * Chooses the outgoing queue of the given station and enter it
@@ -217,20 +249,6 @@ import controller.Simulation;
 			SynchronizedQueue outQueue = station.getOutQueue();
 			outQueue.offer(this);
 		}
-
-		/**
-		 * Getter method for the total amount of food the customer would like to buy
-		 * @return the total amount of food wanted
-		 */
-		public int getTotalAmountWantedFood(){
-			Collection<Integer> amountsWantedFood = customerFoodAmountAtStationsWanted.values();
-			int totalAmountWantedFood = 0;
-			for (int amount: amountsWantedFood){
-				totalAmountWantedFood += amount;
-			}
-			return totalAmountWantedFood;
-		}
-
 
 		@Override
 		protected boolean work(){
@@ -283,6 +301,26 @@ import controller.Simulation;
 			return false;
 		}
 
+		/**
+		 * a getter method for the customerFoodAmountAtStationsWanted
+		 * @return customerFoodAmountAtStationsWanted
+		 */
+		public Map<StationType, Integer> getCustomerFoodAmountAtStationsWanted() {
+			return customerFoodAmountAtStationsWanted;
+		}
+
+		/**
+		 * Getter method for the total amount of food the customer would like to buy
+		 * @return the total amount of food wanted
+		 */
+		public int getTotalAmountWantedFood(){
+			Collection<Integer> amountsWantedFood = customerFoodAmountAtStationsWanted.values();
+			int totalAmountWantedFood = 0;
+			for (int amount: amountsWantedFood){
+				totalAmountWantedFood += amount;
+			}
+			return totalAmountWantedFood;
+		}
 
 		/**
 		 * Print some statistics
@@ -306,7 +344,7 @@ import controller.Simulation;
 			int frustration = (int)(calculateFrustrationByWaitingTime(waitingTime)*
 					calculateFrustrationByPersonsInFrontOfThis(personsInFrontOfThis));
 
-			if (frustration>frustrationLimit){
+			if (frustration> FRUSTRATIONLIMIT){
 				//set the next station as endstation
 				stationsToGo.clear();
 				stationsToGo.add(StationType.ENDE);
@@ -317,49 +355,7 @@ import controller.Simulation;
 			return false;
 		}
 
-		/**
-		 * Calculates the frustration caused by the waitingTime of the Customer
-		 * the frustration can have values between 0 and 5
-		 * @param waitingTime the waiting time of the customer
-		 * @return a frustration value between 0 and 5
-		 */
-		private double calculateFrustrationByWaitingTime(long waitingTime){
-			double frustration = 0;
-			//normiert den frustrationswert auf maximal 5
-			final double NORMIERUNG = UPPERLIMITWAITINGTIME/5;
-			if(waitingTime <= LOWERLIMITWAITINGTIME){
-				frustration = 0;
-			}
-			else if (waitingTime > LOWERLIMITWAITINGTIME && waitingTime <= UPPERLIMITWAITINGTIME){
-				frustration = (waitingTime - LOWERLIMITWAITINGTIME)/NORMIERUNG;
-			}
-			else if (waitingTime > UPPERLIMITWAITINGTIME){
-				frustration = 5;
-			}
-			return frustration;
-		}
 
-		/**
-		 * calculates a frustration value based on the persons in front of this person in the waiting Queue
-		 * the frustration can have values between 0 and 2
-		 * @param personsInFrontOfThis the number of persons in front of this
-		 * @return a frustration value based on the persons in front of this one between 0 and 2
-		 */
-		private double calculateFrustrationByPersonsInFrontOfThis(int personsInFrontOfThis){
-			double frustration = 0;
-			//normiert den Frustrationswert auf maximal 2
-			final double NORMIERUNG = UPPERLIMITPERSONS / 2;
-			if(personsInFrontOfThis <= LOWERLIMITPERSONS){
-				frustration = 0;
-			}
-			else if(personsInFrontOfThis > LOWERLIMITPERSONS && personsInFrontOfThis <= UPPERLIMITPERSONS){
-				frustration = (personsInFrontOfThis - LOWERLIMITPERSONS)/NORMIERUNG;
-			}
-			else if(personsInFrontOfThis > UPPERLIMITPERSONS){
-				frustration = 2;
-			}
-			return frustration;
-		}
 
 		/** Get all customers
 		 * 
@@ -387,42 +383,42 @@ import controller.Simulation;
 			return processTime;
 		}
 
-	/**
-	 * a getter method for the customerObservable
-	 * @return the customerObservable
-	 */
-	public CustomerObservable getCustomerObservable(){
-			return this.customerObservable;
-		}
-
-	/**
-	 * A (static) inner class for measurement jobs. The class records specific values of the customer during the simulation.
-	 * These values can be used for statistic evaluation.
-	 */
-	static class Measurement {
-
-		/** the treated time by all processing stations, in seconds */
-		int myTreatmentTime = 0;
-
-	}
-
-	/**
-	 * an inner class which allows to observe the customer
-	 */
-	public class CustomerObservable extends Observable{
-		@Override
-		public void notifyObservers(Object arg) {
-			setChanged();
-			super.notifyObservers(arg);
-		}
 		/**
-		 * getter for the customer
-		 * @return the outer object
+		 * a getter method for the customerObservable
+		 * @return the customerObservable
 		 */
-		public Customer getOuterObject(){
-			return customer;
+		public CustomerObservable getCustomerObservable(){
+				return this.customerObservable;
+			}
+
+		/**
+		 * A (static) inner class for measurement jobs. The class records specific values of the customer during the simulation.
+		 * These values can be used for statistic evaluation.
+		 */
+		static class Measurement {
+
+			/** the treated time by all processing stations, in seconds */
+			int myTreatmentTime = 0;
+
 		}
-	}
+
+		/**
+		 * an inner class which allows to observe the customer
+		 */
+		public class CustomerObservable extends Observable{
+			@Override
+			public void notifyObservers(Object arg) {
+				setChanged();
+				super.notifyObservers(arg);
+			}
+			/**
+			 * getter for the customer
+			 * @return the outer object
+			 */
+			public Customer getOuterObject(){
+				return customer;
+			}
+		}
 }
 
 	

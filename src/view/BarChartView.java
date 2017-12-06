@@ -31,6 +31,7 @@ public class BarChartView extends JFrame implements ChartView {
 	 * prepares the BarChartView
 	 * @param title the title
 	 */
+	@SuppressWarnings("Duplicates")
 	private void setUp(String title) {
 		// set up the frame
 		jTextTextArea = new JTextArea();

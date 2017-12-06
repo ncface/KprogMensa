@@ -7,8 +7,8 @@ import java.util.*;
 
 /**
  * Class for a Kasse
- * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
- * @version 2017-11-28
+ * @author Hanselmann, Herzog, Rietzler, Clauss
+ * @version 2017-12-03
  */
 public class Kasse extends MensaStation {
 
@@ -49,11 +49,22 @@ public class Kasse extends MensaStation {
     }
 
     /**
-     * Getter method for the total amount of food
-     * @return totalWeightPaid
+     * starts an additional kasse if one additional kasse is available
      */
-    public static int getTotalWeightPaid() {
-        return totalWeightPaid;
+    private void startAdditionalKasse(){
+        //iterates over all stations
+        for (Station station: Station.getAllStations()){
+            //checks if there is one station which is ADDITIONAL and has a label that contains the stationType Kasse
+            if (station.getStationType() == StationType.ADDITIONAL &&
+                    station.getLabel().toUpperCase().contains(stationType.toString())) {
+                station.stationType = stationType;
+                //set opening time for calculation of the operation costs
+                ((MensaStation)station).setOpeningTime();
+                DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
+                //open only one station
+                break;
+            }
+        }
     }
 
     /**
@@ -87,21 +98,10 @@ public class Kasse extends MensaStation {
     }
 
     /**
-     * starts an additional kasse if one additional kasse is available
+     * Getter method for the total amount of food
+     * @return totalWeightPaid
      */
-    private void startAdditionalKasse(){
-        //iterates over all stations
-        for (Station station: Station.getAllStations()){
-            //checks if there is one station which is ADDITIONAL and has a label that contains the stationType Kasse
-            if (station.getStationType() == StationType.ADDITIONAL &&
-                    station.getLabel().toUpperCase().contains(stationType.toString())) {
-                station.stationType = stationType;
-                //set opening time for calculation of the operation costs
-                ((MensaStation)station).setOpeningTime();
-                DataCollection.additionalStationOpened(station, Simulation.getGlobalTime());
-                //open only one station
-                break;
-            }
-        }
+    public static int getTotalWeightPaid() {
+        return totalWeightPaid;
     }
 }

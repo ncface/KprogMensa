@@ -6,9 +6,9 @@ import controller.Simulation;
 
 /**
  * Class for the beginning station, this is where all customers start
- * 
- * @author Jaeger, Schmidt
- * @version 2017-10-29
+ *
+ * @author Jaeger, Schmidt, Hanselmann, Rietzler, Clauss, Herzog
+ * @version 2017-12-03
  */
 public final class StartStation extends SimpleStation {
 						

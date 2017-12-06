@@ -16,21 +16,21 @@ import java.io.FileReader;
  * This is an abstract factory that creates instances
  * of actor types like customers, stations and their queues by using JSON
  *
- * @author Patrick Hanselmann, Sebastian Herzog, Jeffrey Manuel Rietzler, Nils Clauss
- * @version 2017-11-28
+ * @author Herzog, Rietzler, Hanselmann, Clauss
+ * @version 2017-12-03
  */
 public class FactoryJSON extends AbstractFactory {
-    /**the FactoryJSON Object*/
-    private static Factory factoryJSON;
-
-    /** an empty jsonObject to load in the jsonObjects temporarly*/
-    private JSONObject jsonObject;
-
     /** The directory with all json scenarios */
     public static final String FORMAT_DIRECTORY = "json/";
 
     /** The ending of all json files */
     private static final String FILE_ENDING = ".json";
+
+    /**the FactoryJSON Object*/
+    private static Factory factoryJSON;
+
+    /** an empty jsonObject to load in the jsonObjects temporarly*/
+    private JSONObject jsonObject;
 
 
     /**
@@ -269,17 +269,13 @@ public class FactoryJSON extends AbstractFactory {
 
                 }
             }
-            //add the dataCollectionObservable to every customerObservable
+            //add the dataCollectionObserver to every customerObservable
             for(Customer customer: Customer.getAllCustomers()){
                 customer.getCustomerObservable().addObserver(DataCollection.getDataCollectionObserver());
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private Integer newRandom(int min, int max) {
-        return (int)(Math.random() * (max - min) + min);
     }
 
     /**
@@ -375,7 +371,6 @@ public class FactoryJSON extends AbstractFactory {
             e.printStackTrace();
         }
     }
-
 
     /**
      * create the end station

@@ -8,16 +8,18 @@ import java.util.*;
 
 /**
  * A class to collect and save data from the simulation to files
+ * @author Herzog, Clauss, Hanselmann, Rietzler
+ * @version 2017-12-03
  */
 public class DataCollection{
     private static final String OUT_FOLDER_PATH = "DataOutput/";
-    private static PrintWriter printWriter;
-    private static double price;
     private static final String FILE_PATH_LEFT_EARLY = OUT_FOLDER_PATH +"DataLeftEarly.csv";
     private static final String FILE_PATH_ADDITIONAL_STATION = OUT_FOLDER_PATH +"DataAdditionalStation.csv";
     private static final String FILE_PATH_MONEY_LOSS = OUT_FOLDER_PATH +"DataMoneyLoss.csv";
     private static final String FILE_PATH_OPERATING_COSTS = OUT_FOLDER_PATH +"DataOperatingCosts.csv";
     private static final String FILE_PATH_NUMBER_CUSTOMERS = OUT_FOLDER_PATH +"DataNumberCustomers.csv";
+    private static PrintWriter printWriter;
+    private static double price;
     private static DataCollectionObserver dataCollectionObserver = new DataCollectionObserver();
     private static LiveDataProcessing liveDataProcessing;
 
@@ -41,6 +43,76 @@ public class DataCollection{
      */
     public static DataCollectionObserver getDataCollectionObserver(){
         return dataCollectionObserver;
+    }
+
+    /**
+     * @return the total weigth sold at Kasse
+     */
+    private static int totalAmountAtKasse(){
+        return Kasse.getTotalWeightPaid();
+    }
+
+    /**
+     * @return the total amount at the end station
+     */
+    private static int totalAmountAtEndStation(){
+        return EndStation.getTotalAmountWantedFood();
+    }
+
+    /**
+     * Setter for the price per gram
+     * @param price price per kilogram
+     */
+    public static void setPrice(double price){
+        DataCollection.price = price / 1000.0;
+    }
+
+    /**
+     * getter for the out folder path
+     * @return the OUT_FOLDER_PATH
+     */
+    public static String getOutFolderPath(){
+        return OUT_FOLDER_PATH;
+    }
+
+    /**
+     * getter for the file path for left early
+     * @return the FILE_PATH_ADDITIONAL_STATION
+     */
+    public static String getFilePathLeftEarly(){
+        return FILE_PATH_LEFT_EARLY;
+    }
+
+    /**
+     * getter for the file path for additional station
+     * @return the FILE_PATH_ADDITIONAL_STATION
+     */
+    public static String getFilePathAdditionalStation(){
+        return FILE_PATH_ADDITIONAL_STATION;
+    }
+
+    /**
+     * getter for the file path for money loss
+     * @return the FILE_PATH_MONEY_LOSS
+     */
+    public static String getFilePathMoneyLoss(){
+        return FILE_PATH_MONEY_LOSS;
+    }
+
+    /**
+     * getter for the file path for operating costs
+     * @return the FILE_PATH_OPERATING_COSTS
+     */
+    public static String getFilePathOperatingCosts(){
+        return FILE_PATH_OPERATING_COSTS;
+    }
+
+    /**
+     * getter for the file path for numberCustomer
+     * @return the FILE_PATH_NUMBER_CUSTOMERS
+     */
+    public static String getFilePathNumberCustomers(){
+        return FILE_PATH_NUMBER_CUSTOMERS;
     }
 
     /**
@@ -197,78 +269,6 @@ public class DataCollection{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-
-    /**
-     * @return the total weigth sold at Kasse
-     */
-    private static int totalAmountAtKasse(){
-        return Kasse.getTotalWeightPaid();
-    }
-
-    /**
-     * @return the total amount at the end station
-     */
-    private static int totalAmountAtEndStation(){
-        return EndStation.getTotalAmountWantedFood();
-    }
-
-    /**
-     * Setter for the price per gram
-     * @param price price per kilogram
-     */
-    public static void setPrice(double price){
-        DataCollection.price = price / 1000.0;
-    }
-
-    /**
-     * getter for the out folder path
-     * @return the OUT_FOLDER_PATH
-     */
-    public static String getOutFolderPath(){
-    	return OUT_FOLDER_PATH;
-    }
-
-    /**
-     * getter for the file path for left early
-     * @return the FILE_PATH_ADDITIONAL_STATION
-     */
-    public static String getFilePathLeftEarly(){
-    	return FILE_PATH_LEFT_EARLY;
-    }
-
-    /**
-     * getter for the file path for additional station
-     * @return the FILE_PATH_ADDITIONAL_STATION
-     */
-    public static String getFilePathAdditionalStation(){
-    	return FILE_PATH_ADDITIONAL_STATION;
-    }
-
-    /**
-     * getter for the file path for money loss
-     * @return the FILE_PATH_MONEY_LOSS
-     */
-    public static String getFilePathMoneyLoss(){
-    	return FILE_PATH_MONEY_LOSS;
-    }
-
-    /**
-     * getter for the file path for operating costs
-     * @return the FILE_PATH_OPERATING_COSTS
-     */
-    public static String getFilePathOperatingCosts(){
-    	return FILE_PATH_OPERATING_COSTS;
-    }
-
-    /**
-     * getter for the file path for numberCustomer
-     * @return the FILE_PATH_NUMBER_CUSTOMERS
-     */
-    public static String getFilePathNumberCustomers(){
-    	return FILE_PATH_NUMBER_CUSTOMERS;
     }
 
     /**

@@ -11,11 +11,14 @@ import java.io.IOException;
 /**
  * A Class for all persistent data processing operations
  * @author Rietzler, Clauss, Herzog, Hanselmann
- * @version 4.12.17
+ * @version 2017-12-05
  */
 public class PersistentDataProcessing {
 	private static final int SCALING = 5;
 
+	/**
+	 * private constructor for the PersistentDataProcessing
+	 */
 	private PersistentDataProcessing(){}
 
 	/**
