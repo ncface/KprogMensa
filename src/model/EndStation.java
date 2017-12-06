@@ -153,7 +153,7 @@ public final class EndStation extends SimpleStation {
 
 	/**
 	 * Getter method for the total amount of wanted food
-	 * @return totalAmountWantedFood
+	 * @return the total amount of wanted food
 	 */
 	public static int getTotalAmountWantedFood(){
 		return totalAmountWantedFood;

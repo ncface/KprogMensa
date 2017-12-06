@@ -62,6 +62,7 @@ public class GraphPlotter extends JPanel {
 	 *            max points to draw before the points overruns
 	 * @param maxValueForY
 	 *            the highest value for y
+	 * @param labelForY the label for y
 	 * 
 	 */
 	public GraphPlotter(int maxValueForX, int maxValueForY, String labelForY) {
@@ -85,6 +86,8 @@ public class GraphPlotter extends JPanel {
 	 *            max points to draw before the points overruns
 	 * @param maxValueForY
 	 *            the highest value for y
+	 * @param labelForY the label for y
+	 * @param labelForX the label for x
 	 * 
 	 */
 	public GraphPlotter(int maxValueForX, int maxValueForY, String labelForY, String labelForX) {
