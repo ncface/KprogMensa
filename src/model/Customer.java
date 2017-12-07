@@ -125,8 +125,7 @@ import controller.Simulation;
 								  String image, Map<StationType,Integer> foodAmountAtStation,
 								  int frustrationLimit){
 				
-			new Customer(label, stationsToGo, processTime, speed, xPos, yPos, image,
-					foodAmountAtStation, frustrationLimit);
+			new Customer(label, stationsToGo, processTime, speed, xPos, yPos, image, foodAmountAtStation, frustrationLimit);
 				
 		}
 
@@ -408,7 +407,7 @@ import controller.Simulation;
 		public class CustomerObservable extends Observable{
 			/**
 			 * notify the observers when this method gets called
-			 * @param arg the object
+			 * @param arg the time the customer left early
 			 */
 			@Override
 			public void notifyObservers(Object arg) {

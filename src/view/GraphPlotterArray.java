@@ -14,15 +14,15 @@ import java.util.Map;
  * @version 2017-12-04
  */
 public class GraphPlotterArray implements LiveDataView {
-    private Map<Station, GraphPlotter> graphPlotterArray;
+    private Map<Station, GraphPlotter> graphPlotterMap;
 
     /**
-     * construtor for class graphPlotterArray
+     * construtor for class graphPlotterMap
      * @param desiredStations the stations that for which a plot shall be created
      */
     public GraphPlotterArray(List<Station> desiredStations) {
 
-        graphPlotterArray = new HashMap<>();
+        graphPlotterMap = new HashMap<>();
         for(Station station : desiredStations){
             addStationPlotter(station);
         }
@@ -34,13 +34,15 @@ public class GraphPlotterArray implements LiveDataView {
      * @param station the selected station
      */
     private void addStationPlotter(Station station){
+        //for better visibility of graphPlotterPoints
         int yScaling = Customer.getAllCustomers().size()/2;
         if(yScaling <= 0){
             yScaling = 1;
         }
+        //max value for x set to 100000, to have enough space for points
         GraphPlotter plotter = new GraphPlotter(100000, yScaling, "queue size", "time");
         plotter.getFrame().setTitle(station.getLabel());
-        graphPlotterArray.put(station,plotter);
+        graphPlotterMap.put(station,plotter);
     }
 
 
@@ -51,7 +53,7 @@ public class GraphPlotterArray implements LiveDataView {
         int x = 0;
         int y = 0;
         final int SPACING = 40;
-        for(GraphPlotter plotter : graphPlotterArray.values()){
+        for(GraphPlotter plotter : graphPlotterMap.values()){
             plotter.getFrame().setLocation(x,y);
             x += plotter.getDEFAULT_FRAME_SIZE_X() + SPACING;
             if(x > Toolkit.getDefaultToolkit().getScreenSize().width - plotter.getDEFAULT_FRAME_SIZE_X()){
@@ -72,7 +74,7 @@ public class GraphPlotterArray implements LiveDataView {
      */
     @Override
     public void addPointToDiagramm(Station station, int x, int y) {
-        GraphPlotter plotter = graphPlotterArray.get(station);
+        GraphPlotter plotter = graphPlotterMap.get(station);
         plotter.add(y);
     }
 

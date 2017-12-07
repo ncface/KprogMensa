@@ -19,7 +19,7 @@ public final class StartStation extends SimpleStation {
 	private static final StationType startStationType = StationType.START;
 
 	/** the total number of available StartStationObjects*/
-	private static final int TOTALNUMBERSTARTSTATIONOBJECTS = 1;
+	private static final int TOTAL_NUMBER_START_STATION_OBJECTS = 1;
 
 	/** counter for the number of created StartStations Objects*/
 	private static int counterStartStation = 0;
@@ -52,7 +52,7 @@ public final class StartStation extends SimpleStation {
 	 */
 	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
 							  String image)throws Exception{
-		if (counterStartStation<TOTALNUMBERSTARTSTATIONOBJECTS) {
+		if (counterStartStation< TOTAL_NUMBER_START_STATION_OBJECTS) {
 			theStartStation = new StartStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterStartStation++;
 		}else{

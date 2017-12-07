@@ -55,8 +55,7 @@ public class Kasse extends MensaStation {
         //iterates over all stations
         for (Station station: Station.getAllStations()){
             //checks if there is one station which is ADDITIONAL and has a label that contains the stationType Kasse
-            if (station.getStationType() == StationType.ADDITIONAL &&
-                    station.getLabel().toUpperCase().contains(stationType.toString())) {
+            if (station.getStationType() == StationType.ADDITIONAL && station instanceof Kasse) {
                 station.stationType = stationType;
                 //set opening time for calculation of the operation costs
                 ((MensaStation)station).setOpeningTime();

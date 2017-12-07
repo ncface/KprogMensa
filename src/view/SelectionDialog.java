@@ -114,7 +114,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
                 System.exit(0);
             }
         });
-
+        //dialog has to be selected before executing
         this.setModal(true);
         this.pack();
         this.setAlwaysOnTop(true);
@@ -135,7 +135,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
             this.dispose();
         }
         catch(Exception e){
-            errorLabel.setText("Kein Eingabeformat oder Scenario ausgewählt!");
+            errorLabel.setText("Kein Eingabeformat oder Szenario ausgewählt!");
         }
     }
 
@@ -162,7 +162,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
     private void createRadioButtons(String path) {
         File szenarioFolders = new File(path);
         File[] allSzenarios = szenarioFolders.listFiles();
-
+        //check if there are files in the directory
         if (allSzenarios != null) {
             for (File file : allSzenarios) {
                 String name = file.getName();
@@ -176,7 +176,7 @@ public final class SelectionDialog extends JDialog implements FormatAndScenarioS
 
     /**
      * returns the selected input format(xml or json) and the selected scenario folder
-     * the controll flow is blocked until the OK-button is clicked
+     * the control flow is blocked until the OK-button is clicked
      * after that the values are returned
      *
      * @return a String array that contains the selected format at position 0 and the selected scenario at position 1

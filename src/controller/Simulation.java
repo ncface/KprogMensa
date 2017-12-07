@@ -38,6 +38,7 @@ public class Simulation {
 	 * 
 	 */
 	private void init(){
+		//create new format and scenario selection dialog
 		FormatAndScenarioSelection selectionDialog = SelectionDialog.create();
 		String[] selectedFormatAndScenario = selectionDialog.getSelectedFormatAndScenario();
 		String inputFormat = selectedFormatAndScenario[0];
@@ -116,7 +117,7 @@ public class Simulation {
 
 					//updates the data collection
 					DataCollection.updateNumberCustomersInQueue();
-					
+
 					//Increase the global clock
 					clock.incrementAndGet();
 					

@@ -1,5 +1,12 @@
 package io;
 
+import model.AdditionalMensaStation;
+import model.MensaStation;
+import model.Station;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * an abstract class for the factory
  * @author Rietzler, Hanselmann, Herzog, Clauss
@@ -79,7 +86,7 @@ public abstract class AbstractFactory implements Factory {
 		createMensaStation();
 		createEndStation();
 		addObserverToObservable();
-		createDataCollection();
+		setUpDataCollection();
 	}
 
 	/**
@@ -103,12 +110,28 @@ public abstract class AbstractFactory implements Factory {
 	protected abstract void createEndStation();
 
 	/**
-	 * adds the Observers to the related Observables
-	 */
-	protected abstract void addObserverToObservable();
+     * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
+     */
+    protected void addObserverToObservable() {
+        //make list and add all additionalMensaStations
+        List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
+        for(Station station: Station.getAllStations()){
+            if(station instanceof AdditionalMensaStation) {
+                additionalMensaStations.add((AdditionalMensaStation) station);
+            }
+        }
+        //add observers to the observable MensaStations when StationTypes matches
+        for(Station station: Station.getAllStations()){
+            for (Station additionalMensaStation: additionalMensaStations){
+                if (additionalMensaStation.getLabel().toUpperCase().contains(station.getStationType().toString())){
+                    ((MensaStation)station).setObserver((AdditionalMensaStation)additionalMensaStation);
+                }
+            }
+        }
+    }
 
 	/**
-	 * creates the DataCollection
+	 * initialize the DataCollection
 	 */
-	protected abstract void createDataCollection();
+	protected abstract void setUpDataCollection();
 }

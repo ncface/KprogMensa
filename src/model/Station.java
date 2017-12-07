@@ -9,8 +9,8 @@ import view.StationViewLabel;
 /**
  * Superclass for all Stations
  * 
- * @author Jaeger, Schmidt
- * @version 2016-02-11
+ * @author Jaeger, Schmidt, Hanselmann, Clauss, Herzog, Rietzler
+ * @version 2017-12-04
  */
 public abstract class Station extends Actor {
 		
@@ -39,6 +39,7 @@ public abstract class Station extends Actor {
 		
 		//create the view
 		this.theView = StationView.create(label, image, xPos, yPos);
+		//add the view label 30 px under the station image
 		this.theViewLabel = StationViewLabel.createLabel(label,xPos,yPos+30);
 
 		

@@ -278,7 +278,7 @@ public class DataCollection{
         /**
          * this method gets called when a observable notify DataCollectionObservable object
          * @param o the observable object
-         * @param arg the object
+         * @param arg the time the customer left
          */
         @Override
         public void update(Observable o, Object arg) {

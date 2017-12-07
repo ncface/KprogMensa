@@ -80,7 +80,7 @@ public class FactoryJSON extends AbstractFactory {
     /**
      * reads the values for the DataCollection
      */
-    protected void createDataCollection() {
+    protected void setUpDataCollection() {
         try {
             //read the information from the JSON file into the jsonObject
             jsonObject = loadJSONObject(theStatisticsDataFile).getJSONObject("values");
@@ -94,27 +94,6 @@ public class FactoryJSON extends AbstractFactory {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * This Method adds the AdditionalMensaStations to the Observable other MensaStations.
-     */
-    protected void addObserverToObservable() {
-        //make list and add all additionalMensaStations
-        List<AdditionalMensaStation> additionalMensaStations = new ArrayList<>();
-        for(Station station: Station.getAllStations()){
-            if(station instanceof AdditionalMensaStation) {
-                additionalMensaStations.add((AdditionalMensaStation) station);
-            }
-        }
-        //add observers to the observable MensaStations when StationTypes matches
-        for(Station station: Station.getAllStations()){
-            for (Station additionalMensaStation: additionalMensaStations){
-                if (additionalMensaStation.getLabel().toUpperCase().contains(station.getStationType().toString())){
-                    ((MensaStation)station).setObserver((AdditionalMensaStation)additionalMensaStation);
-                }
-            }
         }
     }
 

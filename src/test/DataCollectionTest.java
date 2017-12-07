@@ -2,16 +2,17 @@ package test;
 
 
 import io.DataCollection;
-import org.junit.After;
+import org.junit.*;
 
 import java.io.File;
 import java.util.ArrayList;
 
-//für IntelliJ
+//for IntelliJ
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-//für Eclipse
+//for Eclipse
 //import org.junit.*;
 //import static org.junit.Assert.*;
 
@@ -22,17 +23,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 public class DataCollectionTest {
-	
+
+	@BeforeEach
+	void setUp() {
+		DataCollection.prepareDataCollection();
+	}
+
 	/**
 	 * Test to test if the data files are prepared correctly
 	 */
 	@Test
 	public void testFilesExistBefore() {
-		//there should be files before.
 		DataCollection.prepareDataCollection();
 		boolean filesExist = checkFilesExist();
-		DataCollection.prepareDataCollection();
-		assertEquals(filesExist,checkFilesExist());
+		assertTrue(filesExist);
 	}
 
 	/**

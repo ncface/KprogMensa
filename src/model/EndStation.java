@@ -26,7 +26,7 @@ public final class EndStation extends SimpleStation {
 	private static int totalAmountWantedFood;
 
 	/** the total number of available EndStation objects */
-	private static final int TOTALNUMBERENDSTATIONOBJECTS = 1;
+	private static final int TOTAL_NUMBER_END_STATION_OBJECTS = 1;
 
 	/** counter for the number of created EndStation objects */
 	private static int counterEndStation = 0;
@@ -55,7 +55,7 @@ public final class EndStation extends SimpleStation {
 	 */
 	public static synchronized void create(String label, SynchronizedQueue inQueue, SynchronizedQueue outQueue, int xPos, int yPos,
 										   String image) throws Exception{
-		if(counterEndStation<TOTALNUMBERENDSTATIONOBJECTS) {
+		if(counterEndStation< TOTAL_NUMBER_END_STATION_OBJECTS) {
 			theEndStation = new EndStation(label, inQueue, outQueue, xPos, yPos, image);
 			counterEndStation++;
 		}
@@ -87,7 +87,7 @@ public final class EndStation extends SimpleStation {
 			Statistics.show("\n--- Simulation beendet ----");
 
 			//show some station statistics
-			for (MensaStation station : MensaStation.getAllProcessStations()) {
+			for (MensaStation station : MensaStation.getAllMensaStations()) {
 				station.printStatistics();
 			}
 
