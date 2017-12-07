@@ -22,13 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 public class DataCollectionTest {
-
+	
 	/**
-	 * method that gets executed after all test methods have been completed
+	 * Test to test if the data files are prepared correctly
 	 */
-	@After
-	public void tearDown() {
-		deleteAllFiles();
+	@Test
+	public void testFilesExistBefore() {
+		//there should be files before.
+		DataCollection.prepareDataCollection();
+		boolean filesExist = checkFilesExist();
+		DataCollection.prepareDataCollection();
+		assertEquals(filesExist,checkFilesExist());
 	}
 
 	/**
@@ -41,17 +45,15 @@ public class DataCollectionTest {
 		DataCollection.prepareDataCollection();
 		assertEquals(!filesExist,checkFilesExist());
 	}
-
+	
 	/**
-	 * Test to test if the data files are prepared correctly
+	 * method that gets executed after all test methods have been completed
 	 */
-	@Test
-	public void testFilesExistBefore() {
-		boolean filesExist = checkFilesExist();
-		DataCollection.prepareDataCollection();
-		assertEquals(filesExist,checkFilesExist());
+	@After
+	public void tearDown() {
+		deleteAllFiles();
 	}
-
+	
 	@SuppressWarnings("Duplicates")
 	private void deleteAllFiles(){
 		//delete all files
