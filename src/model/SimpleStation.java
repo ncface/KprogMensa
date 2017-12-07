@@ -73,7 +73,7 @@ public abstract class SimpleStation extends Station {
 	}
 
 	/**
-	 * Gibt die InComingQueue der SimpelStation zurück
+	 * Returns the inComingQueue of the SimpleStation
 	 * @return inComingQueue
 	 */
 	@Override
@@ -81,7 +81,7 @@ public abstract class SimpleStation extends Station {
 		return inComingQueue;
 	}
 	/**
-	 * Gibt die outGoingQueue der SimpelStation zurück
+	 * Returns the outGoingQueue of the SimpleStation
 	 * @return outGoingQueue
 	 */
 	@Override
