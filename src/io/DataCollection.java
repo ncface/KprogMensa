@@ -275,6 +275,11 @@ public class DataCollection{
      * an inner class that gets notified when a customer leaves early
      */
     private static class DataCollectionObserver implements Observer{
+        /**
+         * this method gets called when a observable notify DataCollectionObservable object
+         * @param o the observable object
+         * @param arg the object
+         */
         @Override
         public void update(Observable o, Object arg) {
             Customer.CustomerObservable customerObservable = (Customer.CustomerObservable) o;

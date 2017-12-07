@@ -406,6 +406,10 @@ import controller.Simulation;
 		 * an inner class which allows to observe the customer
 		 */
 		public class CustomerObservable extends Observable{
+			/**
+			 * notify the observers when this method gets called
+			 * @param arg the object
+			 */
 			@Override
 			public void notifyObservers(Object arg) {
 				setChanged();

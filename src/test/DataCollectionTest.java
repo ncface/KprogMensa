@@ -3,13 +3,17 @@ package test;
 
 import io.DataCollection;
 import org.junit.After;
-import org.junit.jupiter.api.Test;
-
 
 import java.io.File;
 import java.util.ArrayList;
 
+//für IntelliJ
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+//für Eclipse
+//import org.junit.*;
+//import static org.junit.Assert.*;
 
 /**
  * Test class for the testing class DataCollection

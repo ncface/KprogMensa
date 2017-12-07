@@ -347,6 +347,9 @@ public class MensaStation extends Station {
 	 * an inner class which allows to observe the mensa station
 	 */
 	protected class MensaStationObservable extends Observable{
+		/**
+		 * notifies the observers when this method gets called
+		 */
 		@Override
 		public void notifyObservers() {
 			setChanged();

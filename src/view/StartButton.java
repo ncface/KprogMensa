@@ -18,6 +18,9 @@ import model.*;
 @SuppressWarnings("serial")
 public class StartButton extends JButton implements ActionListener{
 
+	/**
+	 * constructor for the startButton
+	 */
 	public StartButton(){
 		super("START");
 		this.addActionListener(this);
