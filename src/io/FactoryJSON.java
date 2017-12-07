@@ -112,11 +112,11 @@ public class FactoryJSON extends AbstractFactory {
         xPosStartStation = jsonObject.getInt("x_position");
         yPosStartStation = jsonObject.getInt("y_position");
 
-        //the <view> ... </view> node
+        //the view object
         JSONObject viewJO = jsonObject.getJSONObject("view");
         String image = viewJO.getString("image");
 
-        //the <spacing> ... </spacing> node
+        //the spacing object
         JSONObject spacingJO = jsonObject.getJSONObject("spacing");
         spacingLeft = spacingJO.getInt("left");
         spacingRight = spacingJO.getInt("right");
@@ -198,7 +198,7 @@ public class FactoryJSON extends AbstractFactory {
                     processtime = customer.getInt("processtime");
                     speed = customer.getInt("speed");
 
-                    //the <view> ... </view> node
+                    //the view object
                     JSONObject viewTag = customer.getJSONObject("view");
                     imagePath = viewTag.getString("image");
 
@@ -306,15 +306,12 @@ public class FactoryJSON extends AbstractFactory {
                 yPos = mensaStation.getInt("y_position");
                 operatingCostsPerClockbeat = mensaStation.getDouble("operating_costs");
 
-                //the <view> ... </view> node
+                //the view object
                 JSONObject viewJO = mensaStation.getJSONObject("view");
                 // read data
                 image = viewJO.getString("image");
 
-                //reads spacing and gets later the left and right side spacing from it
-                //Element spacing = mensaStation.getChild("spacing");
-
-                //the <spacing> ... </spacing> node
+                //the spacing object
                 JSONObject spacingJO = mensaStation.getJSONObject("spacing");
 
                 //CREATE THE INQUEUE
@@ -367,13 +364,13 @@ public class FactoryJSON extends AbstractFactory {
             int xPos = Integer.parseInt(jsonObject.getString("x_position"));
             int yPos = Integer.parseInt(jsonObject.getString("y_position"));
 
-            //the <view> ... </view> node
+            //the view object
             JSONObject viewNode = jsonObject.getJSONObject("view");
             // the image
             String imagePath = viewNode.getString("image");
 
             //reads spacing and gets later the left and right side spacing from it
-            //the <view> ... </view> node
+            //the spacing object
             JSONObject spacingJO = jsonObject.getJSONObject("spacing");
 
             spacingLeft = spacingJO.getInt("left");
